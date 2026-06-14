@@ -4,24 +4,39 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // useChat automatically connects to your app/api/chat/route.ts backend!
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  // We remove 'input' and 'handleInputChange' from the hook
+  const { messages, append, isLoading } = useChat();
   const [isOpen, setIsOpen] = useState(false);
+  
+  // We'll manage the input state locally
+  const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the bottom when a new message arrives
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Custom submit handler
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    // Send the user's message using the 'append' method
+    append({
+      role: 'user',
+      content: inputValue,
+    });
+    
+    // Clear the input field
+    setInputValue('');
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
       
-      {/* The Chat Window (Only visible when isOpen is true) */}
       {isOpen && (
         <div className="mb-4 w-80 md:w-96 h-[500px] bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all">
           
-          {/* Header */}
           <div className="bg-gray-800/50 p-4 border-b border-white/10 flex justify-between items-center">
             <div>
               <h3 className="text-white font-semibold">Ajay's AI Assistant</h3>
@@ -35,7 +50,6 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages Area */}
           <div className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 mt-10 text-sm">
@@ -64,11 +78,11 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
-          <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
+          {/* Updated Form using our custom handler and local state */}
+          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
             <input
-              value={input}
-              onChange={handleInputChange}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               placeholder="Ask me a question..."
               className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
@@ -78,7 +92,6 @@ export default function ChatWidget() {
         </div>
       )}
 
-      {/* The Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110 ${
