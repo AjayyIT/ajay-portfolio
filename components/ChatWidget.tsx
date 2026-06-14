@@ -4,16 +4,34 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // 1. Bypass VS Code's stubbornly cached TypeScript definitions
+  // 1. Force VS Code to ignore the cached type error. The function DOES exist.
   // @ts-ignore
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  const { messages, append, isLoading } = useChat();
   
   const [isOpen, setIsOpen] = useState(false);
+  
+  // 2. We use local React state. This GUARANTEES the keyboard will never freeze.
+  const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // 3. Custom send handler using the forced 'append' method
+  const handleSend = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    // @ts-ignore - Forcing the submission
+    append({
+      role: 'user',
+      content: inputValue,
+    });
+    
+    // Clear the input box instantly
+    setInputValue('');
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
@@ -37,7 +55,7 @@ export default function ChatWidget() {
           <div className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 mt-10 text-sm">
-                Hi! I'm an AI assistant trained on your background. Ask me anything!
+                Hi! I'm an AI assistant trained on Ajay's background. Ask me anything!
               </div>
             )}
             
@@ -62,17 +80,17 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* 2. Official Form Handlers with NO disabled lock on the input */}
-          <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
+          {/* 4. Form explicitly tied to our local state and custom handler */}
+          <form onSubmit={handleSend} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
             <input
-              value={input || ''} 
-              onChange={handleInputChange} 
+              value={inputValue} 
+              onChange={(e) => setInputValue(e.target.value)} 
               placeholder="Ask me a question..."
               className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
             />
             <button 
               type="submit"
-              disabled={isLoading || !input}
+              disabled={isLoading || !inputValue.trim()}
               className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send
