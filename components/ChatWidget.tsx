@@ -80,14 +80,29 @@ export default function ChatWidget() {
           </div>
 
           {/* 3. FOOLPROOF FORM: Bound to our custom local state */}
-          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
+          {/* 3. FOOLPROOF FORM: Bound to our custom local state */}
+          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
             <input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                // Force submission when the Enter key is pressed
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleFormSubmit(e as any);
+                }
+              }}
               placeholder="Ask me a question..."
-              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
             />
+            <button 
+              type="submit"
+              disabled={isLoading || !inputValue.trim()}
+              className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Send
+            </button>
           </form>
 
         </div>
