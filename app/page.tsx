@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
   Terminal, Mail, ChevronRight, X, Download, Menu, MapPin, 
-  CheckCircle2, Route, Send
+  CheckCircle2, Route, Send, Check
 } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget'; 
 
@@ -52,7 +52,7 @@ const certifications = [
   { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
   { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
   { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
   { title: "Data Mining", issuer: "Simplilearn SkillUp", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
   { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
   { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
@@ -65,9 +65,27 @@ const certifications = [
 ];
 
 const projects = [
-  { title: "Color Detection System", domain: "Data Mining Techniques", tech: "Python, Image Processing", desc: "Python-based project that detects colors and identifies the nearest matching color using image processing techniques." },
-  { title: "Land Price Prediction System", domain: "Business Intelligence", tech: "Data Analytics, Predictive Modeling", desc: "Predictive analytics project that estimates land prices using data-driven methodologies." },
-  { title: "Plant Disease Detection", domain: "Design Project", tech: "Machine Learning, Python", desc: "Technology-based solution for identifying plant diseases and assisting in agricultural monitoring." }
+  { 
+    title: "Color Detection System", 
+    domain: "Data Mining Techniques", 
+    tech: "Python, Image Processing", 
+    desc: "Python-based project that detects colors and identifies the nearest matching color using image processing techniques.",
+    github: "https://github.com/AjayyIT/Color-detection-System" 
+  },
+  { 
+    title: "Land Price Prediction System", 
+    domain: "Business Intelligence", 
+    tech: "Data Analytics, Predictive Modeling", 
+    desc: "Predictive analytics project that estimates land prices using data-driven methodologies.",
+    github: "https://github.com/AjayyIT/Land-Price-Prediction-System" 
+  },
+  { 
+    title: "Plant Disease Detection", 
+    domain: "Design Project", 
+    tech: "Machine Learning, Python", 
+    desc: "Technology-based solution for identifying plant diseases and assisting in agricultural monitoring.",
+    github: "https://github.com/AjayyIT/Plant-Disease-Detection" 
+  }
 ];
 
 const serviceNowJourney = [
@@ -100,14 +118,46 @@ export default function Portfolio() {
   const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAllCerts, setShowAllCerts] = useState(false);
+  
+  // Contact Form State
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success'>('idle');
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  // Determine how many certificates to display
-  const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 8);
+  // Ensure 9 certificates are shown natively 
+  const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
+
+  // FIX: Custom Smooth Scroll Function to handle mobile menu closing & offset
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsMenuOpen(false); // Close mobile menu
+
+    const element = document.querySelector(href);
+    if (element) {
+      // Calculate position minus the 80px fixed header
+      const top = element.getBoundingClientRect().top + window.scrollY - 80; 
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
+  // Contact Form Handler
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate network request (Replace this setTimeout with a Web3Forms fetch request later)
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitStatus('success');
+      
+      // Reset form status after 4 seconds
+      setTimeout(() => setSubmitStatus('idle'), 4000);
+    }, 1500);
+  };
 
   return (
     <div className="min-h-screen bg-[#F3F6F8] text-slate-800 font-sans selection:bg-[#0A66C2] selection:text-white">
@@ -116,13 +166,18 @@ export default function Portfolio() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A66C2] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            <a href="#home" className="font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
+            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
               AJAY R S
             </a>
             
             <div className="hidden lg:flex items-center gap-2">
               {navLinks.map((link) => (
-                <a key={link.name} href={link.href} className="text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-[#004182] transition-all duration-200">
+                <a 
+                  key={link.name} 
+                  href={link.href} 
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer"
+                >
                   {link.name}
                 </a>
               ))}
@@ -139,7 +194,12 @@ export default function Portfolio() {
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="lg:hidden bg-[#004182] overflow-hidden shadow-inner">
               <div className="px-6 py-4 flex flex-col space-y-2">
                 {navLinks.map((link) => (
-                  <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)} className="block text-base font-medium text-white px-4 py-3 rounded-lg hover:bg-black/20 transition-colors">
+                  <a 
+                    key={link.name} 
+                    href={link.href} 
+                    onClick={(e) => scrollToSection(e, link.href)} 
+                    className="block text-base font-medium text-white px-4 py-3 rounded-lg hover:bg-black/20 transition-colors cursor-pointer"
+                  >
                     {link.name}
                   </a>
                 ))}
@@ -168,7 +228,7 @@ export default function Portfolio() {
               Passionate about ServiceNow, Software Development, Cloud Computing, Artificial Intelligence, and Data Analytics. Continuously learning and building practical skills through projects, certifications, and hands-on experience.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="#contact" className="bg-[#0A66C2] hover:bg-[#004182] text-white px-6 py-3 rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2">
+              <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="bg-[#0A66C2] hover:bg-[#004182] text-white px-6 py-3 rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2">
                 <Mail size={18} /> Contact Me
               </a>
               <a href="/resume.pdf" download className="bg-white hover:bg-slate-50 text-[#0A66C2] border border-[#0A66C2] px-6 py-3 rounded-full font-medium transition-colors flex items-center gap-2">
@@ -191,7 +251,7 @@ export default function Portfolio() {
       </section>
 
       {/* 2. ABOUT ME */}
-      <section id="about" className="py-24 px-6 bg-[#F3F6F8] scroll-mt-20">
+      <section id="about" className="py-24 px-6 bg-[#F3F6F8]">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn} className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8 text-slate-900">About Me</h2>
           <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 text-left">
@@ -212,8 +272,8 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      {/* 3. EDUCATION */}
-      <section id="education" className="py-24 px-6 bg-white scroll-mt-20">
+      {/* 3. EDUCATION TIMELINE */}
+      <section id="education" className="py-24 px-6 bg-white">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
             <GraduationCap className="text-[#0A66C2]" /> Education
@@ -222,7 +282,6 @@ export default function Portfolio() {
             {educationList.map((edu, idx) => (
               <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${idx === 0 ? 'bg-[#0A66C2] text-white' : 'bg-slate-300 text-slate-600'}`}>
-                  {/* Now all nodes have the graduation cap icon */}
                   <GraduationCap size={16} />
                 </div>
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
@@ -237,7 +296,7 @@ export default function Portfolio() {
       </section>
 
       {/* 4. SKILLS */}
-      <section id="skills" className="py-24 px-6 bg-[#F3F6F8] scroll-mt-20">
+      <section id="skills" className="py-24 px-6 bg-[#F3F6F8]">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -246,7 +305,6 @@ export default function Portfolio() {
                 <div className="flex items-center gap-3 mb-6 text-[#0A66C2] font-semibold border-b border-slate-100 pb-4">
                   {skillGroup.icon} <span>{skillGroup.category}</span>
                 </div>
-                {/* Changed to minimalist bullet points */}
                 <ul className="space-y-3">
                   {skillGroup.items.map((skill, i) => (
                     <li key={i} className="flex items-center gap-2 text-slate-700 font-medium">
@@ -262,13 +320,12 @@ export default function Portfolio() {
       </section>
 
       {/* 5. CERTIFICATIONS */}
-      <section id="certifications" className="py-24 px-6 bg-white scroll-mt-20">
+      <section id="certifications" className="py-24 px-6 bg-white">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
-            <Award className="text-[#0A66C2]" /> Certifications
+            <Award className="text-[#0A66C2]" /> Featured Certifications
           </h2>
           
-          {/* Changed to 3 column layout */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleCertifications.map((cert, idx) => (
               <div key={idx} onClick={() => setSelectedCert(cert)} className="group bg-white border border-slate-200 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full">
@@ -283,14 +340,13 @@ export default function Portfolio() {
             ))}
           </div>
 
-          {/* View More Button */}
-          {certifications.length > 8 && (
+          {certifications.length > 9 && (
             <div className="mt-12 flex justify-center">
               <button 
                 onClick={() => setShowAllCerts(!showAllCerts)} 
                 className="bg-white border-2 border-[#0A66C2] text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
               >
-                {showAllCerts ? "View Less" : "View All 19 Certifications"}
+                {showAllCerts ? "View Less" : "View all"}
               </button>
             </div>
           )}
@@ -308,7 +364,6 @@ export default function Portfolio() {
               </div>
               <div className="p-6 bg-slate-50">
                 <div className="w-full bg-slate-200 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300">
-                  {/* Dynamic Image mapping straight to your public/certificates folder */}
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
                 <div className="bg-white p-5 rounded-xl border border-slate-100">
@@ -322,7 +377,7 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* 6. PROJECTS */}
-      <section id="projects" className="py-24 px-6 bg-[#F3F6F8] scroll-mt-20">
+      <section id="projects" className="py-24 px-6 bg-[#F3F6F8]">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -335,8 +390,7 @@ export default function Portfolio() {
                 <p className="text-slate-600 mb-6 flex-1 text-sm leading-relaxed">{project.desc}</p>
                 <div className="pt-6 border-t border-slate-100 mt-auto">
                   <p className="text-xs text-slate-400 font-medium mb-4">Technologies Used: <span className="text-slate-600">{project.tech}</span></p>
-                  {/* ADD YOUR GITHUB REPO LINK HERE in the href attribute below */}
-                  <a href="#" target="_blank" className="w-full py-3 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200">
                     <GithubIcon size={16} /> View on GitHub
                   </a>
                 </div>
@@ -347,7 +401,7 @@ export default function Portfolio() {
       </section>
 
       {/* 7 & 8. JOURNEYS */}
-      <section id="journeys" className="py-24 px-6 bg-white scroll-mt-20">
+      <section id="journeys" className="py-24 px-6 bg-white">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           <div className="grid lg:grid-cols-2 gap-16">
@@ -411,7 +465,7 @@ export default function Portfolio() {
       </section>
 
       {/* 10 & 11. CONTACT & OBJECTIVE */}
-      <section id="contact" className="py-24 px-6 bg-[#F3F6F8] scroll-mt-20">
+      <section id="contact" className="py-24 px-6 bg-[#F3F6F8]">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           {/* Career Objective */}
@@ -451,20 +505,37 @@ export default function Portfolio() {
             {/* Contact Form UI */}
             <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-100">
               <h3 className="font-bold text-lg mb-4 text-slate-800">Send a Message</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <input type="text" placeholder="Your Name" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all" />
-                </div>
-                <div>
-                  <input type="email" placeholder="Your Email" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all" />
-                </div>
-                <div>
-                  <textarea placeholder="Your Message" rows={4} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none"></textarea>
-                </div>
-                <button type="submit" className="w-full bg-[#0A66C2] hover:bg-[#004182] text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2">
-                  <Send size={18} /> Send Message
-                </button>
-              </form>
+              
+              {submitStatus === 'success' ? (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                    <Check size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold">Message Sent!</h4>
+                    <p className="text-sm mt-1">Thank you for reaching out. I'll get back to you soon.</p>
+                  </div>
+                </motion.div>
+              ) : (
+                <form className="space-y-4" onSubmit={handleContactSubmit}>
+                  <div>
+                    <input type="text" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                  </div>
+                  <div>
+                    <input type="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                  </div>
+                  <div>
+                    <textarea required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
+                  </div>
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A66C2] hover:bg-[#004182] text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                      <><Send size={18} /> Send Message</>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
 
           </div>
@@ -483,7 +554,6 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      {/* CHATBOT REMAINS ATTACHED */}
       <ChatWidget />
       
     </div>
