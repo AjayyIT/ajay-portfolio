@@ -51,10 +51,10 @@ const projects = [
 ];
 
 const certifications = [
-  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", img: "/certificates/placeholder.png", desc: "Official CSA certification validating administration and configuration skills on the Now Platform." },
-  { title: "Microsoft Azure Administrator Associate", issuer: "Microsoft", img: "/certificates/placeholder.png", desc: "Demonstrated skills in managing cloud services that span storage, security, networking, and compute." },
-  { title: "AWS Solutions Architect Associate", issuer: "Amazon Web Services", img: "/certificates/placeholder.png", desc: "Validated expertise in designing distributed systems on AWS." },
-  { title: "Google AI Essentials", issuer: "Google", img: "/certificates/placeholder.png", desc: "Core concepts of artificial intelligence and prompt engineering." }
+  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", img: "/certificates/ServiceNow (CSA).jpg", desc: "Official CSA certification validating administration and configuration skills on the Now Platform." },
+  { title: "Microsoft Azure Administrator Associate", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN azure associate.jpg", desc: "Demonstrated skills in managing cloud services that span storage, security, networking, and compute." },
+  { title: "AWS Solutions Architect Associate", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN aws.jpg", desc: "Validated expertise in designing distributed systems on AWS." },
+  { title: "Google AI Essentials", issuer: "Google", img: "/certificates/Google Ai Essentials.jpg", desc: "Core concepts of artificial intelligence and prompt engineering." }
 ];
 
 const navLinks = [
