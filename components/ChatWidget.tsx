@@ -4,33 +4,17 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // @ts-ignore - Bypassing compiler to grab the updated, working functions
-  const { messages, append, isLoading } = useChat();
+  // 1. We extract only the core, guaranteed functions from the SDK
+  // @ts-ignore
+  const { messages, input, setInput, handleSubmit, isLoading } = useChat();
   
   const [isOpen, setIsOpen] = useState(false);
-  
-  // 1. LOCAL STATE: This guarantees the keyboard will always work
-  const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Auto-scroll to the bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  // 2. CUSTOM SUBMIT: This guarantees the message actually sends
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-
-    // Send the message using the newly updated 'append' method
-    append({
-      role: 'user',
-      content: inputValue,
-    });
-    
-    // Clear the input box
-    setInputValue('');
-  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
@@ -79,26 +63,18 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* 3. FOOLPROOF FORM: Bound to our custom local state */}
-          {/* 3. FOOLPROOF FORM: Bound to our custom local state */}
-          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
+          {/* 2. NATIVE SUBMIT: We bypass the buggy handlers and use setInput directly */}
+          <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
             <input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                // Force submission when the Enter key is pressed
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleFormSubmit(e as any);
-                }
-              }}
+              value={input || ''} 
+              onChange={(e) => setInput(e.target.value)} 
               placeholder="Ask me a question..."
               className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
             />
             <button 
               type="submit"
-              disabled={isLoading || !inputValue.trim()}
+              disabled={isLoading || !input}
               className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send
