@@ -25,7 +25,7 @@ const LinkedinIcon = ({ size = 24, className = "" }) => (
   </svg>
 );
 
-// --- EXHAUSTIVE DATA ARRAYS ---
+// --- DATA ARRAYS ---
 const educationList = [
   { degree: "B.Tech Information Technology", school: "K. Ramakrishnan College of Technology", year: "2023 - 2027 (Pursuing)" },
   { degree: "Higher Secondary (HSLC)", school: "Sribala Vidya Mandhir Matric Hr. Sec. School", year: "2022 - 2023" },
@@ -33,25 +33,34 @@ const educationList = [
 ];
 
 const skills = [
-  { category: "Programming", icon: <Code size={20}/>, items: [{ name: "Java", level: 85 }, { name: "Python", level: 80 }, { name: "C", level: 75 }] },
-  { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML", level: 90 }, { name: "CSS", level: 85 }] },
-  { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL", level: 80 }] },
-  { category: "Cloud", icon: <Cloud size={20}/>, items: [{ name: "AWS", level: 80 }, { name: "Microsoft Azure", level: 75 }] },
-  { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration", level: 90 }, { name: "Workflow Automation", level: 85 }, { name: "Incident Management", level: 85 }, { name: "Service Catalog", level: 80 }, { name: "Knowledge Management", level: 80 }, { name: "Creator Studio", level: 85 }, { name: "App Engine Studio", level: 75 }] },
-  { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining", level: 75 }, { name: "Data Analytics", level: 80 }, { name: "Pandas", level: 75 }, { name: "Generative AI", level: 85 }, { name: "Prompt Engineering", level: 90 }] }
+  { category: "Programming", icon: <Code size={20}/>, items: [{ name: "Java" }, { name: "Python" }, { name: "C" }] },
+  { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML" }, { name: "CSS" }] },
+  { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL" }] },
+  { category: "Cloud", icon: <Cloud size={20}/>, items: [{ name: "AWS" }, { name: "Microsoft Azure" }] },
+  { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration" }, { name: "Workflow Automation" }, { name: "Incident Management" }, { name: "Service Catalog" }, { name: "Knowledge Management" }, { name: "Creator Studio" }, { name: "App Engine Studio" }] },
+  { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining" }, { name: "Data Analytics" }, { name: "Pandas" }, { name: "Generative AI" }, { name: "Prompt Engineering" }] }
 ];
 
 const certifications = [
-  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", img: "/certificates/placeholder.png", desc: "Official CSA certification validating administration and configuration skills on the Now Platform." },
-  { title: "Microsoft Azure Administrator Associate Level", issuer: "Microsoft", img: "/certificates/placeholder.png", desc: "Demonstrated skills in managing cloud services that span storage, security, networking, and compute." },
-  { title: "AWS Solutions Architect Associate Level", issuer: "Amazon Web Services", img: "/certificates/placeholder.png", desc: "Validated expertise in designing distributed systems on AWS." },
-  { title: "Cloud Architect Master's Program", issuer: "Various", img: "/certificates/placeholder.png", desc: "Comprehensive mastery of cloud architecture principles and deployments." },
-  { title: "Google AI Essentials", issuer: "Google", img: "/certificates/placeholder.png", desc: "Core concepts of artificial intelligence and prompt engineering." },
-  { title: "Design Thinking – A Primer", issuer: "NPTEL IIT Madras", img: "/certificates/placeholder.png", desc: "Foundational understanding of the design thinking framework." },
-  { title: "Python for Data Science", issuer: "NPTEL IIT Madras", img: "/certificates/placeholder.png", desc: "Analytical and programming skills for data processing." },
-  { title: "Responsive Web Design", issuer: "freeCodeCamp", img: "/certificates/placeholder.png", desc: "Mastery of HTML, CSS, and creating mobile-friendly layouts." },
-  { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", img: "/certificates/placeholder.png", desc: "Validated ability to deliver applications using Creator Studio." },
-  { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow", img: "/certificates/placeholder.png", desc: "Foundational knowledge of the ServiceNow ecosystem." }
+  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
+  { title: "Google AI Essentials", issuer: "Google & Coursera", img: "/certificates/Google Ai Essentials.jpg", desc: "Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving." },
+  { title: "Microsoft Azure Administrator Associate Level", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN azure associate.jpg", desc: "Gained knowledge of Azure administration, cloud infrastructure, virtual machines, networking, storage, and identity management." },
+  { title: "AWS Solutions Architect Associate Level", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN aws.jpg", desc: "Learned AWS cloud services, architecture principles, deployment strategies, and cloud solution design concepts." },
+  { title: "Cloud Architect Master's Program", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN cloud architect.jpg", desc: "Explored cloud architecture, cloud deployment models, cloud security, and enterprise cloud solutions." },
+  { title: "Python for Data Science", issuer: "NPTEL (IIT Madras)", img: "/certificates/Python for Data Science.jpg", desc: "Developed skills in Python programming, data analysis, data visualization, and data-driven problem solving." },
+  { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
+  { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
+  { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Data Mining", issuer: "Simplilearn SkillUp", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
+  { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
+  { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
+  { title: "AI Tools & ChatGPT Workshop", issuer: "Be10X", img: "/certificates/Be10x Ai Workshop.jpg", desc: "Explored AI-powered productivity tools, prompt engineering, automation, coding assistance, and workflow optimization techniques." },
+  { title: "Cyber Warfare & Ethical Hacking", issuer: "K. Ramakrishnan College of Technology", img: "/certificates/ETHICAL HACKING.jpg", desc: "Learned cybersecurity fundamentals, ethical hacking concepts, network security, and vulnerability assessment basics." },
+  { title: "Internship Common Aptitude Test (ICAT)", issuer: "ICAT", img: "/certificates/iCAT - Participation Certificate.jpg", desc: "Assessed aptitude, logical reasoning, analytical thinking, and problem-solving abilities for career readiness." },
+  { title: "Technical Connection", issuer: "K. Ramakrishnan College of Engineering", img: "/certificates/KRCE IT.jpg", desc: "Secured 1st place in a technical event, demonstrating technical knowledge, communication, and presentation skills." },
+  { title: "Technical Symposium", issuer: "Kalaignarkarunanidhi Institute of Technology (KIT)", img: "/certificates/KIT.jpg", desc: "Participated in technical events focused on innovation, emerging technologies, and collaborative learning." },
+  { title: "Recent Trend in Graph theory and its application", issuer: "Kongunadu College of Engineering and Technology", img: "/certificates/KONGUNADU.jpg", desc: "Engaged in the workshop to enhance my skills in problem-solving and mathematical concepts." }
 ];
 
 const projects = [
@@ -89,11 +98,15 @@ const navLinks = [
 export default function Portfolio() {
   const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAllCerts, setShowAllCerts] = useState(false);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
+
+  // Determine how many certificates to display
+  const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 8);
 
   return (
     <div className="min-h-screen bg-[#F3F6F8] text-slate-800 font-sans selection:bg-[#0A66C2] selection:text-white">
@@ -169,7 +182,7 @@ export default function Portfolio() {
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="flex justify-center">
             <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-tr from-[#0A66C2] to-blue-300 p-2 shadow-2xl mt-12 md:mt-0">
               <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-200 flex items-center justify-center">
-                <span className="text-slate-400 font-medium text-center px-4">Professional Photo<br/>(Link to /photo.jpg)</span>
+                <img src="/certificates/photo.jpg" alt="Ajay RS" className="w-full h-full object-cover" />
               </div>
             </div>
           </motion.div>
@@ -198,17 +211,18 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      {/* 3. EDUCATION TIMELINE */}
+      {/* 3. EDUCATION */}
       <section id="education" className="py-24 px-6 bg-white scroll-mt-20">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
-            <GraduationCap className="text-[#0A66C2]" /> Education Timeline
+            <GraduationCap className="text-[#0A66C2]" /> Education
           </h2>
           <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
             {educationList.map((edu, idx) => (
               <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${idx === 0 ? 'bg-[#0A66C2] text-white' : 'bg-slate-300'}`}>
-                  {idx === 0 && <GraduationCap size={16} />}
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${idx === 0 ? 'bg-[#0A66C2] text-white' : 'bg-slate-300 text-slate-600'}`}>
+                  {/* Now all nodes have the graduation cap icon */}
+                  <GraduationCap size={16} />
                 </div>
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
                   <div className={`font-bold text-sm mb-1 ${idx === 0 ? 'text-[#0A66C2]' : 'text-slate-500'}`}>{edu.year}</div>
@@ -231,22 +245,15 @@ export default function Portfolio() {
                 <div className="flex items-center gap-3 mb-6 text-[#0A66C2] font-semibold border-b border-slate-100 pb-4">
                   {skillGroup.icon} <span>{skillGroup.category}</span>
                 </div>
-                <div className="space-y-4">
+                {/* Changed to minimalist bullet points */}
+                <ul className="space-y-3">
                   {skillGroup.items.map((skill, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between text-sm font-medium text-slate-700 mb-1">
-                        <span>{skill.name}</span>
-                        <span className="text-slate-400">{skill.level}%</span>
-                      </div>
-                      <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                        <motion.div 
-                          initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.2 }}
-                          className="bg-[#0A66C2] h-2 rounded-full"
-                        />
-                      </div>
-                    </div>
+                    <li key={i} className="flex items-center gap-2 text-slate-700 font-medium">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#0A66C2]"></div>
+                      {skill.name}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>
@@ -257,12 +264,14 @@ export default function Portfolio() {
       <section id="certifications" className="py-24 px-6 bg-white scroll-mt-20">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
-            <Award className="text-[#0A66C2]" /> Featured Certifications
+            <Award className="text-[#0A66C2]" /> Certifications
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {certifications.map((cert, idx) => (
+          
+          {/* Changed to 3 column layout */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {visibleCertifications.map((cert, idx) => (
               <div key={idx} onClick={() => setSelectedCert(cert)} className="group bg-white border border-slate-200 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full">
-                <div className="w-12 h-12 bg-blue-50 text-[#0A66C2] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-blue-50 text-[#0A66C2] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
                   <Award size={24} />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2 flex-1">{cert.title}</h3>
@@ -272,6 +281,18 @@ export default function Portfolio() {
               </div>
             ))}
           </div>
+
+          {/* View More Button */}
+          {certifications.length > 8 && (
+            <div className="mt-12 flex justify-center">
+              <button 
+                onClick={() => setShowAllCerts(!showAllCerts)} 
+                className="bg-white border-2 border-[#0A66C2] text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
+              >
+                {showAllCerts ? "View Less" : "View All 19 Certifications"}
+              </button>
+            </div>
+          )}
         </motion.div>
       </section>
 
@@ -279,18 +300,19 @@ export default function Portfolio() {
       <AnimatePresence>
         {selectedCert && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
-              <div className="flex justify-between items-center p-6 border-b border-slate-100">
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl">
+              <div className="flex justify-between items-center p-6 border-b border-slate-100 sticky top-0 bg-white z-10">
                 <h3 className="font-bold text-xl text-slate-900 pr-8">{selectedCert.title}</h3>
                 <button onClick={() => setSelectedCert(null)} className="text-slate-400 hover:text-slate-900 bg-slate-100 p-2 rounded-full transition-colors"><X size={20} /></button>
               </div>
               <div className="p-6 bg-slate-50">
-                <div className="w-full aspect-[4/3] md:aspect-video bg-slate-200 rounded-xl mb-6 flex items-center justify-center border-2 border-dashed border-slate-300 p-4 text-center">
-                  <span className="text-slate-500 font-medium">Certificate Image Placeholder<br/>(Link to /certificates/...)</span>
+                <div className="w-full bg-slate-200 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300">
+                  {/* Dynamic Image mapping straight to your public/certificates folder */}
+                  <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-slate-100">
-                  <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Description</h4>
-                  <p className="text-slate-700">{selectedCert.desc}</p>
+                <div className="bg-white p-5 rounded-xl border border-slate-100">
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description</h4>
+                  <p className="text-slate-700 leading-relaxed">{selectedCert.desc}</p>
                 </div>
               </div>
             </motion.div>
@@ -301,7 +323,7 @@ export default function Portfolio() {
       {/* 6. PROJECTS */}
       <section id="projects" className="py-24 px-6 bg-[#F3F6F8] scroll-mt-20">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Projects Section</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project, idx) => (
               <div key={idx} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col h-full hover:-translate-y-2 transition-transform duration-300">
@@ -312,9 +334,10 @@ export default function Portfolio() {
                 <p className="text-slate-600 mb-6 flex-1 text-sm leading-relaxed">{project.desc}</p>
                 <div className="pt-6 border-t border-slate-100 mt-auto">
                   <p className="text-xs text-slate-400 font-medium mb-4">Technologies Used: <span className="text-slate-600">{project.tech}</span></p>
-                  <button className="w-full py-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200">
-                    <GithubIcon size={16} /> GitHub (Placeholder)
-                  </button>
+                  {/* ADD YOUR GITHUB REPO LINK HERE in the href attribute below */}
+                  <a href="#" target="_blank" className="w-full py-3 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200">
+                    <GithubIcon size={16} /> View on GitHub
+                  </a>
                 </div>
               </div>
             ))}
@@ -392,7 +415,7 @@ export default function Portfolio() {
           
           {/* Career Objective */}
           <div className="mb-16 text-center max-w-4xl mx-auto">
-            <h2 className="text-sm font-bold text-[#0A66C2] uppercase tracking-widest mb-4">10. Career Objective</h2>
+            <h2 className="text-sm font-bold text-[#0A66C2] uppercase tracking-widest mb-4">Career Objective</h2>
             <p className="text-2xl text-slate-700 font-medium leading-relaxed">
               "I aim to build a successful career in ServiceNow and Software Development by continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."
             </p>
@@ -403,7 +426,7 @@ export default function Portfolio() {
             
             {/* Contact Info */}
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-slate-900">11. Contact Section</h2>
+              <h2 className="text-3xl font-bold mb-6 text-slate-900">Contact</h2>
               <p className="text-slate-500 mb-8">Feel free to reach out for collaborations, opportunities, or just a quick chat.</p>
               
               <div className="space-y-6">
