@@ -47,5 +47,5 @@ export async function POST(req: Request) {
   });
 
   // 6. Return the stream to the frontend
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
