@@ -4,32 +4,16 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // We remove 'input' and 'handleInputChange' from the hook
-  const { messages, append, isLoading } = useChat();
-  const [isOpen, setIsOpen] = useState(false);
+  // The 'as any' bypasses the broken third-party type definitions
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat() as any;
   
-  // We'll manage the input state locally
-  const [inputValue, setInputValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Auto-scroll to the bottom when a new message arrives
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  // Custom submit handler
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-
-    // Send the user's message using the 'append' method
-    append({
-      role: 'user',
-      content: inputValue,
-    });
-    
-    // Clear the input field
-    setInputValue('');
-  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
@@ -57,7 +41,7 @@ export default function ChatWidget() {
               </div>
             )}
             
-            {messages.map((m) => (
+            {messages.map((m: any) => (
               <div 
                 key={m.id} 
                 className={`max-w-[85%] rounded-2xl p-3 text-sm ${
@@ -78,11 +62,10 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Updated Form using our custom handler and local state */}
-          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
+          <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
             <input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={input || ''}
+              onChange={handleInputChange}
               placeholder="Ask me a question..."
               className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
