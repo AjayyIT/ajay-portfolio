@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     });
 
     console.log("4. Gemini responded successfully, streaming to frontend.");
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
 
   } catch (error: any) {
     // If ANYTHING fails, it will print exactly what went wrong here
