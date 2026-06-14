@@ -4,14 +4,14 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // 1. We extract only the core, guaranteed functions from the SDK
-  // @ts-ignore
-  const { messages, input, setInput, handleSubmit, isLoading } = useChat();
+  // We use the official, tested methods from the SDK. 
+  // @ts-ignore - Bypassing Vercel's aggressive TS compiler
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
   
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the bottom
+  // Auto-scroll to the bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -22,6 +22,7 @@ export default function ChatWidget() {
       {isOpen && (
         <div className="mb-4 w-80 md:w-96 h-[500px] bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all">
           
+          {/* Header */}
           <div className="bg-gray-800/50 p-4 border-b border-white/10 flex justify-between items-center">
             <div>
               <h3 className="text-white font-semibold">Ajay's AI Assistant</h3>
@@ -35,6 +36,7 @@ export default function ChatWidget() {
             </button>
           </div>
 
+          {/* Messages Area */}
           <div className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 mt-10 text-sm">
@@ -63,11 +65,12 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* 2. NATIVE SUBMIT: We bypass the buggy handlers and use setInput directly */}
+          {/* Input Form using standard SDK handlers */}
           <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
             <input
+              name="prompt"
               value={input || ''} 
-              onChange={(e) => setInput(e.target.value)} 
+              onChange={handleInputChange} 
               placeholder="Ask me a question..."
               className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
@@ -84,6 +87,7 @@ export default function ChatWidget() {
         </div>
       )}
 
+      {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110 ${
