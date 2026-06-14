@@ -4,16 +4,33 @@ import { useChat } from '@ai-sdk/react';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ChatWidget() {
-  // The 'as any' bypasses the broken third-party type definitions
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat() as any;
+  // We use "as any" only to access 'append', completely ignoring the broken 'input' hook
+  const { messages, append, isLoading } = useChat() as any;
   
   const [isOpen, setIsOpen] = useState(false);
+  
+  // 1. LOCAL STATE: This guarantees the input box will always let you type
+  const [inputValue, setInputValue] = useState(''); 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the bottom when a new message arrives
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // 2. CUSTOM SUBMIT: We intercept the form and send the message manually
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    // Send the message to the AI
+    append({
+      role: 'user',
+      content: inputValue,
+    });
+    
+    // Clear the box so you can type the next question
+    setInputValue('');
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
@@ -62,10 +79,11 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
+          {/* 3. UPDATED FORM: Bound to our foolproof local state */}
+          <form onSubmit={handleFormSubmit} className="p-4 bg-gray-800/50 border-t border-white/10">
             <input
-              value={input || ''}
-              onChange={handleInputChange}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               placeholder="Ask me a question..."
               className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
               disabled={isLoading}
