@@ -9,9 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.82",
+    "@ai-sdk/react": "^3.0.206",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^5.31.1",
+    "ai": "^6.0.204",
     "next": "16.2.9",
+    "next-sanity": "^13.1.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sanity": "^5.31.1",
+    "styled-components": "^6.4.2",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
