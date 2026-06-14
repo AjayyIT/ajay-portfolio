@@ -47,14 +47,37 @@ export default function Home() {
           </button>
         </section>
 
-        {/* About / Projects Placeholder Sections */}
-        <section className="min-h-screen py-20 border-t border-white/10">
+        {/* About Section */}
+        <section className="min-h-screen py-20 border-t border-white/10" id="about">
           <h3 className="text-3xl font-bold mb-8">01. About Me</h3>
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-xl max-w-3xl">
-            <p className="text-gray-300 leading-relaxed">
-              Details from Sanity will go here. You can list your B.Tech progress, your certifications, and your workflow. 
-              Notice how this content scrolls smoothly over the 3D background!
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-xl max-w-3xl mb-12">
+            <p className="text-gray-300 leading-relaxed mb-4">
+              I am currently pursuing my Bachelor of Technology in Information Technology. My core focus lies in enterprise cloud architecture, specifically leveraging Amazon Web Services and Microsoft Azure frameworks to build scalable systems.
             </p>
+            <p className="text-gray-300 leading-relaxed">
+              Beyond traditional cloud infrastructure, I am deeply involved in Artificial Intelligence. From building Retrieval-Augmented Generation (RAG) pipelines using LangChain to running multi-hour local model training epochs on personal hardware, I enjoy bridging the gap between raw data and intelligent applications.
+            </p>
+          </div>
+
+          <h3 className="text-3xl font-bold mb-8">02. Recent Work & Projects</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+            
+            {/* Project 1 */}
+            <div className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors">
+              <h4 className="text-xl font-bold text-blue-400 mb-2">ServiceNow Student Data Management</h4>
+              <p className="text-sm text-gray-400 mb-4">
+                Engineered a structured database project for student data management within ServiceNow, involving complex table configurations and custom choice field implementations.
+              </p>
+            </div>
+
+            {/* Project 2 */}
+            <div className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors">
+              <h4 className="text-xl font-bold text-blue-400 mb-2">Elytespark Innovation Internship</h4>
+              <p className="text-sm text-gray-400 mb-4">
+                Selected for a remote internship program focusing on modern development practices, applying full-stack capabilities to real-world operational challenges.
+              </p>
+            </div>
+
           </div>
         </section>
 

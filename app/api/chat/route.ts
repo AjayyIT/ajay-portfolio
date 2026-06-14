@@ -1,51 +1,58 @@
+export const dynamic = 'force-dynamic';
+export const maxDuration = 30;
+
 import { streamText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { createClient } from 'next-sanity';
 
-// 1. Configure the connection to your Sanity Database
 const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: '2024-01-01',
-  useCdn: false, // Set to false so the AI always gets your absolute latest updates
+  useCdn: false, 
 });
 
-// 2. Define the POST request handler
 export async function POST(req: Request) {
-  // Extract the chat history from the user's request
-  const { messages } = await req.json();
+  try {
+    const { messages } = await req.json();
+    console.log("1. API Route hit. User asked:", messages[messages.length - 1].content);
 
-  // 3. Fetch your published persona data using GROQ (Sanity's query language)
-  const query = `*[_type == "persona"][0]`;
-  const personaData = await sanityClient.fetch(query);
+    // Fetch Sanity Data
+    const query = `*[_type == "persona"][0]`;
+    const personaData = await sanityClient.fetch(query);
+    
+    if (!personaData) {
+      console.warn("WARNING: Sanity returned null. Is the document published?");
+    } else {
+      console.log("2. Sanity data successfully retrieved for:", personaData.fullName);
+    }
 
-  // 4. Construct the Dynamic System Prompt
-  const systemPrompt = `
-    ${personaData.characterAndBehavior}
-    
-    Here is the exact, up-to-date knowledge base you must use to answer the visitor's questions:
-    
-    Name: ${personaData.fullName}
-    Role: ${personaData.role}
-    Currently Learning: ${personaData.currentlyLearning || 'Not specified'}
-    Technical Skills: ${personaData.skills ? personaData.skills.join(', ') : 'Not specified'}
-    
-    Education History:
-    ${JSON.stringify(personaData.education, null, 2)}
-    
-    Project Portfolio:
-    ${JSON.stringify(personaData.projects, null, 2)}
-    
-    CRITICAL INSTRUCTION: Only answer questions based on the information provided above. If the user asks something not in this data, politely inform them you do not have that specific detail about AJAY RS yet.
-  `;
+    // Fallback prompt in case Sanity data is missing
+    const systemPrompt = personaData 
+      ? `
+          ${personaData.characterAndBehavior || "You are an assistant for Ajay."}
+          Name: ${personaData.fullName || "Ajay RS"}
+          Role: ${personaData.role || "Developer"}
+          Education: ${JSON.stringify(personaData.education || [])}
+          Projects: ${JSON.stringify(personaData.projects || [])}
+        `
+      : "You are Ajay's AI assistant. You don't have his full database yet, but you should be polite and let the user know you are undergoing maintenance.";
 
-  // 5. Call the AI Model and stream the response
-  const result = await streamText({
-    model: google('gemini-1.5-flash'),
-    system: systemPrompt,
-    messages,
-  });
+    console.log("3. Calling Google Gemini API...");
 
-  // 6. Return the stream to the frontend
-  return result.toTextStreamResponse();
+    // Call Gemini
+    const result = await streamText({
+      model: google('gemini-1.5-flash'),
+      system: systemPrompt,
+      messages,
+    });
+
+    console.log("4. Gemini responded successfully, streaming to frontend.");
+    return result.toTextStreamResponse();
+
+  } catch (error: any) {
+    // If ANYTHING fails, it will print exactly what went wrong here
+    console.error("CRITICAL API ERROR:", error.message || error);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+  }
 }
