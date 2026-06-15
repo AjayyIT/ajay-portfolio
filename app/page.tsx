@@ -103,7 +103,9 @@ const cloudAiJourney = [
   { category: "AI & GenAI Mastery", items: ["Google AI Essentials", "Generative AI Literacy", "AI Tools & ChatGPT Workshop", "FutureSkills Prime GenAI Career Accelerator"] }
 ];
 
+// 👉 UPDATED NAV LINKS TO INCLUDE HOME
 const navLinks = [
+  { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Education', href: '#education' },
   { name: 'Skills', href: '#skills' },
@@ -130,15 +132,12 @@ export default function Portfolio() {
 
   const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
 
-  // --- THE FIXED SCROLL FUNCTION ---
+  // Custom Smooth Scroll Function with Mobile Fix
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     
     if (isMenuOpen) {
-      // 1. Close the menu immediately
       setIsMenuOpen(false);
-      
-      // 2. Wait 350ms for the menu exit animation to finish and layout to settle
       setTimeout(() => {
         const element = document.querySelector(href);
         if (element) {
@@ -147,7 +146,6 @@ export default function Portfolio() {
         }
       }, 350); 
     } else {
-      // Desktop behavior: scroll instantly
       const element = document.querySelector(href);
       if (element) {
         const top = element.getBoundingClientRect().top + window.scrollY - 80; 
@@ -174,24 +172,28 @@ export default function Portfolio() {
       {/* HEADER / NAVIGATION BAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A66C2] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
-              AJAY R S
+          <div className="flex items-center justify-between h-20 w-full">
+            
+            {/* Mobile-only Home Button (Replaces Logo) */}
+            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="lg:hidden font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
+              Home
             </a>
             
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            {/* Desktop Navigation - Spans full width and distributes items evenly */}
+            <div className="hidden lg:flex w-full items-center justify-between">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-sm font-medium px-3 py-2 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer"
+                  className="text-lg font-semibold px-4 py-2 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
                   {link.name}
                 </a>
               ))}
             </div>
 
+            {/* Mobile Menu Hamburger */}
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white hover:bg-[#004182] rounded-lg transition-colors">
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
