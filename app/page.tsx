@@ -128,20 +128,22 @@ export default function Portfolio() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  // Ensure 9 certificates are shown natively 
   const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
 
-  // FIX: Custom Smooth Scroll Function to handle mobile menu closing & offset
+  // Custom Smooth Scroll Function with Mobile Fix
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    setIsMenuOpen(false); // Close mobile menu
-
+    
     const element = document.querySelector(href);
     if (element) {
-      // Calculate position minus the 80px fixed header
       const top = element.getBoundingClientRect().top + window.scrollY - 80; 
       window.scrollTo({ top, behavior: 'smooth' });
     }
+
+    // Delay closing the mobile menu slightly to prevent the scroll from being cancelled
+    setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 150);
   };
 
   // Contact Form Handler
@@ -149,12 +151,9 @@ export default function Portfolio() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate network request (Replace this setTimeout with a Web3Forms fetch request later)
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus('success');
-      
-      // Reset form status after 4 seconds
       setTimeout(() => setSubmitStatus('idle'), 4000);
     }, 1500);
   };
@@ -170,13 +169,14 @@ export default function Portfolio() {
               AJAY R S
             </a>
             
-            <div className="hidden lg:flex items-center gap-2">
+            {/* Added gap-6 (more spacing) between header links */}
+            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer"
+                  className="text-sm font-medium px-3 py-2 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer"
                 >
                   {link.name}
                 </a>
@@ -240,9 +240,14 @@ export default function Portfolio() {
               </div>
             </div>
           </motion.div>
+          
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="flex justify-center">
-            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-tr from-[#0A66C2] to-blue-300 p-2 shadow-2xl mt-12 md:mt-0">
-              <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-slate-200 flex items-center justify-center">
+            {/* PROFILE PICTURE 
+              Updated to Vertical Rectangle (w-64 h-[22rem] md:w-80 md:h-[28rem])
+              Added transition-transform and hover:scale-105 for the zoom effect 
+            */}
+            <div className="w-64 h-[22rem] md:w-80 md:h-[28rem] rounded-3xl bg-gradient-to-tr from-[#0A66C2] to-blue-300 p-2 shadow-2xl mt-12 md:mt-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div className="w-full h-full rounded-[1.25rem] border-4 border-white overflow-hidden bg-slate-200 flex items-center justify-center">
                 <img src="/certificates/photo.jpg" alt="Ajay RS" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -272,7 +277,7 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      {/* 3. EDUCATION TIMELINE */}
+      {/* 3. EDUCATION */}
       <section id="education" className="py-24 px-6 bg-white">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
