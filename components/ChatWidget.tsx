@@ -69,7 +69,7 @@ export default function ChatWidget() {
           <div className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 mt-10 text-sm">
-                Hi! I'm an AI assistant trained on Ajay's background. Ask me anything!
+                Hello! I'm Mai, Ajay's AI assistant. I'm here to assist you. Ask me anything!
               </div>
             )}
             
