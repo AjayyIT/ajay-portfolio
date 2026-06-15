@@ -52,7 +52,7 @@ const certifications = [
   { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
   { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
   { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
   { title: "Data Mining", issuer: "Simplilearn SkillUp", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
   { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
   { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
@@ -130,20 +130,30 @@ export default function Portfolio() {
 
   const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
 
-  // Custom Smooth Scroll Function with Mobile Fix
+  // --- THE FIXED SCROLL FUNCTION ---
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     
-    const element = document.querySelector(href);
-    if (element) {
-      const top = element.getBoundingClientRect().top + window.scrollY - 80; 
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-
-    // Delay closing the mobile menu slightly to prevent the scroll from being cancelled
-    setTimeout(() => {
+    if (isMenuOpen) {
+      // 1. Close the menu immediately
       setIsMenuOpen(false);
-    }, 150);
+      
+      // 2. Wait 350ms for the menu exit animation to finish and layout to settle
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          const top = element.getBoundingClientRect().top + window.scrollY - 80; 
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }, 350); 
+    } else {
+      // Desktop behavior: scroll instantly
+      const element = document.querySelector(href);
+      if (element) {
+        const top = element.getBoundingClientRect().top + window.scrollY - 80; 
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
   };
 
   // Contact Form Handler
@@ -169,7 +179,6 @@ export default function Portfolio() {
               AJAY R S
             </a>
             
-            {/* Added gap-6 (more spacing) between header links */}
             <div className="hidden lg:flex items-center gap-6 xl:gap-8">
               {navLinks.map((link) => (
                 <a 
@@ -242,10 +251,6 @@ export default function Portfolio() {
           </motion.div>
           
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="flex justify-center">
-            {/* PROFILE PICTURE 
-              Updated to Vertical Rectangle (w-64 h-[22rem] md:w-80 md:h-[28rem])
-              Added transition-transform and hover:scale-105 for the zoom effect 
-            */}
             <div className="w-64 h-[22rem] md:w-80 md:h-[28rem] rounded-3xl bg-gradient-to-tr from-[#0A66C2] to-blue-300 p-2 shadow-2xl mt-12 md:mt-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
               <div className="w-full h-full rounded-[1.25rem] border-4 border-white overflow-hidden bg-slate-200 flex items-center justify-center">
                 <img src="/certificates/photo.jpg" alt="Ajay RS" className="w-full h-full object-cover" />
