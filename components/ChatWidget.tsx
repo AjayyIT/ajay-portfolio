@@ -1,132 +1,166 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
-// Define our message type explicitly
-type Message = { role: 'user' | 'assistant'; content: string };
+import { useState, useRef, useEffect } from 'react';
+import { MessageCircle, X, Send, User, Bot } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ChatWidget() {
-  // 1. 100% Pure React State - No Third Party Libraries
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const [messages, setMessages] = useState([
+    { role: 'assistant', content: "Hello! I'm Mai, Ajay's Ai assistant. I'm here to assist you. Ask me anything!" }
+  ]);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
   }, [messages]);
 
-  // 2. Custom Native Fetch - We control exactly how the data moves
-  const handleSend = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim() || isLoading) return;
+    if (!input.trim() || isLoading) return;
 
-    // Save the user's message locally
-    const userMessage: Message = { role: 'user', content: inputValue };
+    const userMessage = { role: 'user', content: input.trim() };
     const newMessages = [...messages, userMessage];
     
     setMessages(newMessages);
-    setInputValue('');
+    setInput('');
     setIsLoading(true);
 
     try {
-      // Standard browser fetch to our own API
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages })
+        body: JSON.stringify({ messages: newMessages }),
       });
 
+      if (!response.ok) throw new Error('Network response was not ok');
+      
       const data = await response.json();
-
-      // Append the AI's response
-      if (data.text) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.text }]);
-      }
+      setMessages([...newMessages, { role: 'assistant', content: data.text }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "Network error connecting to Gemini." }]);
+      console.error("Chat Error:", error);
+      setMessages([...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting to my server right now. Please try again later!" }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
-      
-      {isOpen && (
-        <div className="mb-4 w-80 md:w-96 h-[500px] bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all">
-          
-          <div className="bg-gray-800/50 p-4 border-b border-white/10 flex justify-between items-center">
-            <div>
-              <h3 className="text-white font-semibold">AJAY RS | AI Assistant</h3>
-              <p className="text-xs text-blue-400">Ask about my skills & projects</p>
+    <>
+      {/* FLOATING BUTTON WIDGET & SPEECH BUBBLE */}
+      <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-4 ${isOpen ? 'hidden' : 'flex'}`}>
+        
+        {/* Animated Speech Bubble */}
+        <motion.div 
+          animate={{ y: [0, -6, 0] }}
+          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+          className="relative bg-white text-slate-800 text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl border border-slate-200 cursor-pointer hover:text-[#0A66C2] transition-colors"
+          onClick={() => setIsOpen(true)}
+        >
+          MAi - Ai Assistant
+          {/* Pointer Triangle Element */}
+          <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-white border-t border-r border-slate-200 rotate-45 rounded-sm"></div>
+        </motion.div>
+
+        {/* Main Circular Button */}
+        <button
+          onClick={() => setIsOpen(true)}
+          className="p-4 bg-[#0A66C2] text-white rounded-full shadow-2xl hover:bg-[#004182] transition-transform hover:scale-105"
+        >
+          <MessageCircle size={28} />
+        </button>
+      </div>
+
+      {/* CHAT WINDOW */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-slate-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-slate-700"
+          >
+            {/* HEADER */}
+            <div className="bg-slate-900 p-4 border-b border-slate-800 flex justify-between items-center">
+              <div>
+                <h3 className="font-bold text-white text-lg">MAi | Ajay's Ai Assistant</h3>
+                <p className="text-xs text-blue-400">Ask about my skills & projects</p>
+              </div>
+              <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
+                <X size={20} />
+              </button>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white transition-colors">✕</button>
-          </div>
 
-          <div className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4">
-            {messages.length === 0 && (
-              <div className="text-center text-gray-500 mt-10 text-sm">
-                Hello! I'm Mai, Ajay's AI assistant. I'm here to assist you. Ask me anything!
-              </div>
-            )}
-            
-            {messages.map((m, index) => (
-              <div 
-                key={index} 
-                className={`max-w-[85%] rounded-2xl p-3 text-sm ${
-                  m.role === 'user' 
-                    ? 'bg-blue-600 text-white self-end rounded-br-none' 
-                    : 'bg-white/10 text-gray-200 self-start rounded-bl-none'
-                }`}
-              >
-                {m.content}
-              </div>
-            ))}
-            
-            {isLoading && (
-              <div className="bg-white/10 text-gray-400 self-start rounded-2xl rounded-bl-none p-3 text-sm animate-pulse">
-                Thinking...
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
+            {/* MESSAGES AREA */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-800/50 custom-scrollbar">
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`flex items-end gap-2 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                    
+                    {/* Avatars */}
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#0A66C2]' : 'bg-slate-700'}`}>
+                      {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-blue-400" />}
+                    </div>
+                    
+                    {/* Chat Bubble */}
+                    <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
+                      {msg.content}
+                    </div>
+                    
+                  </div>
+                </div>
+              ))}
+              
+              {/* Loading Indicator */}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="flex items-end gap-2 max-w-[85%]">
+                    <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0">
+                      <Bot size={16} className="text-blue-400" />
+                    </div>
+                    <div className="p-4 rounded-2xl rounded-bl-none bg-slate-700 flex gap-1.5 items-center">
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
 
-          <form onSubmit={handleSend} className="p-4 bg-gray-800/50 border-t border-white/10 flex gap-2">
-            <input
-              value={inputValue} 
-              onChange={(e) => setInputValue(e.target.value)} 
-              placeholder="Ask me a question..."
-              className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
-              disabled={isLoading}
-            />
-            <button 
-              type="submit"
-              disabled={isLoading || !inputValue.trim()}
-              className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Send
-            </button>
-          </form>
-
-        </div>
-      )}
-
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110 ${
-          isOpen ? 'bg-gray-800 text-white border border-white/10' : 'bg-blue-600 text-white'
-        }`}
-      >
-        {isOpen ? <span className="text-xl">↓</span> : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
+            {/* INPUT AREA */}
+            <div className="p-4 bg-slate-900 border-t border-slate-800">
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type your message..."
+                  disabled={isLoading}
+                  className="flex-1 bg-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#0A66C2] placeholder-slate-500 disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={!input.trim() || isLoading}
+                  className="bg-[#0A66C2] hover:bg-[#004182] text-white p-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <Send size={18} />
+                </button>
+              </form>
+            </div>
+          </motion.div>
         )}
-      </button>
-
-    </div>
+      </AnimatePresence>
+    </>
   );
 }
