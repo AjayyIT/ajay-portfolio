@@ -8,8 +8,10 @@ export async function POST(req: Request) {
     const userMessage = messages[messages.length - 1].content;
 
     // --- MAi's MASSIVE QA DATABASE ---
+    // IMPORTANT: Order matters! More specific phrases (like "soft skills") 
+    // must be placed BEFORE general words (like "skills").
     const qaDatabase = [
-      // 1. GREETINGS & CASUAL
+      // 1. GREETINGS
       {
         keywords: ["hi", "hello", "hey", "hola", "greetings", "good morning", "good afternoon", "good evening", "what's up", "wassup", "start"],
         response: "Hello! I'm MAi, Ajay's personal AI assistant. I can tell you about his skills, education, projects, certifications, or career goals. What would you like to know?"
@@ -18,12 +20,22 @@ export async function POST(req: Request) {
         keywords: ["how are you", "how do you do", "how have you been"],
         response: "I'm doing great, thank you! I'm here and ready to answer any questions you have about Ajay."
       },
+      
+      // 2. MAI'S IDENTITY & NAME
       {
-        keywords: ["who are you", "what are you", "are you ai", "are you human", "bot", "who built you"],
-        response: "I am MAi (My AI), a custom-built virtual assistant designed specifically to help you learn more about Ajay R S and his professional portfolio."
+        keywords: ["what does mai mean", "meaning of mai", "why mai", "mai stand for", "full form of mai", "explain mai"],
+        response: "\"MAi\" simply stands for \"My AI\"! I am Ajay's custom-built personal artificial intelligence."
+      },
+      {
+        keywords: ["who are you", "what are you", "are you ai", "are you human", "bot", "who built you", "what is your name", "your name", "who am i talking to"],
+        response: "I am MAi, a custom-built virtual assistant designed specifically to help you learn more about Ajay R S and his professional portfolio."
       },
       
-      // 2. PERSONAL BACKGROUND
+      // 3. PERSONAL BACKGROUND
+      {
+        keywords: ["full name", "what is rs", "ajay rs", "ajay full name"],
+        response: "His full name is Ajay R S. You can just call him Ajay!"
+      },
       {
         keywords: ["about", "who is ajay", "tell me about", "background", "introduce", "bio", "yourself"],
         response: "Ajay R S is a highly dedicated IT student graduating in 2027. He is a ServiceNow Certified System Administrator (CSA) with a strong passion for software development, cloud computing, and AI."
@@ -33,28 +45,36 @@ export async function POST(req: Request) {
         response: "Ajay was born on August 27, 2005. He is currently 20 years old and will be turning 21 later this year."
       },
       {
-        keywords: ["location", "where", "live", "city", "hometown", "state", "country", "from"],
+        keywords: ["location", "where", "live", "city", "hometown", "home town", "state", "country", "from", "native"],
         response: "Ajay is based in Tiruchirappalli, Tamil Nadu, India."
       },
       
-      // 3. EDUCATION
+      // 4. EDUCATION
       {
-        keywords: ["education", "college", "degree", "study", "studying", "b.tech", "btech", "university", "graduation", "graduate", "major", "bachelor of technology"],
+        keywords: ["ug studies", "ug", "undergrad", "undergraduate", "education", "college", "degree", "study", "studying", "b.tech", "btech", "university", "graduation", "graduate", "major", "bachelor of technology", "bachelor"],
         response: "Ajay is pursuing his Bachelor of Technology (B.Tech) in Information Technology at K. Ramakrishnan College of Technology, expected to graduate in 2027."
       },
       {
         keywords: ["school", "hslc", "sslc", "high school", "10th", "12th", "secondary"],
         response: "Before college, Ajay completed his Higher Secondary (HSLC) and Secondary School (SSLC) education at Sribala Vidya Mandhir Matric Hr. Sec. School."
       },
-      
-      // 4. TECHNICAL SKILLS
+
+      // 5. SOFT SKILLS (Must be placed BEFORE Technical Skills)
       {
-        keywords: ["skills", "technologies", "tech stack", "languages", "programming", "know", "code", "frameworks", "tools", "software", "proficient"],
-        response: "Ajay is proficient in Java, Python, and C. He is skilled in Web Development (HTML/CSS), MySQL, Cloud platforms (AWS, Azure), and AI/Data Analytics (Pandas, Prompt Engineering). He is also heavily specialized in the ServiceNow ecosystem."
+        keywords: ["soft skills", "soft skill", "non-technical skills", "non technical", "personality", "character", "strengths", "learning", "learner", "work ethic"],
+        response: "Ajay is highly dedicated, disciplined, and supportive. He is a hands-on, self-paced learner who isn't afraid to troubleshoot complex problems, and he actively helps his peers with their technical projects."
       },
+      
+      // 6. BEST SKILL / SERVICENOW
       {
-        keywords: ["servicenow", "snow", "csa", "cad", "creator studio", "app engine", "workflow"],
-        response: "ServiceNow is one of Ajay's strongest areas! He is CSA certified, holds a Creator Studio Delivery Accreditation, and has hands-on experience with Workflow Automation, Incident Management, and the Service Catalog. He is currently prepping for his CAD certification."
+        keywords: ["best skill", "top skill", "strongest skill", "best at", "core competency", "specialty", "servicenow", "snow", "csa", "cad", "creator studio", "app engine", "workflow"],
+        response: "ServiceNow is one of Ajay's strongest areas! He is CSA certified, holds a Creator Studio Delivery Accreditation, and has hands-on experience with Workflow Automation, Incident Management, and the Service Catalog. He is currently preparing for his CAD certification."
+      },
+      
+      // 7. TECHNICAL SKILLS
+      {
+        keywords: ["skills", "technologies", "tech stack", "languages", "programming", "know", "code", "frameworks", "tools", "software", "proficient", "technical skills"],
+        response: "Ajay is proficient in Java, Python, and C. He is skilled in Web Development (HTML/CSS), MySQL, Cloud platforms (AWS, Azure), and AI/Data Analytics (Pandas, Prompt Engineering). He is also heavily specialized in the ServiceNow ecosystem."
       },
       {
         keywords: ["cloud", "aws", "azure", "amazon web services", "microsoft azure", "gcp"],
@@ -65,32 +85,28 @@ export async function POST(req: Request) {
         response: "Ajay is very active in the AI space. He has completed the Google AI Essentials program, runs local machine learning models on his hardware, and builds data-driven Python applications."
       },
       
-      // 5. CERTIFICATIONS
+      // 8. CERTIFICATIONS
       {
         keywords: ["certification", "certifications", "certificate", "certified", "credentials", "badges", "courses"],
         response: "Ajay holds over 20 professional certifications! Some of his proudest achievements include his ServiceNow CSA, Google AI Essentials, and Associate-level Cloud training for both Azure and AWS."
       },
       
-      // 6. PROJECTS
+      // 9. PROJECTS
       {
         keywords: ["project", "projects", "built", "work", "developed", "created"],
         response: "Ajay has built several impressive technical projects, including a Python-based Color Detection System, a Machine Learning Plant Disease Detection tool, and a Land Price Prediction System. You can view them all in the Projects section above!"
       },
       
-      // 7. CAREER & GOALS
+      // 10. CAREER & GOALS
       {
         keywords: ["goal", "goals", "future", "career", "role", "hire", "job", "position", "looking for", "target", "objective"],
         response: "Ajay's primary goal right after graduation is to secure a role as a Developer (ServiceNow, Software, or Web Developer). He wants to join a company where he can contribute his skills and drive enterprise growth."
       },
       
-      // 8. HOBBIES, LIFESTYLE & PERSONALITY
+      // 11. HOBBIES & LIFESTYLE
       {
         keywords: ["hobbies", "fun", "free time", "weekend", "play", "interests", "relax", "music", "read", "books", "reading"],
         response: "Outside of coding, Ajay loves riding his Yamaha MT-15 motorcycle, listening to music, exploring Generative AI art, and gaming. He also enjoys reading personal development books and Tamil fiction."
-      },
-      {
-        keywords: ["personality", "character", "strengths", "soft skills", "learning", "learner", "work ethic"],
-        response: "Ajay is highly dedicated, disciplined, and supportive. He is a hands-on, self-paced learner who isn't afraid to troubleshoot hardware or run ML models overnight. He also actively helps his juniors with their technical projects."
       },
       {
         keywords: ["bike", "motorcycle", "ride", "riding", "yamaha", "mt-15", "mt15"],
@@ -105,25 +121,25 @@ export async function POST(req: Request) {
         response: "Ajay comes from a supportive background and maintains a very close and respectful relationship with his family."
       },
       
-      // 9. LINKS & CONTACT
+      // 12. LINKS & CONTACT
       {
         keywords: ["github", "git", "source code", "repositories", "repo"],
-        response: "You can check out all of Ajay's source code on his GitHub! There is a link button right in the hero section at the top of the page, or on individual project cards."
+        response: "You can check out all of Ajay's source code on his GitHub! There is a link button in the Home section at the top, and on the individual project cards."
       },
       {
         keywords: ["linkedin", "connection", "network", "profile"],
-        response: "Ajay would love to connect! You can find his LinkedIn link at the top of the page in the header, or down in the Contact section."
+        response: "Ajay would love to connect! You can find his LinkedIn link in the Home section at the top of the page, or down in the Contact section."
       },
       {
         keywords: ["resume", "cv", "curriculum vitae", "download", "document"],
-        response: "You can easily download a PDF copy of Ajay's resume by clicking the 'Download Resume' button at the very top of the home section."
+        response: "You can easily download a PDF copy of Ajay's resume by clicking the 'Download Resume' button at the very top of the Home section."
       },
       {
-        keywords: ["contact", "email", "reach", "message", "phone", "call", "number", "get in touch"],
+        keywords: ["contact", "email", "reach", "message", "phone", "call", "number", "get in touch", "mail id", "email id", "gmail"],
         response: "The best way to reach Ajay is by emailing him at ajayy.infotechh@gmail.com, or by using the Contact Form at the bottom of this page!"
       },
       
-      // 10. GRATITUDE & CLOSING
+      // 13. GRATITUDE & CLOSING
       {
         keywords: ["thanks", "thank you", "appreciate", "awesome", "great", "cool", "bye", "goodbye"],
         response: "You're very welcome! Feel free to ask if you need anything else, or use the contact form below to send Ajay a direct message. Have a great day!"
@@ -133,12 +149,10 @@ export async function POST(req: Request) {
     // Default fallback response if no keywords match
     let botResponse = "I'm not quite sure about that specific detail! However, you can always email Ajay directly at ajayy.infotechh@gmail.com to find out.";
 
-    // --- THE UPGRADED MATCHING ENGINE ---
-    // We use Regular Expressions (\b) to ensure we match whole words only. 
-    // This stops "hi" from triggering when someone types "machine" or "this".
+    // --- THE MATCHING ENGINE ---
     for (const qa of qaDatabase) {
       const matchFound = qa.keywords.some(keyword => {
-        // Create a regex for the exact keyword, 'i' makes it case-insensitive
+        // Create a regex for the exact keyword to match whole words only. 
         const regex = new RegExp(`\\b${keyword}\\b`, 'i');
         return regex.test(userMessage);
       });
