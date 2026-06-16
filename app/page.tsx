@@ -155,15 +155,39 @@ export default function Portfolio() {
   };
 
   // Contact Form Handler
-  const handleContactSubmit = (e: React.FormEvent) => {
+  // Contact Form Handler
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    // Grab the data from your inputs
+    const formData = new FormData(e.currentTarget);
+    
+    // 👉 PASTE YOUR ACCESS KEY HERE
+    formData.append("access_key", "b0e7ff4c-399d-42f9-9f67-1d589f43e2c9");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        e.currentTarget.reset(); // Clears the form
+        setTimeout(() => setSubmitStatus('idle'), 4000);
+      } else {
+        console.error("Error", data);
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Fetch Error", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setTimeout(() => setSubmitStatus('idle'), 4000);
-    }, 1500);
+    }
   };
 
   return (
@@ -531,13 +555,16 @@ export default function Portfolio() {
               ) : (
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div>
-                    <input type="text" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    {/* ADDED name="name" */}
+                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <input type="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    {/* ADDED name="email" */}
+                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <textarea required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
+                    {/* ADDED name="message" */}
+                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
                   </div>
                   <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A66C2] hover:bg-[#004182] text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
                     {isSubmitting ? (
