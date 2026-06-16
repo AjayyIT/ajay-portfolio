@@ -14,8 +14,6 @@ export default function ChatWidget() {
   ]);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
-  // 👉 NEW: Reference to the input field so we can automatically focus it
   const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
@@ -26,15 +24,45 @@ export default function ChatWidget() {
     scrollToBottom();
   }, [messages]);
 
-  // 👉 NEW: Automatically focus the text box when the chat window opens
   useEffect(() => {
     if (isOpen) {
-      // Small timeout allows the opening animation to finish before grabbing focus
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     }
   }, [isOpen]);
+
+  // 👉 NEW: Custom parser to turn Markdown links into real clickable HTML links
+  const renderMessage = (text: string) => {
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      parts.push(
+        <a 
+          key={match.index} 
+          href={match[2]} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="underline font-bold hover:text-blue-200 transition-colors"
+        >
+          {match[1]}
+        </a>
+      );
+      lastIndex = linkRegex.lastIndex;
+    }
+    
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+    
+    return parts.length > 0 ? parts : text;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +91,6 @@ export default function ChatWidget() {
       setMessages([...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting to my server right now. Please try again later!" }]);
     } finally {
       setIsLoading(false);
-      // 👉 NEW: Immediately grab focus back after MAi finishes replying
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
@@ -117,8 +144,9 @@ export default function ChatWidget() {
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#0A66C2]' : 'bg-slate-700'}`}>
                       {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-blue-400" />}
                     </div>
-                    <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
-                      {msg.content}
+                    {/* 👉 NEW: Added whitespace-pre-wrap so \n actually creates new lines for lists */}
+                    <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
+                      {renderMessage(msg.content)}
                     </div>
                   </div>
                 </div>
@@ -144,7 +172,7 @@ export default function ChatWidget() {
             <div className="p-4 bg-slate-900 border-t border-slate-800">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
-                  ref={inputRef} // 👉 NEW: Attached the ref here
+                  ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
