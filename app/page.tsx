@@ -167,26 +167,23 @@ export default function Portfolio() {
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        // 👉 THE FIX: Tells Web3Forms to reply with JSON instead of HTML
-        headers: {
-          "Accept": "application/json"
-        },
         body: formData 
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitStatus('success');
-        e.currentTarget.reset(); // Clears the form
-        setTimeout(() => setSubmitStatus('idle'), 4000);
+      // Check if the response was successful before trying to parse JSON
+      if (response.ok) {
+         setSubmitStatus('success');
+         e.currentTarget.reset(); // Clears the form
+         setTimeout(() => setSubmitStatus('idle'), 4000);
       } else {
-        console.error("Web3Forms Error:", data);
-        alert("Error: " + data.message);
+         // If it's not OK, something went wrong on their end
+         console.error("Web3Forms Error Status:", response.status);
+         alert("Error sending message. Please try again later.");
       }
+
     } catch (error) {
       console.error("Fetch Error:", error);
-      alert("Something went wrong processing the response.");
+      alert("Network error: Could not reach the server.");
     } finally {
       setIsSubmitting(false);
     }
