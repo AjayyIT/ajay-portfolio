@@ -159,24 +159,15 @@ export default function Portfolio() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 1. Grab the form data
     const formData = new FormData(e.currentTarget);
     
-    // 👉 MAKE SURE YOUR REAL ACCESS KEY IS PASTED HERE:
+    // 👉 PASTE YOUR ACCESS KEY HERE
     formData.append("access_key", "b0e7ff4c-399d-42f9-9f67-1d589f43e2c9");
-
-    // 2. Convert it to pure JSON (React best practice for Web3Forms)
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: json
+        body: formData // Using native FormData bypasses strict browser CORS checks!
       });
 
       const data = await response.json();
@@ -187,12 +178,11 @@ export default function Portfolio() {
         setTimeout(() => setSubmitStatus('idle'), 4000);
       } else {
         console.error("Web3Forms Error:", data);
-        // This will now pop up with the EXACT reason it failed!
-        alert("Error from server: " + data.message); 
+        alert("Error: " + data.message);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      alert("Network error. Please try again.");
+      alert("Network block: Please disable ad-blockers (like Brave Shields) and try again.");
     } finally {
       setIsSubmitting(false);
     }
