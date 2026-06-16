@@ -70,7 +70,9 @@ export async function POST(req: Request) {
     - Hobbies: Rides a Yamaha MT-15 motorcycle, Xbox gaming, exploring GenAI tools, and reading (personal development and Tamil fiction).
 
     EDUCATION: 
-    - B.Tech in Information Technology at K. Ramakrishnan College of Technology (2023 - 2027).
+    - College: Pursuing Bachelor of Technology (B.Tech) in Information Technology at K. Ramakrishnan College of Technology (2023 - 2027).
+    - 12th Standard (HSLC): Completed Higher Secondary education, studied in Bio Maths group, at Sribala Vidya Mandhir Matric Hr. Sec. School.
+    - 10th Standard (SSLC): Completed Secondary education at Sribala Vidya Mandhir Matric Hr. Sec. School.
 
     SKILLS RULES:
     - If asked for "tech skills", provide a bulleted list of: Java, Python, C, HTML, CSS, MySQL, AWS, Azure, ServiceNow (CSA, Creator Studio), Pandas, and Prompt Engineering.
@@ -98,7 +100,7 @@ export async function POST(req: Request) {
       model: groq('llama-3.1-8b-instant'),
       system: systemPrompt,
       messages: messages,
-      temperature: 0.2, // 👉 NEW: Low enough to stay factual, high enough to evaluate job roles intelligently
+      temperature: 0.2, 
     });
 
     return new Response(JSON.stringify({ text }), {
