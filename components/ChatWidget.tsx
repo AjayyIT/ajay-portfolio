@@ -14,6 +14,9 @@ export default function ChatWidget() {
   ]);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // 👉 NEW: Reference to the input field so we can automatically focus it
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -22,6 +25,16 @@ export default function ChatWidget() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // 👉 NEW: Automatically focus the text box when the chat window opens
+  useEffect(() => {
+    if (isOpen) {
+      // Small timeout allows the opening animation to finish before grabbing focus
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,15 +63,16 @@ export default function ChatWidget() {
       setMessages([...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting to my server right now. Please try again later!" }]);
     } finally {
       setIsLoading(false);
+      // 👉 NEW: Immediately grab focus back after MAi finishes replying
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
   };
 
   return (
     <>
-      {/* FLOATING BUTTON WIDGET & SPEECH BUBBLE */}
       <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-4 ${isOpen ? 'hidden' : 'flex'}`}>
-        
-        {/* Animated Speech Bubble */}
         <motion.div 
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
@@ -66,11 +80,9 @@ export default function ChatWidget() {
           onClick={() => setIsOpen(true)}
         >
           MAi - Ai Assistant
-          {/* Pointer Triangle Element */}
           <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-white border-t border-r border-slate-200 rotate-45 rounded-sm"></div>
         </motion.div>
 
-        {/* Main Circular Button */}
         <button
           onClick={() => setIsOpen(true)}
           className="p-4 bg-[#0A66C2] text-white rounded-full shadow-2xl hover:bg-[#004182] transition-transform hover:scale-105"
@@ -79,7 +91,6 @@ export default function ChatWidget() {
         </button>
       </div>
 
-      {/* CHAT WINDOW */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -89,7 +100,6 @@ export default function ChatWidget() {
             transition={{ duration: 0.2 }}
             className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-slate-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-slate-700"
           >
-            {/* HEADER */}
             <div className="bg-slate-900 p-4 border-b border-slate-800 flex justify-between items-center">
               <div>
                 <h3 className="font-bold text-white text-lg">MAi | Ajay's Ai Assistant</h3>
@@ -100,27 +110,20 @@ export default function ChatWidget() {
               </button>
             </div>
 
-            {/* MESSAGES AREA */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-800/50 custom-scrollbar">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`flex items-end gap-2 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                    
-                    {/* Avatars */}
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#0A66C2]' : 'bg-slate-700'}`}>
                       {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-blue-400" />}
                     </div>
-                    
-                    {/* Chat Bubble */}
                     <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
                       {msg.content}
                     </div>
-                    
                   </div>
                 </div>
               ))}
               
-              {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="flex items-end gap-2 max-w-[85%]">
@@ -138,15 +141,16 @@ export default function ChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* INPUT AREA */}
             <div className="p-4 bg-slate-900 border-t border-slate-800">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
+                  ref={inputRef} // 👉 NEW: Attached the ref here
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Type your message..."
                   disabled={isLoading}
+                  autoComplete="off"
                   className="flex-1 bg-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#0A66C2] placeholder-slate-500 disabled:opacity-50"
                 />
                 <button
