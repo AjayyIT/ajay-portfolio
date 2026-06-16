@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
     // We are using Llama 3 8B, which is incredibly fast and perfect for conversational agents
     const { text } = await generateText({
-      model: groq('llama3-8b-8192'),
+      model: groq('llama-3.1-8b-instant'),
       system: systemPrompt,
       messages: messages,
     });
