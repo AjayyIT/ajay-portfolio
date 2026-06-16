@@ -161,14 +161,17 @@ export default function Portfolio() {
 
     const formData = new FormData(e.currentTarget);
     
-    
-    // 👉 PASTE YOUR ACCESS KEY 
+    // 👉 PASTE YOUR ACCESS KEY HERE
     formData.append("access_key", "b0e7ff4c-399d-42f9-9f67-1d589f43e2c9");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData // Using native FormData bypasses strict browser CORS checks!
+        // 👉 THE FIX: Tells Web3Forms to reply with JSON instead of HTML
+        headers: {
+          "Accept": "application/json"
+        },
+        body: formData 
       });
 
       const data = await response.json();
@@ -183,7 +186,7 @@ export default function Portfolio() {
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      alert("Network block: Please disable ad-blockers (like Brave Shields) and try again.");
+      alert("Something went wrong processing the response.");
     } finally {
       setIsSubmitting(false);
     }
