@@ -16,30 +16,6 @@ export async function POST(req: Request) {
     const timestamp = new Date().toISOString();
 
     // ==========================================
-    // 📊 DUAL-LOGGING SYSTEM (PRODUCTION ONLY)
-    // ==========================================
-    if (process.env.NODE_ENV === 'production') {
-      const discordLogPromise = process.env.DISCORD_WEBHOOK_URL 
-        ? fetch(process.env.DISCORD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestUserMessage}"` 
-            })
-          }).catch(err => console.error("Discord Log Error:", err))
-        : Promise.resolve();
-
-      const kvLogPromise = process.env.KV_REST_API_URL
-        ? kv.lpush('mai_chat_logs', {
-            timestamp: timestamp,
-            userMessage: latestUserMessage
-          }).catch(err => console.error("KV Log Error:", err))
-        : Promise.resolve();
-
-      await Promise.allSettled([discordLogPromise, kvLogPromise]);
-    }
-
-    // ==========================================
     // 🧠 MAI'S MASSIVE SYSTEM PROMPT
     // ==========================================
     const systemPrompt = `You are "Mai", the official AI representative and personal assistant for Ajay R S. 
@@ -67,11 +43,11 @@ export async function POST(req: Request) {
       - Father: Mr. Senthil Kumaran KR (Businessman).
       - Mother: Mrs. Sripadma S (Homemaker).
       - Elder Brother: Mr. Heyram RS (Full-Stack Developer).
-    - Hobbies: Rides a Yamaha MT-15 motorcycle, Xbox gaming, exploring GenAI tools, and reading (personal development and Tamil fiction).
+    - Hobbies: Rides a Yamaha MT-15 motorcycle, Xbox gaming, and exploring GenAI tools.
 
     EDUCATION: 
     - College: Pursuing Bachelor of Technology (B.Tech) in Information Technology at K. Ramakrishnan College of Technology (2023 - 2027).
-    - 12th Standard (HSLC): Completed Higher Secondary education, studied in Bio Maths group, at Sribala Vidya Mandhir Matric Hr. Sec. School.
+    - 12th Standard (HSLC): Completed Higher Secondary education, studying the Bio Maths group, at Sribala Vidya Mandhir Matric Hr. Sec. School.
     - 10th Standard (SSLC): Completed Secondary education at Sribala Vidya Mandhir Matric Hr. Sec. School.
 
     SKILLS RULES:
@@ -94,7 +70,7 @@ export async function POST(req: Request) {
     - If asked what he learned in a specific certificate: Provide a brief description of the skills gained.`;
 
     // ==========================================
-    // 💬 GENERATE AI RESPONSE
+    // 💬 GENERATE AI RESPONSE (Moved above logging)
     // ==========================================
     const { text } = await generateText({
       model: groq('llama-3.1-8b-instant'),
@@ -102,6 +78,32 @@ export async function POST(req: Request) {
       messages: messages,
       temperature: 0.2, 
     });
+
+    // ==========================================
+    // 📊 DUAL-LOGGING SYSTEM (PRODUCTION ONLY)
+    // ==========================================
+    if (process.env.NODE_ENV === 'production') {
+      const discordLogPromise = process.env.DISCORD_WEBHOOK_URL 
+        ? fetch(process.env.DISCORD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              // 👉 THE FIX: Added MAi's response directly into the Discord message
+              content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestUserMessage}"\n**MAi Replied:** "${text}"` 
+            })
+          }).catch(err => console.error("Discord Log Error:", err))
+        : Promise.resolve();
+
+      const kvLogPromise = process.env.KV_REST_API_URL
+        ? kv.lpush('mai_chat_logs', {
+            timestamp: timestamp,
+            userMessage: latestUserMessage,
+            maiResponse: text // Added her response to your Redis database too!
+          }).catch(err => console.error("KV Log Error:", err))
+        : Promise.resolve();
+
+      await Promise.allSettled([discordLogPromise, kvLogPromise]);
+    }
 
     return new Response(JSON.stringify({ text }), {
       status: 200,
