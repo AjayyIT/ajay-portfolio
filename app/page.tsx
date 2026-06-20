@@ -1,5 +1,6 @@
 'use client';
 
+import ThemeToggle from '@/components/ThemeToggle';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -190,20 +191,20 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F3F6F8] text-slate-800 font-sans selection:bg-[#0A66C2] selection:text-white">
+    <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white">
       
       {/* HEADER / NAVIGATION BAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A66C2] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20 w-full">
+          <div className="flex items-center justify-between h-20 w-full gap-4">
             
-            {/* Mobile-only Home Button (Replaces Logo) */}
+            {/* Mobile-only Home Button */}
             <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="lg:hidden font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
               Home
             </a>
             
-            {/* Desktop Navigation - Spans full width and distributes items evenly */}
-            <div className="hidden lg:flex w-full items-center justify-between">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex flex-1 items-center justify-between">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
@@ -216,12 +217,19 @@ export default function Portfolio() {
               ))}
             </div>
 
-            {/* Mobile Menu Hamburger */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white hover:bg-[#004182] rounded-lg transition-colors">
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            {/* 👉 THEME TOGGLE & MOBILE MENU BUTTON */}
+            <div className="flex items-center gap-4 ml-auto">
+              <ThemeToggle />
+              
+              {/* Mobile Menu Hamburger */}
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white hover:bg-[#004182] rounded-lg transition-colors">
+                {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
+            
           </div>
         </div>
+        {/* ... Rest of your mobile menu ... */}
 
         <AnimatePresence>
           {isMenuOpen && (
