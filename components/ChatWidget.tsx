@@ -12,6 +12,15 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Hello! I'm Mai, Ajay's Ai assistant. I'm here to assist you. Ask me anything!" }
   ]);
+
+  // 👉 NEW: Suggested questions array
+  const suggestedQuestions = [
+    "Tell me about Ajay's ServiceNow journey",
+    "What projects has Ajay built?",
+    "What certifications does Ajay have?",
+    "What technologies does Ajay know?",
+    "Why should I hire Ajay?"
+  ];
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +41,6 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
-  // 👉 NEW: Custom parser to turn Markdown links into real clickable HTML links
   const renderMessage = (text: string) => {
     const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
     const parts = [];
@@ -73,6 +81,38 @@ export default function ChatWidget() {
     
     setMessages(newMessages);
     setInput('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+
+      if (!response.ok) throw new Error('Network response was not ok');
+      
+      const data = await response.json();
+      setMessages([...newMessages, { role: 'assistant', content: data.text }]);
+    } catch (error) {
+      console.error("Chat Error:", error);
+      setMessages([...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting to my server right now. Please try again later!" }]);
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  };
+
+  // 👉 NEW: Handler for clicking a suggested question
+  const handleQuickReply = async (question: string) => {
+    if (isLoading) return;
+
+    const userMessage = { role: 'user', content: question };
+    const newMessages = [...messages, userMessage];
+    
+    setMessages(newMessages);
     setIsLoading(true);
 
     try {
@@ -144,13 +184,27 @@ export default function ChatWidget() {
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#0A66C2]' : 'bg-slate-700'}`}>
                       {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-blue-400" />}
                     </div>
-                    {/* 👉 NEW: Added whitespace-pre-wrap so \n actually creates new lines for lists */}
                     <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
                       {renderMessage(msg.content)}
                     </div>
                   </div>
                 </div>
               ))}
+
+              {/* 👉 NEW: Render suggested questions only if this is the first message */}
+              {messages.length === 1 && (
+                <div className="flex flex-col gap-2.5 mt-2 pl-10 pr-4">
+                  {suggestedQuestions.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleQuickReply(q)}
+                      className="text-xs text-left bg-slate-800 text-blue-300 border border-blue-500/30 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm w-fit"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
               
               {isLoading && (
                 <div className="flex justify-start">
