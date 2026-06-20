@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 👉 Add this block */
 @layer base {
   body {
     @apply bg-[#F3F6F8] text-slate-800 transition-colors duration-300;
