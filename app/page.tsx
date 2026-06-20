@@ -104,7 +104,6 @@ const cloudAiJourney = [
   { category: "AI & GenAI Mastery", items: ["Google AI Essentials", "Generative AI Literacy", "AI Tools & ChatGPT Workshop", "FutureSkills Prime GenAI Career Accelerator"] }
 ];
 
-// 👉 UPDATED NAV LINKS TO INCLUDE HOME
 const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
@@ -122,7 +121,6 @@ export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAllCerts, setShowAllCerts] = useState(false);
   
-  // Contact Form State
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success'>('idle');
 
@@ -133,10 +131,8 @@ export default function Portfolio() {
 
   const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
 
-  // Custom Smooth Scroll Function with Mobile Fix
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    
     if (isMenuOpen) {
       setIsMenuOpen(false);
       setTimeout(() => {
@@ -155,33 +151,23 @@ export default function Portfolio() {
     }
   };
 
-  // Contact Form Handler
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     const formData = new FormData(e.currentTarget);
-    
-    // 👉 PASTE YOUR ACCESS KEY HERE
     formData.append("access_key", "b0e7ff4c-399d-42f9-9f67-1d589f43e2c9");
 
     try {
-      // THE FIX: "no-cors" tells the browser to send the email 
-      // but ignore the reply, preventing all security crashes!
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
         mode: "no-cors" 
       });
-
-      // Show the beautiful green "Message Sent!" UI instantly
       setSubmitStatus('success');
-      e.currentTarget.reset(); // Clears the form fields
+      e.currentTarget.reset(); 
       setTimeout(() => setSubmitStatus('idle'), 4000);
-
     } catch (error) {
       console.error("Form submission error:", error);
-      // Even if there is a tiny hiccup, we fail gracefully without annoying popups
       setSubmitStatus('success');
       e.currentTarget.reset();
       setTimeout(() => setSubmitStatus('idle'), 4000);
@@ -191,19 +177,17 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white">
+    <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white transition-colors duration-300">
       
       {/* HEADER / NAVIGATION BAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A66C2] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20 w-full gap-4">
             
-            {/* Mobile-only Home Button */}
             <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="lg:hidden font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
               Home
             </a>
             
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex flex-1 items-center justify-between">
               {navLinks.map((link) => (
                 <a 
@@ -217,11 +201,8 @@ export default function Portfolio() {
               ))}
             </div>
 
-            {/* 👉 THEME TOGGLE & MOBILE MENU BUTTON */}
             <div className="flex items-center gap-4 ml-auto">
               <ThemeToggle />
-              
-              {/* Mobile Menu Hamburger */}
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white hover:bg-[#004182] rounded-lg transition-colors">
                 {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
@@ -229,7 +210,6 @@ export default function Portfolio() {
             
           </div>
         </div>
-        {/* ... Rest of your mobile menu ... */}
 
         <AnimatePresence>
           {isMenuOpen && (
@@ -252,40 +232,40 @@ export default function Portfolio() {
       </nav>
 
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center bg-white px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F3F6F8]/50 to-white pointer-events-none" />
+      <section id="home" className="relative min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 overflow-hidden transition-colors duration-300">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F3F6F8]/50 dark:from-slate-800/50 to-white dark:to-slate-900 pointer-events-none transition-colors duration-300" />
         <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center z-10 pt-20">
           <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight transition-colors">
               Ajay R S
             </h1>
-            <h2 className="text-xl md:text-2xl text-[#0A66C2] font-semibold mb-6 leading-relaxed">
+            <h2 className="text-xl md:text-2xl text-[#0A66C2] dark:text-blue-400 font-semibold mb-6 leading-relaxed">
               Final Year IT Student <br className="hidden md:block" />
               <span className="text-slate-400 mx-2 hidden md:inline">|</span> 
               ServiceNow CSA Certified <br className="hidden md:block" />
               <span className="text-slate-400 mx-2 hidden md:inline">|</span> 
               Aspiring ServiceNow Developer
             </h2>
-            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-lg mb-8 leading-relaxed transition-colors">
               Passionate about ServiceNow, Software Development, Cloud Computing, Artificial Intelligence, and Data Analytics. Continuously learning and building practical skills through projects, certifications, and hands-on experience.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="bg-[#0A66C2] hover:bg-[#004182] text-white px-6 py-3 rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2">
                 <Mail size={18} /> Contact Me
               </a>
-              <a href="/resume.pdf" download className="bg-white hover:bg-slate-50 text-[#0A66C2] border border-[#0A66C2] px-6 py-3 rounded-full font-medium transition-colors flex items-center gap-2">
+              <a href="/resume.pdf" download className="bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-slate-800 text-[#0A66C2] dark:text-blue-400 border border-[#0A66C2] dark:border-blue-400 px-6 py-3 rounded-full font-medium transition-colors flex items-center gap-2">
                 <Download size={18} /> Download Resume
               </a>
               <div className="flex items-center gap-4 ml-2">
-                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="text-slate-400 hover:text-[#0A66C2] transition-colors"><LinkedinIcon size={28} /></a>
-                <a href="https://github.com/AjayyIT" target="_blank" className="text-slate-400 hover:text-slate-900 transition-colors"><GithubIcon size={28} /></a>
+                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="text-slate-400 hover:text-[#0A66C2] dark:hover:text-blue-400 transition-colors"><LinkedinIcon size={28} /></a>
+                <a href="https://github.com/AjayyIT" target="_blank" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"><GithubIcon size={28} /></a>
               </div>
             </div>
           </motion.div>
           
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="flex justify-center">
             <div className="w-64 h-[22rem] md:w-80 md:h-[28rem] rounded-3xl bg-gradient-to-tr from-[#0A66C2] to-blue-300 p-2 shadow-2xl mt-12 md:mt-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-              <div className="w-full h-full rounded-[1.25rem] border-4 border-white overflow-hidden bg-slate-200 flex items-center justify-center">
+              <div className="w-full h-full rounded-[1.25rem] border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200 flex items-center justify-center">
                 <img src="/certificates/photo.jpg" alt="Ajay RS" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -294,19 +274,19 @@ export default function Portfolio() {
       </section>
 
       {/* 2. ABOUT ME */}
-      <section id="about" className="py-24 px-6 bg-[#F3F6F8]">
+      <section id="about" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-slate-900">About Me</h2>
-          <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 text-left">
-            <p className="text-slate-600 text-lg leading-relaxed mb-6">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900 dark:text-white transition-colors">About Me</h2>
+          <div className="bg-white dark:bg-slate-900/50 p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 text-left transition-colors">
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-6 transition-colors">
               I am a Final Year B.Tech Information Technology student with interests in Software Development, ServiceNow, Cloud Computing, and Artificial Intelligence. I enjoy building practical projects, exploring emerging technologies, and continuously improving my technical skills.
             </p>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8 transition-colors">
               I have worked on academic and personal projects using Java, Python, MySQL, HTML, CSS, and ServiceNow. My goal is to build a successful career in enterprise technologies and software development while contributing to impactful solutions.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Final Year Student', 'ServiceNow CSA Certified', 'Preparing for CAD Certification', 'Cloud & AI Enthusiast'].map((badge, i) => (
-                <div key={i} className="bg-blue-50 text-[#0A66C2] px-4 py-3 rounded-xl text-sm font-semibold text-center border border-blue-100 flex items-center justify-center">
+                <div key={i} className="bg-blue-50 dark:bg-[#0A66C2]/20 text-[#0A66C2] dark:text-blue-300 px-4 py-3 rounded-xl text-sm font-semibold text-center border border-blue-100 dark:border-[#0A66C2]/30 flex items-center justify-center transition-colors">
                   {badge}
                 </div>
               ))}
@@ -316,21 +296,21 @@ export default function Portfolio() {
       </section>
 
       {/* 3. EDUCATION */}
-      <section id="education" className="py-24 px-6 bg-white">
+      <section id="education" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
             <GraduationCap className="text-[#0A66C2]" /> Education
           </h2>
-          <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+          <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 dark:before:via-slate-700 before:to-transparent">
             {educationList.map((edu, idx) => (
               <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${idx === 0 ? 'bg-[#0A66C2] text-white' : 'bg-slate-300 text-slate-600'}`}>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-slate-900 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors ${idx === 0 ? 'bg-[#0A66C2] text-white' : 'bg-slate-300 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                   <GraduationCap size={16} />
                 </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                  <div className={`font-bold text-sm mb-1 ${idx === 0 ? 'text-[#0A66C2]' : 'text-slate-500'}`}>{edu.year}</div>
-                  <h3 className="font-bold text-lg text-slate-900">{edu.degree}</h3>
-                  <p className="text-slate-500">{edu.school}</p>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white dark:bg-slate-800/50 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                  <div className={`font-bold text-sm mb-1 ${idx === 0 ? 'text-[#0A66C2]' : 'text-slate-500 dark:text-slate-400'}`}>{edu.year}</div>
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-white transition-colors">{edu.degree}</h3>
+                  <p className="text-slate-500 dark:text-slate-400 transition-colors">{edu.school}</p>
                 </div>
               </div>
             ))}
@@ -339,18 +319,18 @@ export default function Portfolio() {
       </section>
 
       {/* 4. SKILLS */}
-      <section id="skills" className="py-24 px-6 bg-[#F3F6F8]">
+      <section id="skills" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Technical Skills</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white transition-colors">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skills.map((skillGroup, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6 text-[#0A66C2] font-semibold border-b border-slate-100 pb-4">
+              <div key={idx} className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors">
+                <div className="flex items-center gap-3 mb-6 text-[#0A66C2] dark:text-blue-400 font-semibold border-b border-slate-100 dark:border-slate-700 pb-4 transition-colors">
                   {skillGroup.icon} <span>{skillGroup.category}</span>
                 </div>
                 <ul className="space-y-3">
                   {skillGroup.items.map((skill, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-700 font-medium">
+                    <li key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium transition-colors">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#0A66C2]"></div>
                       {skill.name}
                     </li>
@@ -363,20 +343,20 @@ export default function Portfolio() {
       </section>
 
       {/* 5. CERTIFICATIONS */}
-      <section id="certifications" className="py-24 px-6 bg-white">
+      <section id="certifications" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 flex items-center justify-center gap-3">
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
             <Award className="text-[#0A66C2]" /> Featured Certifications
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleCertifications.map((cert, idx) => (
-              <div key={idx} onClick={() => setSelectedCert(cert)} className="group bg-white border border-slate-200 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full">
-                <div className="w-12 h-12 bg-blue-50 text-[#0A66C2] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
+              <div key={idx} onClick={() => setSelectedCert(cert)} className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full">
+                <div className="w-12 h-12 bg-blue-50 dark:bg-[#0A66C2]/20 text-[#0A66C2] dark:text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
                   <Award size={24} />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2 flex-1">{cert.title}</h3>
-                <p className="text-sm text-slate-500 flex items-center gap-1 mt-auto pt-4 border-t border-slate-100">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
                   {cert.issuer} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto"/>
                 </p>
               </div>
@@ -387,7 +367,7 @@ export default function Portfolio() {
             <div className="mt-12 flex justify-center">
               <button 
                 onClick={() => setShowAllCerts(!showAllCerts)} 
-                className="bg-white border-2 border-[#0A66C2] text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
+                className="bg-white dark:bg-transparent border-2 border-[#0A66C2] text-[#0A66C2] dark:text-blue-400 hover:bg-[#0A66C2] hover:text-white dark:hover:bg-[#0A66C2] dark:hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
               >
                 {showAllCerts ? "View Less" : "View all"}
               </button>
@@ -400,18 +380,18 @@ export default function Portfolio() {
       <AnimatePresence>
         {selectedCert && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl">
-              <div className="flex justify-between items-center p-6 border-b border-slate-100 sticky top-0 bg-white z-10">
-                <h3 className="font-bold text-xl text-slate-900 pr-8">{selectedCert.title}</h3>
-                <button onClick={() => setSelectedCert(null)} className="text-slate-400 hover:text-slate-900 bg-slate-100 p-2 rounded-full transition-colors"><X size={20} /></button>
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300">
+              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10 transition-colors">
+                <h3 className="font-bold text-xl text-slate-900 dark:text-white pr-8">{selectedCert.title}</h3>
+                <button onClick={() => setSelectedCert(null)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"><X size={20} /></button>
               </div>
-              <div className="p-6 bg-slate-50">
-                <div className="w-full bg-slate-200 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300">
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/50 transition-colors">
+                <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300 dark:border-slate-700 transition-colors">
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
-                <div className="bg-white p-5 rounded-xl border border-slate-100">
+                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-100 dark:border-slate-700 transition-colors">
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description</h4>
-                  <p className="text-slate-700 leading-relaxed">{selectedCert.desc}</p>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed transition-colors">{selectedCert.desc}</p>
                 </div>
               </div>
             </motion.div>
@@ -420,20 +400,20 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* 6. PROJECTS */}
-      <section id="projects" className="py-24 px-6 bg-[#F3F6F8]">
+      <section id="projects" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Projects</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white transition-colors">Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project, idx) => (
-              <div key={idx} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col h-full hover:-translate-y-2 transition-transform duration-300">
-                <div className="text-xs font-bold text-[#0A66C2] bg-blue-50 inline-block px-3 py-1 rounded-full w-fit mb-4">
+              <div key={idx} className="bg-white dark:bg-slate-900/50 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
+                <div className="text-xs font-bold text-[#0A66C2] dark:text-blue-300 bg-blue-50 dark:bg-[#0A66C2]/20 inline-block px-3 py-1 rounded-full w-fit mb-4 transition-colors">
                   {project.domain}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{project.title}</h3>
-                <p className="text-slate-600 mb-6 flex-1 text-sm leading-relaxed">{project.desc}</p>
-                <div className="pt-6 border-t border-slate-100 mt-auto">
-                  <p className="text-xs text-slate-400 font-medium mb-4">Technologies Used: <span className="text-slate-600">{project.tech}</span></p>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors">{project.title}</h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-6 flex-1 text-sm leading-relaxed transition-colors">{project.desc}</p>
+                <div className="pt-6 border-t border-slate-100 dark:border-slate-700 mt-auto transition-colors">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-4">Technologies Used: <span className="text-slate-600 dark:text-slate-300">{project.tech}</span></p>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-[#0A66C2] dark:hover:bg-[#0A66C2] hover:text-white text-slate-700 dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-slate-700">
                     <GithubIcon size={16} /> View on GitHub
                   </a>
                 </div>
@@ -444,25 +424,25 @@ export default function Portfolio() {
       </section>
 
       {/* 7 & 8. JOURNEYS */}
-      <section id="journeys" className="py-24 px-6 bg-white">
+      <section id="journeys" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           <div className="grid lg:grid-cols-2 gap-16">
             {/* 7. ServiceNow Journey Section */}
             <div>
-              <h2 className="text-2xl font-bold mb-8 text-slate-900 flex items-center gap-3">
+              <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
                 <Route className="text-[#0A66C2]" /> ServiceNow Journey
               </h2>
-              <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 relative">
-                <div className="absolute left-[2.3rem] top-12 bottom-12 w-0.5 bg-blue-200"></div>
+              <div className="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 relative transition-colors">
+                <div className="absolute left-[2.3rem] top-12 bottom-12 w-0.5 bg-blue-200 dark:bg-blue-900/50"></div>
                 <ul className="space-y-6 relative">
                   {serviceNowJourney.map((step, idx) => (
                     <li key={idx} className="flex items-start gap-4">
-                      <div className={`w-8 h-8 rounded-full border-4 border-white shadow flex items-center justify-center shrink-0 z-10 ${idx === 3 ? 'bg-green-500' : 'bg-[#0A66C2]'}`}>
+                      <div className={`w-8 h-8 rounded-full border-4 border-white dark:border-slate-800 shadow flex items-center justify-center shrink-0 z-10 transition-colors ${idx === 3 ? 'bg-green-500' : 'bg-[#0A66C2]'}`}>
                         <CheckCircle2 size={14} className="text-white" />
                       </div>
                       <div className="pt-1">
-                        <p className={`font-medium ${idx === 3 ? 'text-green-600 font-bold' : 'text-slate-700'}`}>{step}</p>
+                        <p className={`font-medium transition-colors ${idx === 3 ? 'text-green-600 dark:text-green-400 font-bold' : 'text-slate-700 dark:text-slate-300'}`}>{step}</p>
                       </div>
                     </li>
                   ))}
@@ -472,17 +452,17 @@ export default function Portfolio() {
 
             {/* 8. Cloud & AI Learning Journey */}
             <div>
-              <h2 className="text-2xl font-bold mb-8 text-slate-900 flex items-center gap-3">
+              <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
                 <Cloud className="text-[#0A66C2]" /> Cloud & AI Learning Journey
               </h2>
               <div className="space-y-6">
                 {cloudAiJourney.map((path, idx) => (
-                  <div key={idx} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                    <h3 className="font-bold text-lg text-[#0A66C2] mb-4 border-b border-slate-100 pb-3">{path.category}</h3>
+                  <div key={idx} className="bg-white dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+                    <h3 className="font-bold text-lg text-[#0A66C2] dark:text-blue-400 mb-4 border-b border-slate-100 dark:border-slate-700 pb-3 transition-colors">{path.category}</h3>
                     <ul className="grid sm:grid-cols-2 gap-3">
                       {path.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-slate-600 text-sm">
-                          <ChevronRight size={16} className="text-[#0A66C2] shrink-0 mt-0.5" />
+                        <li key={i} className="flex items-start gap-2 text-slate-600 dark:text-slate-300 text-sm transition-colors">
+                          <ChevronRight size={16} className="text-[#0A66C2] dark:text-blue-400 shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -508,50 +488,50 @@ export default function Portfolio() {
       </section>
 
       {/* 10 & 11. CONTACT & OBJECTIVE */}
-      <section id="contact" className="py-24 px-6 bg-[#F3F6F8]">
+      <section id="contact" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           {/* Career Objective */}
           <div className="mb-16 text-center max-w-4xl mx-auto">
-            <h2 className="text-sm font-bold text-[#0A66C2] uppercase tracking-widest mb-4">Career Objective</h2>
-            <p className="text-2xl text-slate-700 font-medium leading-relaxed">
+            <h2 className="text-sm font-bold text-[#0A66C2] dark:text-blue-400 uppercase tracking-widest mb-4 transition-colors">Career Objective</h2>
+            <p className="text-2xl text-slate-700 dark:text-slate-300 font-medium leading-relaxed transition-colors">
               "I aim to build a successful career in ServiceNow and Software Development by continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."
             </p>
           </div>
           
           {/* Contact Section */}
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm grid md:grid-cols-2 gap-12">
+          <div className="bg-white dark:bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-sm grid md:grid-cols-2 gap-12 transition-colors">
             
             {/* Contact Info */}
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-slate-900">Contact</h2>
-              <p className="text-slate-500 mb-8">Feel free to reach out for collaborations, opportunities, or just a quick chat.</p>
+              <h2 className="text-3xl font-bold mb-6 text-slate-900 dark:text-white transition-colors">Contact</h2>
+              <p className="text-slate-500 dark:text-slate-400 mb-8 transition-colors">Feel free to reach out for collaborations, opportunities, or just a quick chat.</p>
               
               <div className="space-y-6">
-                <a href="mailto:ajayy.infotechh@gmail.com" className="flex items-center gap-4 text-slate-700 hover:text-[#0A66C2] transition-colors group">
-                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-[#0A66C2] group-hover:bg-[#0A66C2] group-hover:text-white transition-colors"><Mail size={20} /></div>
+                <a href="mailto:ajayy.infotechh@gmail.com" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-[#0A66C2] dark:hover:text-blue-400 transition-colors group">
+                  <div className="w-12 h-12 bg-blue-50 dark:bg-[#0A66C2]/20 rounded-full flex items-center justify-center text-[#0A66C2] dark:text-blue-400 group-hover:bg-[#0A66C2] group-hover:text-white transition-colors"><Mail size={20} /></div>
                   <div><p className="text-sm text-slate-400">Email</p><p className="font-medium">ajayy.infotechh@gmail.com</p></div>
                 </a>
                 
-                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="flex items-center gap-4 text-slate-700 hover:text-[#0A66C2] transition-colors group">
-                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-[#0A66C2] group-hover:bg-[#0A66C2] group-hover:text-white transition-colors"><LinkedinIcon size={20} /></div>
+                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-[#0A66C2] dark:hover:text-blue-400 transition-colors group">
+                  <div className="w-12 h-12 bg-blue-50 dark:bg-[#0A66C2]/20 rounded-full flex items-center justify-center text-[#0A66C2] dark:text-blue-400 group-hover:bg-[#0A66C2] group-hover:text-white transition-colors"><LinkedinIcon size={20} /></div>
                   <div><p className="text-sm text-slate-400">LinkedIn</p><p className="font-medium">www.linkedin.com/in/ajay-r-s</p></div>
                 </a>
 
-                <div className="flex items-center gap-4 text-slate-700">
-                  <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-500"><MapPin size={20} /></div>
+                <div className="flex items-center gap-4 text-slate-700 dark:text-slate-300 transition-colors">
+                  <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 transition-colors"><MapPin size={20} /></div>
                   <div><p className="text-sm text-slate-400">Location</p><p className="font-medium">Tiruchirappalli, Tamil Nadu, India</p></div>
                 </div>
               </div>
             </div>
 
             {/* Contact Form UI */}
-            <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-100">
-              <h3 className="font-bold text-lg mb-4 text-slate-800">Send a Message</h3>
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-700 transition-colors">
+              <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-white transition-colors">Send a Message</h3>
               
               {submitStatus === 'success' ? (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-900/50 text-green-700 dark:text-green-400 p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3 transition-colors">
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 transition-colors">
                     <Check size={24} />
                   </div>
                   <div>
@@ -562,16 +542,13 @@ export default function Portfolio() {
               ) : (
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div>
-                    {/* ADDED name="name" */}
-                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    {/* ADDED name="email" */}
-                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    {/* ADDED name="message" */}
-                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
+                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
                   </div>
                   <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A66C2] hover:bg-[#004182] text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
                     {isSubmitting ? (
@@ -589,7 +566,7 @@ export default function Portfolio() {
       </section>
 
       {/* 12. FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
+      <footer className="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6">
           <p className="mb-2 font-medium text-slate-300">© 2026 Ajay R S. All Rights Reserved.</p>
           <p className="text-sm">Built with passion for technology and continuous learning.</p>
