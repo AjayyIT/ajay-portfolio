@@ -1,7 +1,6 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  darkMode: 'class', // 👉 This enables the manual theme toggle
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class', // 👉 This explicitly forces Tailwind to listen to the toggle button
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,4 +11,3 @@ const config: Config = {
   },
   plugins: [],
 };
-export default config;
