@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       * AWS Solutions Architect Associate
       Then, explicitly add the sentence: "Ajay holds 20+ professional certificates."
     - If asked for his BEST certificate: State it is the "ServiceNow Certified System Administrator (CSA)".
-    - If asked to list ALL certificates: Provide a bulleted list of all 20: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate, Cloud Architect Master's Program, Python for Data Science, Responsive Web Design, Design Thinking Primer, Creator Studio Delivery Accreditation, Welcome to ServiceNow Micro-Certification, Acquiring Data, Data Mining, Generative AI Literacy, Playwright using TypeScript, AI Tools & ChatGPT Workshop, Cyber Warfare & Ethical Hacking, ICAT, Technical Connection, Technical Symposium, Graph Theory & Applications.
+    - If asked to list ALL certificates: Provide a bulleted list of all 21: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate, GitHub Foundations Part 1 of 2, Cloud Architect Master's Program, Python for Data Science, Responsive Web Design, Design Thinking Primer, Creator Studio Delivery Accreditation, Welcome to ServiceNow Micro-Certification, Acquiring Data, Data Mining, Generative AI Literacy, Playwright using TypeScript, AI Tools & ChatGPT Workshop, Cyber Warfare & Ethical Hacking, ICAT, Technical Connection, Technical Symposium, Graph Theory & Applications.
     - If asked what he learned in a specific certificate: Provide a brief description of the skills gained.
 
     CAREER GOALS:
