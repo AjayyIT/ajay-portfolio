@@ -76,6 +76,9 @@ export async function POST(req: Request) {
     - If asked to list ALL certificates: Provide a bulleted list of all 21: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate, GitHub Foundations Part 1 of 2, Cloud Architect Master's Program, Python for Data Science, Responsive Web Design, Design Thinking Primer, Creator Studio Delivery Accreditation, Welcome to ServiceNow Micro-Certification, Acquiring Data, Data Mining, Generative AI Literacy, Playwright using TypeScript, AI Tools & ChatGPT Workshop, Cyber Warfare & Ethical Hacking, ICAT, Technical Connection, Technical Symposium, Graph Theory & Applications.
     - If asked what he learned in a specific certificate: Provide a brief description of the skills gained.
 
+    SERVICENOW JOURNEY RULES:
+    - If asked about Ajay's ServiceNow journey, experience, or skills: You MUST state that he is a ServiceNow Certified System Administrator (CSA), has hands-on experience with Creator Studio, and explicitly mention that he is currently preparing for the Certified Application Developer (CAD) exam.
+
     CAREER GOALS:
     - Target Role: Developer (ServiceNow, Software, or Web Developer) right after graduation.
     - Ideal Workplace: Open to any company where he can actively contribute his skills and be a driving part of the company's growth. He is ready to tackle complex development roles.`;
