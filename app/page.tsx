@@ -396,11 +396,18 @@ export default function Portfolio() {
                 <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300 dark:border-slate-700 transition-colors">
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
-                {/* Replace the old modal H4 description title with this to include the date */}
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Description</h4>
-                  <span className="text-xs font-medium text-[#0A66C2] bg-blue-50 dark:bg-[#0A66C2]/20 dark:text-blue-400 px-2 py-1 rounded-md">{selectedCert.date}</span>
+                
+                {/* 👇 The fixed description block containing both the date AND the text */}
+                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-100 dark:border-slate-700 transition-colors">
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Description</h4>
+                    <span className="text-xs font-medium text-[#0A66C2] bg-blue-50 dark:bg-[#0A66C2]/20 dark:text-blue-400 px-2 py-1 rounded-md">{selectedCert.date}</span>
+                  </div>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed transition-colors text-sm">
+                    {selectedCert.desc}
+                  </p>
                 </div>
+
               </div>
             </motion.div>
           </div>
