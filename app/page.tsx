@@ -43,29 +43,29 @@ const skills = [
 ];
 
 const certifications = [
-  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
-  { title: "Google AI Essentials", issuer: "Google & Coursera", img: "/certificates/Google Ai Essentials.jpg", desc: "Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving." },
-  { title: "Microsoft Azure Administrator Associate Level", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN azure associate.jpg", desc: "Gained knowledge of Azure administration, cloud infrastructure, virtual machines, networking, storage, and identity management." },
-  { title: "AWS Solutions Architect Associate Level", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN aws.jpg", desc: "Learned AWS cloud services, architecture principles, deployment strategies, and cloud solution design concepts." },
-  { title: "Cloud Architect Master's Program", issuer: "Simplilearn", img: "/certificates/SIMPLILEARN cloud architect.jpg", desc: "Explored cloud architecture, cloud deployment models, cloud security, and enterprise cloud solutions." },
-  { title: "GitHub Foundations Part 1 of 2", issuer: "Microsoft", img: "/certificates/GitHub Foundations-1.png", desc: "Learned foundational concepts of version control, repository management, collaboration, and core Git workflows using GitHub." },
-  { title: "GitHub Foundations Part 2 of 2", issuer: "Microsoft", img: "/certificates/GitHub Foundations-2.png", desc: "Advanced knowledge of GitHub tools, including collaborative workflows, project management, and repository security." },
-  { title: "Python for Data Science", issuer: "NPTEL (IIT Madras)", img: "/certificates/Python for Data Science.jpg", desc: "Developed skills in Python programming, data analysis, data visualization, and data-driven problem solving." },
-  { title: "Responsive Web Design", issuer: "freeCodeCamp", img: "/certificates/FREE CODE CAMP.png", desc: "Achieved 300+ hours of Learning and Demonstrated the knowledge of HTML, CSS, and JavaScript by building responsive websites." },
-  { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
-  { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
-  { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
-  { title: "Data Mining", issuer: "Simplilearn SkillUp", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
-  { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
-  { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
-  { title: "AI Tools & ChatGPT Workshop", issuer: "Be10X", img: "/certificates/Be10x Ai Workshop.jpg", desc: "Explored AI-powered productivity tools, prompt engineering, automation, coding assistance, and workflow optimization techniques." },
-  { title: "Cyber Warfare & Ethical Hacking", issuer: "K. Ramakrishnan College of Technology", img: "/certificates/ETHICAL HACKING.jpg", desc: "Learned cybersecurity fundamentals, ethical hacking concepts, network security, and vulnerability assessment basics." },
-  { title: "Internship Common Aptitude Test (ICAT)", issuer: "ICAT", img: "/certificates/iCAT - Participation Certificate.jpg", desc: "Assessed aptitude, logical reasoning, analytical thinking, and problem-solving abilities for career readiness." },
-  { title: "Technical Connection", issuer: "K. Ramakrishnan College of Engineering", img: "/certificates/KRCE IT.jpg", desc: "Secured 1st place in a technical event, demonstrating technical knowledge, communication, and presentation skills." },
-  { title: "Technical Symposium", issuer: "Kalaignarkarunanidhi Institute of Technology (KIT)", img: "/certificates/KIT.jpg", desc: "Participated in technical events focused on innovation, emerging technologies, and collaborative learning." },
-  { title: "Recent Trend in Graph theory and its application", issuer: "Kongunadu College of Engineering and Technology", img: "/certificates/KONGUNADU.jpg", desc: "Engaged in the workshop to enhance my skills in problem-solving and mathematical concepts." },
-  { title: "Samsung Galaxy AI Treasure Hunt 2026", issuer: "Unstop × Samsung", img: "/certificates/Unstop Samsung.jpg", desc: "Participated in the Samsung Galaxy AI Treasure Hunt 2026, exploring Galaxy AI features through an interactive challenge. The event provided an opportunity to learn about Samsung's AI capabilities and engage in a technology-focused problem-solving experience."}
+  { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", date: "08 June 2026", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
+  { title: "Google AI Essentials", issuer: "Google & Coursera", date: "20 May 2026", img: "/certificates/Google Ai Essentials.jpg", desc: "Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving." },
+  { title: "Microsoft Azure Administrator Associate Level", issuer: "Simplilearn", date: "03 Apr 2026", img: "/certificates/SIMPLILEARN azure associate.jpg", desc: "Gained knowledge of Azure administration, cloud infrastructure, virtual machines, networking, storage, and identity management." },
+  { title: "AWS Solutions Architect Associate Level", issuer: "Simplilearn", date: "29 Oct 2025", img: "/certificates/SIMPLILEARN aws.jpg", desc: "Learned AWS cloud services, architecture principles, deployment strategies, and cloud solution design concepts." },
+  { title: "Cloud Architect Master's Program", issuer: "Simplilearn", date: "12 Mar 2026", img: "/certificates/SIMPLILEARN cloud architect.jpg", desc: "Explored cloud architecture, cloud deployment models, cloud security, and enterprise cloud solutions." },
+  { title: "GitHub Foundations Part 2 of 2", issuer: "Microsoft", date: "26 Jun 2026", img: "/certificates/GitHub Foundations-2.png", desc: "Advanced knowledge of GitHub tools, including collaborative workflows, project management, and repository security." },
+  { title: "GitHub Foundations Part 1 of 2", issuer: "Microsoft", date: "20 Jun 2026", img: "/certificates/GitHub Foundations-1.png", desc: "Learned foundational concepts of version control, repository management, collaboration, and core Git workflows using GitHub." },
+  { title: "Samsung Galaxy AI Treasure Hunt 2026", issuer: "Unstop × Samsung", date: "25 Jun 2026", img: "/certificates/Unstop Samsung.jpg", desc: "Participated in the Samsung Galaxy AI Treasure Hunt 2026, exploring Galaxy AI features through an interactive challenge." },
+  { title: "Python for Data Science", issuer: "NPTEL (IIT Madras)", date: "Jan 2025", img: "/certificates/Python for Data Science.jpg", desc: "Developed skills in Python programming, data analysis, data visualization, and data-driven problem solving." },
+  { title: "Responsive Web Design", issuer: "freeCodeCamp", date: "11 Jul 2025", img: "/certificates/FREE CODE CAMP.png", desc: "Achieved 300+ hours of Learning and Demonstrated the knowledge of HTML, CSS, and JavaScript by building responsive websites." },
+  { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", date: "Jan 2026", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
+  { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", date: "09 Jun 2026", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
+  { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", date: "14 Apr 2026", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Data Mining", issuer: "Simplilearn SkillUp", date: "29 Dec 2025", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
+  { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", date: "30 Apr 2026", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
+  { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", date: "11 Apr 2026", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
+  { title: "AI Tools & ChatGPT Workshop", issuer: "Be10X", date: "17 May 2026", img: "/certificates/Be10x Ai Workshop.jpg", desc: "Explored AI-powered productivity tools, prompt engineering, automation, coding assistance, and workflow optimization techniques." },
+  { title: "Cyber Warfare & Ethical Hacking", issuer: "K. Ramakrishnan College of Technology", date: "4 Apr 2025", img: "/certificates/ETHICAL HACKING.jpg", desc: "Learned cybersecurity fundamentals, ethical hacking concepts, network security, and vulnerability assessment basics." },
+  { title: "Internship Common Aptitude Test (ICAT)", issuer: "ICAT", date: "25 May 2026", img: "/certificates/iCAT - Participation Certificate.jpg", desc: "Assessed aptitude, logical reasoning, analytical thinking, and problem-solving abilities for career readiness." },
+  { title: "Technical Connection", issuer: "K. Ramakrishnan College of Engineering", date: "17 Mar 2026", img: "/certificates/KRCE IT.jpg", desc: "Secured 1st place in a technical event, demonstrating technical knowledge, communication, and presentation skills." },
+  { title: "Technical Symposium", issuer: "Kalaignarkarunanidhi Institute of Technology (KIT)", date: "01 Mar 2025", img: "/certificates/KIT.jpg", desc: "Participated in technical events focused on innovation, emerging technologies, and collaborative learning." },
+  { title: "Recent Trend in Graph theory and its application", issuer: "Kongunadu College of Engineering and Technology", date: "07 May 2024", img: "/certificates/KONGUNADU.jpg", desc: "Engaged in the workshop to enhance my skills in problem-solving and mathematical concepts." }
 ];
 
 const projects = [
@@ -359,8 +359,12 @@ export default function Portfolio() {
                   <Award size={24} />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
-                  {cert.issuer} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto"/>
+                {/* Replace the old paragraph block with this one to show the date */}
+                <p className="text-sm text-slate-500 dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
+                  <span className="font-medium text-slate-700 dark:text-slate-300 mb-1">{cert.issuer}</span>
+                  <span className="flex items-center gap-1 text-xs">
+                  {cert.date} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto text-[#0A66C2] dark:text-blue-400"/>
+                  </span>
                 </p>
               </div>
             ))}
@@ -392,9 +396,10 @@ export default function Portfolio() {
                 <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300 dark:border-slate-700 transition-colors">
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
-                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-100 dark:border-slate-700 transition-colors">
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description</h4>
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed transition-colors">{selectedCert.desc}</p>
+                {/* Replace the old modal H4 description title with this to include the date */}
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Description</h4>
+                  <span className="text-xs font-medium text-[#0A66C2] bg-blue-50 dark:bg-[#0A66C2]/20 dark:text-blue-400 px-2 py-1 rounded-md">{selectedCert.date}</span>
                 </div>
               </div>
             </motion.div>
