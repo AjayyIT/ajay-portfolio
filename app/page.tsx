@@ -64,7 +64,8 @@ const certifications = [
   { title: "Internship Common Aptitude Test (ICAT)", issuer: "ICAT", img: "/certificates/iCAT - Participation Certificate.jpg", desc: "Assessed aptitude, logical reasoning, analytical thinking, and problem-solving abilities for career readiness." },
   { title: "Technical Connection", issuer: "K. Ramakrishnan College of Engineering", img: "/certificates/KRCE IT.jpg", desc: "Secured 1st place in a technical event, demonstrating technical knowledge, communication, and presentation skills." },
   { title: "Technical Symposium", issuer: "Kalaignarkarunanidhi Institute of Technology (KIT)", img: "/certificates/KIT.jpg", desc: "Participated in technical events focused on innovation, emerging technologies, and collaborative learning." },
-  { title: "Recent Trend in Graph theory and its application", issuer: "Kongunadu College of Engineering and Technology", img: "/certificates/KONGUNADU.jpg", desc: "Engaged in the workshop to enhance my skills in problem-solving and mathematical concepts." }
+  { title: "Recent Trend in Graph theory and its application", issuer: "Kongunadu College of Engineering and Technology", img: "/certificates/KONGUNADU.jpg", desc: "Engaged in the workshop to enhance my skills in problem-solving and mathematical concepts." },
+  { title: "Samsung Galaxy AI Treasure Hunt 2026", issuer: "Unstop × Samsung", img: "/certificates/Unstop Samsung.jpg", desc: "Participated in the Samsung Galaxy AI Treasure Hunt 2026, exploring Galaxy AI features through an interactive challenge. The event provided an opportunity to learn about Samsung's AI capabilities and engage in a technology-focused problem-solving experience."}
 ];
 
 const projects = [
