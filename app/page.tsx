@@ -1,7 +1,7 @@
 'use client';
 
 import ThemeToggle from '@/components/ThemeToggle';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
@@ -57,7 +57,7 @@ const certifications = [
   { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", date: "Jan 2026", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
   { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", date: "09 Jun 2026", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
   { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", date: "14 Apr 2026", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
   { title: "Data Mining", issuer: "Simplilearn SkillUp", date: "29 Dec 2025", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
   { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", date: "30 Apr 2026", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
   { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", date: "11 Apr 2026", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
@@ -120,8 +120,7 @@ const navLinks = [
 ];
 
 // --- MAIN COMPONENT ---
-export default function Portfolio() 
-{
+export default function Portfolio() {
   const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAllCerts, setShowAllCerts] = useState(false);
@@ -179,17 +178,7 @@ export default function Portfolio()
     } finally {
       setIsSubmitting(false);
     }
-    const [viewCount, setViewCount] = useState<number>(0);
-
-  // Trigger the view counter when the page loads
-  useEffect(() => {
-    fetch('/api/views')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.views) setViewCount(data.views);
-      })
-      .catch(console.error);
-  }, []);
+  };
 
   return (
     <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white transition-colors duration-300">
@@ -505,12 +494,11 @@ export default function Portfolio()
 
       {/* 9. ACHIEVEMENTS STATS */}
       <section className="py-16 px-6 bg-[#0A66C2] text-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div><div className="text-3xl font-bold mb-2">20+</div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">Certifications</div></div>
           <div><div className="text-3xl font-bold mb-2 flex justify-center"><CheckCircle2 size={36}/></div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">ServiceNow CSA Certified</div></div>
-          <div><div className="text-3xl font-bold mb-2">Multiple</div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">Technical Projects</div></div>
           <div><div className="text-3xl font-bold mb-2 flex justify-center"><Cloud size={36}/></div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">Cloud Certifications</div></div>
-          <div className="col-span-2 md:col-span-1"><div className="text-3xl font-bold mb-2 flex justify-center"><Database size={36}/></div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">AI & Data Analytics Learning</div></div>
+          <div><div className="text-3xl font-bold mb-2 flex justify-center"><Database size={36}/></div><div className="text-blue-200 text-xs font-medium uppercase tracking-wide">AI & Data Analytics Learning</div></div>
         </div>
       </section>
 
@@ -608,4 +596,4 @@ export default function Portfolio()
       
     </div>
   );
-  }}
+}

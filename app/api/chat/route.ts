@@ -3,8 +3,6 @@ export const maxDuration = 30;
 
 import { generateText } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
-import { kv } from '@vercel/kv';
-import { redis } from '@/lib/redis';
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
@@ -119,26 +117,18 @@ export async function POST(req: Request) {
     });
     
     // ==========================================
-    // 📊 DUAL-LOGGING SYSTEM (PRODUCTION ONLY)
+    // 📊 DISCORD LOGGING SYSTEM (PRODUCTION ONLY)
     // ==========================================
     if (process.env.NODE_ENV === 'production') {
-      const discordLogPromise = process.env.DISCORD_WEBHOOK_URL 
-        ? fetch(process.env.DISCORD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestMessage}"\n**MAi Replied:** "${text}"` 
-            })
-          }).catch(err => console.error("Discord Log Error:", err))
-        : Promise.resolve();
-
-      // 👇 Replaced the old KV logger with our newly connected Redis Cloud logger
-      const redisLogPromise = latestMessage
-        ? redis.lpush('mai_chat_logs', `[${new Date().toLocaleString('en-IN')}] Q: "${latestMessage}" | MAi: "${text}"`)
-            .catch(err => console.error("Redis Log Error:", err))
-        : Promise.resolve();
-
-      await Promise.allSettled([discordLogPromise, redisLogPromise]);
+      if (process.env.DISCORD_WEBHOOK_URL) {
+        fetch(process.env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestMessage}"\n**MAi Replied:** "${text}"` 
+          })
+        }).catch(err => console.error("Discord Log Error:", err));
+      }
     }
 
     return new Response(JSON.stringify({ text }), {
