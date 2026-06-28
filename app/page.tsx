@@ -42,6 +42,7 @@ const skills = [
   { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining" }, { name: "Data Analytics" }, { name: "Pandas" }, { name: "Generative AI" }, { name: "Prompt Engineering" }] }
 ];
 
+
 const certifications = [
   { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", date: "08 June 2026", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
   { title: "Google AI Essentials", issuer: "Google & Coursera", date: "20 May 2026", img: "/certificates/Google Ai Essentials.jpg", desc: "Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving." },
