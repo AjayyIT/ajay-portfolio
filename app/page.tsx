@@ -1,7 +1,7 @@
 'use client';
 
 import ThemeToggle from '@/components/ThemeToggle';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
@@ -177,6 +177,17 @@ export default function Portfolio() {
     } finally {
       setIsSubmitting(false);
     }
+    const [viewCount, setViewCount] = useState<number>(0);
+
+  // Trigger the view counter when the page loads
+  useEffect(() => {
+    fetch('/api/views', { method: 'POST' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.views) setViewCount(data.views);
+      })
+      .catch(console.error);
+  }, []);
   };
 
   return (

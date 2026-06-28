@@ -4,6 +4,7 @@ export const maxDuration = 30;
 import { generateText } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
 import { kv } from '@vercel/kv';
+import { redis } from '@/lib/redis';
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
@@ -12,7 +13,11 @@ const groq = createGroq({
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
-    const latestUserMessage = messages[messages.length - 1].content;
+    const latestMessage = messages[messages.length - 1].content;
+    if (latestMessage) {
+  const logEntry = `[${new Date().toLocaleString('en-IN')}] Recruiter asked: "${latestMessage}"`;
+  await redis.lpush('mai_chat_logs', logEntry);
+}
     const timestamp = new Date().toISOString();
 
     // ==========================================
@@ -125,7 +130,7 @@ export async function POST(req: Request) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-              content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestUserMessage}"\n**MAi Replied:** "${text}"` 
+              content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestMessage}"\n**MAi Replied:** "${text}"` 
             })
           }).catch(err => console.error("Discord Log Error:", err))
         : Promise.resolve();
@@ -133,7 +138,7 @@ export async function POST(req: Request) {
       const kvLogPromise = process.env.KV_REST_API_URL
         ? kv.lpush('mai_chat_logs', {
             timestamp: timestamp,
-            userMessage: latestUserMessage,
+            userMessage: latestMessage,
             maiResponse: text
           }).catch(err => console.error("KV Log Error:", err))
         : Promise.resolve();
