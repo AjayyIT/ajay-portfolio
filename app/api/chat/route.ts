@@ -14,10 +14,7 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
     const latestMessage = messages[messages.length - 1].content;
-    if (latestMessage) {
-  const logEntry = `[${new Date().toLocaleString('en-IN')}] Recruiter asked: "${latestMessage}"`;
-  await redis.lpush('mai_chat_logs', logEntry);
-}
+    
     const timestamp = new Date().toISOString();
 
     // ==========================================
@@ -120,7 +117,7 @@ export async function POST(req: Request) {
       messages: messages,
       temperature: 0.2, 
     });
-
+    
     // ==========================================
     // 📊 DUAL-LOGGING SYSTEM (PRODUCTION ONLY)
     // ==========================================
@@ -135,15 +132,13 @@ export async function POST(req: Request) {
           }).catch(err => console.error("Discord Log Error:", err))
         : Promise.resolve();
 
-      const kvLogPromise = process.env.KV_REST_API_URL
-        ? kv.lpush('mai_chat_logs', {
-            timestamp: timestamp,
-            userMessage: latestMessage,
-            maiResponse: text
-          }).catch(err => console.error("KV Log Error:", err))
+      // 👇 Replaced the old KV logger with our newly connected Redis Cloud logger
+      const redisLogPromise = latestMessage
+        ? redis.lpush('mai_chat_logs', `[${new Date().toLocaleString('en-IN')}] Q: "${latestMessage}" | MAi: "${text}"`)
+            .catch(err => console.error("Redis Log Error:", err))
         : Promise.resolve();
 
-      await Promise.allSettled([discordLogPromise, kvLogPromise]);
+      await Promise.allSettled([discordLogPromise, redisLogPromise]);
     }
 
     return new Response(JSON.stringify({ text }), {

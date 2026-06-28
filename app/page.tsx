@@ -120,7 +120,8 @@ const navLinks = [
 ];
 
 // --- MAIN COMPONENT ---
-export default function Portfolio() {
+export default function Portfolio() 
+{
   const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAllCerts, setShowAllCerts] = useState(false);
@@ -182,14 +183,13 @@ export default function Portfolio() {
 
   // Trigger the view counter when the page loads
   useEffect(() => {
-    fetch('/api/views', { method: 'POST' })
+    fetch('/api/views')
       .then((res) => res.json())
       .then((data) => {
         if (data.views) setViewCount(data.views);
       })
       .catch(console.error);
   }, []);
-  };
 
   return (
     <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white transition-colors duration-300">
@@ -608,4 +608,4 @@ export default function Portfolio() {
       
     </div>
   );
-}
+  }}
