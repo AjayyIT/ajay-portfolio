@@ -35,7 +35,7 @@ const educationList = [
 
 const skills = [
   { category: "Programming", icon: <Code size={20}/>, items: [{ name: "Java" }, { name: "Python" }, { name: "C" }] },
-  { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML" }, { name: "CSS" }] },
+  { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML" }, { name: "CSS" }, { name: "JavaScript" }] },
   { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL" }] },
   { category: "Cloud", icon: <Cloud size={20}/>, items: [{ name: "AWS" }, { name: "Microsoft Azure" }] },
   { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration" }, { name: "Workflow Automation" }, { name: "Incident Management" }, { name: "Service Catalog" }, { name: "Knowledge Management" }, { name: "Creator Studio" }, { name: "App Engine Studio" }] },
