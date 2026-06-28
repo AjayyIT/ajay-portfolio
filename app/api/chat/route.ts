@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     - 12th & 10th Standard: Sribala Vidya Mandhir Matric Hr. Sec. School.
 
     SKILLS RULES:
-    - If asked for "tech skills", provide a bulleted list of: Java, Python, C, HTML, CSS, MySQL, AWS, Azure, ServiceNow (CSA, Creator Studio), Pandas, and Prompt Engineering.
+    - If asked for "tech skills", provide a bulleted list of: Java, Python, C, HTML, CSS, JavaScript, MySQL, AWS, Azure, ServiceNow (CSA, Creator Studio), Pandas, and Prompt Engineering.
     - If asked for "soft skills", provide a bulleted list of: Dedicated, disciplined, supportive team player, problem-solver, and self-paced continuous learner.
 
     PROJECTS RULES:
