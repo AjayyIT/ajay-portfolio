@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">Hi 👋, I'm Ajay R S</h1>
+<h3 align="center">Final Year IT Student | ServiceNow CSA Certified | Aspiring Developer</h3>
 
-## Getting Started
+<p align="center">
+  <a href="https://ajay-r-s.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/View_My_Portfolio-0A66C2?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio" />
+  </a>
+  <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="mailto:ajayy.infotechh@gmail.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+</p>
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 👨‍💻 About Me
+Passionate about **ServiceNow, Software Development, Cloud Computing, Artificial Intelligence, and Data Analytics**. I recently built a blazing-fast JAMstack portfolio featuring a custom AI assistant (MAi) powered by Groq and Llama 3.1. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🎓 Pursuing a **B.Tech in Information Technology** at K. Ramakrishnan College of Technology (2023 - 2027)
+- ⚙️ **ServiceNow Certified System Administrator (CSA)** & currently preparing for the CAD exam.
+- ☁️ Holding **20+ certifications** across AWS, Azure, Google AI, and Data Analytics.
+- 🎯 **Career Goal:** Seeking opportunities as a ServiceNow, Software, or Web Developer to actively contribute and build innovative enterprise solutions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🛠️ Tech Stack & Tools
 
-## Learn More
+**Languages & Web:** ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=flat-square&logo=javascript&logoColor=F7DF1E)
 
-To learn more about Next.js, take a look at the following resources:
+**Frameworks & Libraries:** ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Cloud, Database & AI:** ![ServiceNow](https://img.shields.io/badge/ServiceNow-81B5A1?style=flat-square&logo=servicenow&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0089D6?style=flat-square&logo=microsoftazure&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Vercel AI SDK](https://img.shields.io/badge/Vercel_AI-000000?style=flat-square&logo=vercel&logoColor=white)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### 📊 GitHub Stats
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=AjayyIT&show_icons=true&theme=tokyonight&hide_border=true" alt="Ajay's GitHub Stats" />
+</p>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+<p align="center">
+  <i>"Continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."</i>
+</p>
