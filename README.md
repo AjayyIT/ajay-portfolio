@@ -49,10 +49,7 @@ Passionate about **ServiceNow, Software Development, Cloud Computing, Artificial
 
 ### 📊 GitHub Stats
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=AjayyIT&show_icons=true&theme=tokyonight&hide_border=true" alt="Ajay's GitHub Stats" />
-</p>
-
+[![Ajay's GitHub Stats](https://github-readme-stats.vercel.app/api?username=AjayyIT&show_icons=true&theme=tokyonight&hide_border=true)](https://github.com/AjayyIT)
 ---
 <p align="center">
   <i>"Continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."</i>
