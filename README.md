@@ -46,11 +46,6 @@ Passionate about **ServiceNow, Software Development, Cloud Computing, Artificial
 ![Vercel AI SDK](https://img.shields.io/badge/Vercel_AI-000000?style=flat-square&logo=vercel&logoColor=white)
 
 ---
-
-### 📊 GitHub Stats
-
-[![Ajay's GitHub Stats](https://github-readme-stats.vercel.app/api?username=AjayyIT&show_icons=true&theme=tokyonight&hide_border=true)](https://github.com/AjayyIT)
----
 <p align="center">
   <i>"Continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."</i>
 </p>
