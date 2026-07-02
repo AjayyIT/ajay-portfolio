@@ -45,7 +45,7 @@ const skills = [
 const eventsList = [
   {
     title: "ServiceNow AI Skills Summit",
-    organizer: "ServiceNow University & NASSCOM",
+    organizer: "ServiceNow University",
     date: "July 2026",
     location: "Coimbatore",
     images: [
@@ -55,7 +55,7 @@ const eventsList = [
       "/events/summit-4.jpg",
       "/events/summit-5.jpg" 
     ],
-    desc: `Had an amazing experience attending the ServiceNow AI Skills Summit – Coimbatore!\n\nIt was a great opportunity to learn from industry leaders and understand how AI is transforming enterprise workflows and shaping the future of work. The event was led by Mr. Bhaskar G, Senior Director, ServiceNow University, whose enthusiasm set the tone for an insightful day of learning.\n\nSome of the highlights included:\n• Mr. Naveen Kaushik (Managing Director, ServiceNow Practice, Accenture) sharing valuable insights into the ServiceNow ecosystem and enterprise transformation.\n• Mr. Ilango AP (Vice President - HR, ServiceNow) discussing opportunities and the growing demand for ServiceNow professionals.\n• An inspiring keynote by Mr. Udaya Shankar (Head - Talent Council, NASSCOM) on preparing ourselves for the future of technology and careers.\n• An impactful session, "AI + Workflows: Why Enterprises Need Both," by Ms. Neethi Upadhya (VP - Digital Transformation, Capgemini). One statement from her really stayed with me: "Will AI replace your job? No. People with AI will replace your job." This completely changed my perspective. It reinforced that AI isn't reducing opportunities—it is creating new ones for those who are willing to learn and adapt.\n• Ms. Triveni Bonthu (Director, ServiceNow Practice, LTM) shared valuable insights on Student Readiness for the ServiceNow Platform and how students can prepare for careers in the ServiceNow ecosystem.\n\nOne of the most exciting sessions was a live demonstration of "ServiceNow AI Agents: Configure an Agent" by Mr. Akash Kumar and Ms. Anshita Shrivastava from ServiceNow, where we got to see an AI Agent being configured on the platform in real time.\n\nApart from the technical sessions, it was also a wonderful opportunity to connect with fellow learners, interact with industry professionals, and even take home some exciting goodies! 🎁 Events like these motivate me even more to continue my journey in ServiceNow, AI, and enterprise application development.`
+    desc: `Had an amazing experience attending the ServiceNow AI Skills Summit – Coimbatore!\n\nIt was a great opportunity to learn from industry leaders and understand how AI is transforming enterprise workflows and shaping the future of work. The event was led by Mr. Bhaskar G, Senior Director, ServiceNow University, whose enthusiasm set the tone for an insightful day of learning.\n\nSome of the highlights included:\n• Mr. Naveen Kaushik (Managing Director, ServiceNow Practice, Accenture) sharing valuable insights into the ServiceNow ecosystem and enterprise transformation.\n• Mr. Ilango AP (Vice President - HR, ServiceNow) discussing opportunities and the growing demand for ServiceNow professionals.\n• An inspiring keynote by Mr. Udaya Shankar (Head - Talent Council, NASSCOM) on preparing ourselves for the future of technology and careers.\n• An impactful session, "AI + Workflows: Why Enterprises Need Both," by Ms. Neethi Upadhya (VP - Digital Transformation, Capgemini). One statement from her really stayed with me: "Will AI replace your job? No. People with AI will replace your job." This completely changed my perspective. It reinforced that AI isn't reducing opportunities—it is creating new ones for those who are willing to learn and adapt.\n• Ms. Triveni Bonthu (Director, ServiceNow Practice, LTM) shared valuable insights on Student Readiness for the ServiceNow Platform and how students can prepare for careers in the ServiceNow ecosystem.\n\nOne of the most exciting sessions was a live demonstration of "ServiceNow AI Agents: Configure an Agent" by Mr. Akash Kumar and Ms. Anshita Shrivastava from ServiceNow, where we got to see an AI Agent being configured on the platform in real time.\n\nApart from the technical sessions, it was also a wonderful opportunity to connect with fellow learners, interact with industry professionals, and even take home some exciting goodies! 🎁\n\n Events like these motivate me even more to continue my journey in ServiceNow, AI, and enterprise application development.`
   }
 ];
 
@@ -378,10 +378,10 @@ export default function Portfolio() {
       </section>
 
       {/* 4.5. EVENTS SECTION (NEW) */}
-      <section id="events" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <section id="events" className="py-16 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
-            <CalendarDays className="text-[#0A66C2]" /> Events & Experiences
+          <h2 className="text-3xl font-bold mb-10 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
+            <CalendarDays className="text-[#0A66C2]" /> Events
           </h2>
 
           <div className="relative group">
@@ -395,26 +395,29 @@ export default function Portfolio() {
               </button>
             )}
 
-            {/* Main Event Tile */}
+            {/* Main Event Tile - Fixed Height Added Here */}
             <div 
               onClick={() => openEventDetails(eventsList[currentEventIndex])}
-              className="bg-[#F3F6F8] dark:bg-slate-800/50 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-xl hover:border-[#0A66C2] dark:hover:border-blue-500 transition-all duration-300 flex flex-col md:flex-row group/tile"
+              className="bg-[#F3F6F8] dark:bg-slate-800/50 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-xl hover:border-[#0A66C2] dark:hover:border-blue-500 transition-all duration-300 flex flex-col md:flex-row group/tile md:h-[24rem]"
             >
-              <div className="md:w-1/2 h-64 md:h-auto bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+              {/* Image Container - Constrained to 100% height of parent */}
+              <div className="md:w-1/2 h-64 md:h-full bg-slate-200 dark:bg-slate-700 relative overflow-hidden shrink-0">
                 <img 
                   src={eventsList[currentEventIndex].images[0]} 
                   alt={eventsList[currentEventIndex].title} 
                   className="w-full h-full object-cover group-hover/tile:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white dark:bg-slate-800/80">
-                <div className="text-xs font-bold text-[#0A66C2] dark:text-blue-300 bg-blue-50 dark:bg-[#0A66C2]/20 inline-block px-3 py-1 rounded-md w-fit mb-4 transition-colors uppercase tracking-wider">
+              
+              {/* Text Container - Adjusted internal padding */}
+              <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-white dark:bg-slate-800/80 overflow-hidden">
+                <div className="text-xs font-bold text-[#0A66C2] dark:text-blue-300 bg-blue-50 dark:bg-[#0A66C2]/20 inline-block px-3 py-1 rounded-md w-fit mb-3 transition-colors uppercase tracking-wider">
                   {eventsList[currentEventIndex].date}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors line-clamp-1">
                   {eventsList[currentEventIndex].title}
                 </h3>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6 flex items-center gap-1">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
                   <MapPin size={14}/> {eventsList[currentEventIndex].location} • {eventsList[currentEventIndex].organizer}
                 </p>
                 <p className="text-slate-600 dark:text-slate-300 line-clamp-3 mb-6">
@@ -437,7 +440,8 @@ export default function Portfolio() {
             )}
           </div>
 
-          <div className="mt-12 flex justify-center">
+          {/* View All Button */}
+          <div className="mt-10 flex justify-center">
             <button 
               onClick={() => setShowAllEventsModal(true)} 
               className="bg-white dark:bg-transparent border-2 border-[#0A66C2] text-[#0A66C2] dark:text-blue-400 hover:bg-[#0A66C2] hover:text-white dark:hover:bg-[#0A66C2] dark:hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
