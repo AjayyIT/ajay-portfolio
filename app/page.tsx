@@ -540,31 +540,46 @@ export default function Portfolio() {
       {/* DETAILED EVENT MODAL */}
       <AnimatePresence>
         {selectedEvent && (
-          <div className="fixed inset-0 z-[70] flex items-center justify-center px-4 bg-slate-900/90 backdrop-blur-sm">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col">
+          <div 
+            className="fixed inset-0 z-[70] flex items-center justify-center px-4 bg-slate-900/90 backdrop-blur-sm"
+            onClick={() => setSelectedEvent(null)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: 20 }} 
+              className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
               
-              {/* Event Modal Header */}
+              {/* Header */}
               <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-20 transition-colors">
                 <div>
                   <h3 className="font-bold text-xl md:text-2xl text-slate-900 dark:text-white">{selectedEvent.title}</h3>
                   <p className="text-sm font-medium text-[#0A66C2] dark:text-blue-400 mt-1">{selectedEvent.date} • {selectedEvent.location}</p>
                 </div>
+                
                 <div className="flex items-center gap-3 shrink-0 ml-4">
                   <button 
                     onClick={() => {
-                      // Create a WhatsApp-proof URL by replacing spaces with hyphens
                       const eventSlug = selectedEvent.title.replace(/\s+/g, '-');
-                      
                       handleShare(
                         `Ajay's Experience: ${selectedEvent.title}`, 
                         `Read about Ajay's experience at the ${selectedEvent.title}!`,
                         `${window.location.origin}/?event=${eventSlug}`
                       );
                     }} 
-                    className="text-slate-500 hover:text-[#0A66C2] dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 p-2 rounded-full transition-all" 
+                    className="text-slate-500 hover:text-[#0A66C2] dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 p-2.5 rounded-full transition-all" 
                     title="Share Event"
                   >
                     <Share2 size={20} />
+                  </button>
+                  <button 
+                    onClick={() => setSelectedEvent(null)} 
+                    className="text-slate-500 hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-red-500 dark:hover:bg-red-600 p-2.5 rounded-full transition-all shadow-sm" 
+                    title="Close"
+                  >
+                    <X size={20} />
                   </button>
                 </div>
               </div>
