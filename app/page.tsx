@@ -50,7 +50,10 @@ const eventsList = [
     location: "Coimbatore",
     images: [
       "/events/summit-1.jpg", 
-      "/events/summit-2.jpg", // Add as many pictures as you want here
+      "/events/summit-2.jpg",
+      "/events/summit-3.jpg",
+      "/events/summit-4.jpg",
+      "/events/summit-5.jpg" 
     ],
     desc: `Had an amazing experience attending the ServiceNow AI Skills Summit – Coimbatore!\n\nIt was a great opportunity to learn from industry leaders and understand how AI is transforming enterprise workflows and shaping the future of work. The event was led by Mr. Bhaskar G, Senior Director, ServiceNow University, whose enthusiasm set the tone for an insightful day of learning.\n\nSome of the highlights included:\n• Mr. Naveen Kaushik (Managing Director, ServiceNow Practice, Accenture) sharing valuable insights into the ServiceNow ecosystem and enterprise transformation.\n• Mr. Ilango AP (Vice President - HR, ServiceNow) discussing opportunities and the growing demand for ServiceNow professionals.\n• An inspiring keynote by Mr. Udaya Shankar (Head - Talent Council, NASSCOM) on preparing ourselves for the future of technology and careers.\n• An impactful session, "AI + Workflows: Why Enterprises Need Both," by Ms. Neethi Upadhya (VP - Digital Transformation, Capgemini). One statement from her really stayed with me: "Will AI replace your job? No. People with AI will replace your job." This completely changed my perspective. It reinforced that AI isn't reducing opportunities—it is creating new ones for those who are willing to learn and adapt.\n• Ms. Triveni Bonthu (Director, ServiceNow Practice, LTM) shared valuable insights on Student Readiness for the ServiceNow Platform and how students can prepare for careers in the ServiceNow ecosystem.\n\nOne of the most exciting sessions was a live demonstration of "ServiceNow AI Agents: Configure an Agent" by Mr. Akash Kumar and Ms. Anshita Shrivastava from ServiceNow, where we got to see an AI Agent being configured on the platform in real time.\n\nApart from the technical sessions, it was also a wonderful opportunity to connect with fellow learners, interact with industry professionals, and even take home some exciting goodies! 🎁 Events like these motivate me even more to continue my journey in ServiceNow, AI, and enterprise application development.`
   }
