@@ -576,7 +576,7 @@ export default function Portfolio() {
                   </button>
                   <button 
                     onClick={() => setSelectedEvent(null)} 
-                    className="text-slate-500 hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-red-500 dark:hover:bg-red-600 p-2.5 rounded-full transition-all shadow-sm" 
+                    className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full transition-colors shadow-sm" 
                     title="Close"
                   >
                     <X size={20} />
@@ -660,11 +660,25 @@ export default function Portfolio() {
       {/* CERTIFICATION MODAL */}
       <AnimatePresence>
         {selectedCert && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300">
+          <div 
+            className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm"
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }} 
+              animate={{ opacity: 1, scale: 1, y: 0 }} 
+              exit={{ opacity: 0, scale: 0.95, y: 20 }} 
+              className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10 transition-colors">
                 <h3 className="font-bold text-xl text-slate-900 dark:text-white pr-8">{selectedCert.title}</h3>
-                <button onClick={() => setSelectedCert(null)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"><X size={20} /></button>
+                <button 
+                  onClick={() => setSelectedCert(null)} 
+                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"
+                >
+                  <X size={20} />
+                </button>
               </div>
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 transition-colors">
                 <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300 dark:border-slate-700 transition-colors">
