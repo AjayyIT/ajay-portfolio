@@ -233,25 +233,26 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white transition-colors duration-300">
       
-      {/* HEADER / NAVIGATION BAR - REDESIGNED */}
+      {/* HEADER / NAVIGATION BAR - POP & BLUR DESIGN */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16 w-full">
+          <div className="flex items-center justify-between lg:justify-center h-16 w-full relative">
             
-            {/* Logo / Name */}
-            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="font-bold text-xl tracking-tight text-slate-900 dark:text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <span className="bg-[#0A66C2] text-white p-1.5 rounded-lg"><Code size={18} /></span>
-              Ajay R S
+            {/* Mobile Home Link (visible only on mobile) */}
+            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="lg:hidden font-bold text-xl tracking-tight text-[#0A66C2] dark:text-blue-400">
+              Portfolio
             </a>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+            {/* Desktop Navigation Links (The Pop & Blur Effect) */}
+            <div className="hidden lg:flex items-center gap-1 group">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-[0.9rem] font-semibold text-slate-600 dark:text-slate-300 hover:text-[#0A66C2] dark:hover:text-blue-400 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+                  className="text-[0.9rem] font-semibold text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl transition-all duration-300 cursor-pointer 
+                             group-hover:opacity-40 group-hover:blur-[2px] group-hover:scale-95 
+                             hover:!opacity-100 hover:!blur-none hover:!scale-110 hover:bg-[#0A66C2] hover:text-white hover:shadow-lg hover:shadow-blue-500/20"
                 >
                   {link.name}
                 </a>
@@ -259,7 +260,7 @@ export default function Portfolio() {
             </div>
 
             {/* Right Side: Theme & Menu */}
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0 lg:absolute lg:right-0">
               <ThemeToggle />
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
