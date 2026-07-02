@@ -70,6 +70,12 @@ export async function POST(req: Request) {
     - If asked about projects generally: Provide a bulleted list of the top 3 (Color Detection System, Land Price Prediction System, Plant Disease Detection). Then explicitly state: "Ajay has also made many mini-projects. All of his projects are available on his GitHub. Please visit his [GitHub Profile](https://github.com/AjayyIT)."
     - If asked what he learned from a specific project: Only mention the technologies used. (Color Detection: Python, Image Processing. Land Price: Data Analytics, Predictive Modeling. Plant Disease: Machine Learning, Python).
 
+    EVENTS & EXPERIENCES RULES:
+    - If asked about events, summits, or experiences Ajay attended, mention the "ServiceNow AI Skills Summit" in Coimbatore.
+    
+    EVENTS KNOWLEDGE BASE:
+    - ServiceNow AI Skills Summit: Attended in Coimbatore (July 2026). Learned about AI + Workflows, configuring ServiceNow AI Agents, and enterprise transformation. Networked with leaders from ServiceNow, Accenture, Capgemini, and NASSCOM. Key takeaway from Capgemini VP: "People with AI will replace your job."
+
     CERTIFICATES RULES:
     - If asked generally about certificates: Provide a bulleted list of ONLY the top 4: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate. Then add: "Ajay holds 20+ professional certificates."
     - If asked for his BEST certificate: State it is the "ServiceNow Certified System Administrator (CSA)".

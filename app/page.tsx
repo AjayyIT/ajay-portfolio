@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
-  Terminal, Mail, ChevronRight, X, Download, Menu, MapPin, 
-  CheckCircle2, Route, Send, Check
+  Terminal, Mail, ChevronRight, ChevronLeft, X, Download, Menu, MapPin, 
+  CheckCircle2, Route, Send, Check, CalendarDays
 } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget'; 
 
@@ -42,6 +42,19 @@ const skills = [
   { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining" }, { name: "Data Analytics" }, { name: "Pandas" }, { name: "Generative AI" }, { name: "Prompt Engineering" }] }
 ];
 
+const eventsList = [
+  {
+    title: "ServiceNow AI Skills Summit",
+    organizer: "ServiceNow University & NASSCOM",
+    date: "July 2026",
+    location: "Coimbatore",
+    images: [
+      "/events/summit-1.jpg", 
+      "/events/summit-2.jpg", // Add as many pictures as you want here
+    ],
+    desc: `Had an amazing experience attending the ServiceNow AI Skills Summit – Coimbatore!\n\nIt was a great opportunity to learn from industry leaders and understand how AI is transforming enterprise workflows and shaping the future of work. The event was led by Mr. Bhaskar G, Senior Director, ServiceNow University, whose enthusiasm set the tone for an insightful day of learning.\n\nSome of the highlights included:\n• Mr. Naveen Kaushik (Managing Director, ServiceNow Practice, Accenture) sharing valuable insights into the ServiceNow ecosystem and enterprise transformation.\n• Mr. Ilango AP (Vice President - HR, ServiceNow) discussing opportunities and the growing demand for ServiceNow professionals.\n• An inspiring keynote by Mr. Udaya Shankar (Head - Talent Council, NASSCOM) on preparing ourselves for the future of technology and careers.\n• An impactful session, "AI + Workflows: Why Enterprises Need Both," by Ms. Neethi Upadhya (VP - Digital Transformation, Capgemini). One statement from her really stayed with me: "Will AI replace your job? No. People with AI will replace your job." This completely changed my perspective. It reinforced that AI isn't reducing opportunities—it is creating new ones for those who are willing to learn and adapt.\n• Ms. Triveni Bonthu (Director, ServiceNow Practice, LTM) shared valuable insights on Student Readiness for the ServiceNow Platform and how students can prepare for careers in the ServiceNow ecosystem.\n\nOne of the most exciting sessions was a live demonstration of "ServiceNow AI Agents: Configure an Agent" by Mr. Akash Kumar and Ms. Anshita Shrivastava from ServiceNow, where we got to see an AI Agent being configured on the platform in real time.\n\nApart from the technical sessions, it was also a wonderful opportunity to connect with fellow learners, interact with industry professionals, and even take home some exciting goodies! 🎁 Events like these motivate me even more to continue my journey in ServiceNow, AI, and enterprise application development.`
+  }
+];
 
 const certifications = [
   { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", date: "08 June 2026", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
@@ -98,6 +111,7 @@ const serviceNowJourney = [
   "ServiceNow Administration Fundamentals",
   "CSA Certification Preparation",
   "ServiceNow Certified System Administrator (CSA)",
+  "Attended ServiceNow AI Skills Summit",
   "Creator Studio Fundamentals",
   "Creator Studio Delivery Accreditation",
   "Preparing for Certified Application Developer (CAD)"
@@ -113,6 +127,7 @@ const navLinks = [
   { name: 'About', href: '#about' },
   { name: 'Education', href: '#education' },
   { name: 'Skills', href: '#skills' },
+  { name: 'Events', href: '#events' },
   { name: 'Certificates', href: '#certifications' },
   { name: 'Projects', href: '#projects' },
   { name: 'Journey', href: '#journeys' },
@@ -125,6 +140,12 @@ export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAllCerts, setShowAllCerts] = useState(false);
   
+  // Events States
+  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [showAllEventsModal, setShowAllEventsModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success'>('idle');
 
@@ -180,6 +201,17 @@ export default function Portfolio() {
     }
   };
 
+  // Event Helper Functions
+  const nextEvent = () => setCurrentEventIndex((prev) => (prev + 1) % eventsList.length);
+  const prevEvent = () => setCurrentEventIndex((prev) => (prev - 1 + eventsList.length) % eventsList.length);
+  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % selectedEvent.images.length);
+  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + selectedEvent.images.length) % selectedEvent.images.length);
+
+  const openEventDetails = (event: any) => {
+    setSelectedEvent(event);
+    setCurrentImageIndex(0);
+  };
+
   return (
     <div className="min-h-screen bg-[#F3F6F8] dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#0A66C2] selection:text-white transition-colors duration-300">
       
@@ -187,31 +219,27 @@ export default function Portfolio() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A66C2] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20 w-full gap-4">
-            
             <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="lg:hidden font-bold text-2xl tracking-tight hover:text-blue-100 transition-colors">
               Home
             </a>
-            
-            <div className="hidden lg:flex flex-1 items-center justify-between">
+            <div className="hidden lg:flex flex-1 items-center justify-between overflow-x-auto no-scrollbar">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-lg font-semibold px-4 py-2 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer whitespace-nowrap"
+                  className="text-[0.95rem] font-semibold px-3 py-2 rounded-lg hover:bg-[#004182] transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
                   {link.name}
                 </a>
               ))}
             </div>
-
-            <div className="flex items-center gap-4 ml-auto">
+            <div className="flex items-center gap-4 ml-auto shrink-0">
               <ThemeToggle />
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white hover:bg-[#004182] rounded-lg transition-colors">
                 {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>
-            
           </div>
         </div>
 
@@ -346,8 +374,162 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
+      {/* 4.5. EVENTS SECTION (NEW) */}
+      <section id="events" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
+            <CalendarDays className="text-[#0A66C2]" /> Events & Experiences
+          </h2>
+
+          <div className="relative group">
+            {/* Left Arrow */}
+            {eventsList.length > 1 && (
+              <button 
+                onClick={prevEvent} 
+                className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg text-[#0A66C2] dark:text-blue-400 border border-slate-100 dark:border-slate-700 hover:scale-110 transition-transform"
+              >
+                <ChevronLeft size={24} />
+              </button>
+            )}
+
+            {/* Main Event Tile */}
+            <div 
+              onClick={() => openEventDetails(eventsList[currentEventIndex])}
+              className="bg-[#F3F6F8] dark:bg-slate-800/50 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-xl hover:border-[#0A66C2] dark:hover:border-blue-500 transition-all duration-300 flex flex-col md:flex-row group/tile"
+            >
+              <div className="md:w-1/2 h-64 md:h-auto bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                <img 
+                  src={eventsList[currentEventIndex].images[0]} 
+                  alt={eventsList[currentEventIndex].title} 
+                  className="w-full h-full object-cover group-hover/tile:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white dark:bg-slate-800/80">
+                <div className="text-xs font-bold text-[#0A66C2] dark:text-blue-300 bg-blue-50 dark:bg-[#0A66C2]/20 inline-block px-3 py-1 rounded-md w-fit mb-4 transition-colors uppercase tracking-wider">
+                  {eventsList[currentEventIndex].date}
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">
+                  {eventsList[currentEventIndex].title}
+                </h3>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6 flex items-center gap-1">
+                  <MapPin size={14}/> {eventsList[currentEventIndex].location} • {eventsList[currentEventIndex].organizer}
+                </p>
+                <p className="text-slate-600 dark:text-slate-300 line-clamp-3 mb-6">
+                  {eventsList[currentEventIndex].desc}
+                </p>
+                <span className="text-[#0A66C2] dark:text-blue-400 font-bold flex items-center gap-1 mt-auto group-hover/tile:gap-2 transition-all">
+                  Read Full Experience <ChevronRight size={18} />
+                </span>
+              </div>
+            </div>
+
+            {/* Right Arrow */}
+            {eventsList.length > 1 && (
+              <button 
+                onClick={nextEvent} 
+                className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg text-[#0A66C2] dark:text-blue-400 border border-slate-100 dark:border-slate-700 hover:scale-110 transition-transform"
+              >
+                <ChevronRight size={24} />
+              </button>
+            )}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <button 
+              onClick={() => setShowAllEventsModal(true)} 
+              className="bg-white dark:bg-transparent border-2 border-[#0A66C2] text-[#0A66C2] dark:text-blue-400 hover:bg-[#0A66C2] hover:text-white dark:hover:bg-[#0A66C2] dark:hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
+            >
+              View all events
+            </button>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ALL EVENTS MODAL */}
+      <AnimatePresence>
+        {showAllEventsModal && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/80 backdrop-blur-sm">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white dark:bg-slate-900 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col">
+              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10 transition-colors">
+                <h3 className="font-bold text-2xl text-slate-900 dark:text-white flex items-center gap-3">
+                  <CalendarDays className="text-[#0A66C2]"/> All Events
+                </h3>
+                <button onClick={() => setShowAllEventsModal(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"><X size={20} /></button>
+              </div>
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/50 transition-colors flex-1">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {eventsList.map((event, idx) => (
+                    <div key={idx} onClick={() => openEventDetails(event)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl transition-all group">
+                      <div className="h-40 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
+                        <img src={event.images[0]} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="p-5">
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">{event.title}</h4>
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{event.date} • {event.location}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{event.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* DETAILED EVENT MODAL */}
+      <AnimatePresence>
+        {selectedEvent && (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center px-4 bg-slate-900/90 backdrop-blur-sm">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col">
+              
+              {/* Header */}
+              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-20 transition-colors">
+                <div>
+                  <h3 className="font-bold text-xl md:text-2xl text-slate-900 dark:text-white">{selectedEvent.title}</h3>
+                  <p className="text-sm font-medium text-[#0A66C2] dark:text-blue-400 mt-1">{selectedEvent.date} • {selectedEvent.location}</p>
+                </div>
+                <button onClick={() => setSelectedEvent(null)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors shrink-0 ml-4"><X size={20} /></button>
+              </div>
+
+              <div className="flex-1 flex flex-col">
+                {/* Image Carousel */}
+                <div className="relative w-full h-64 md:h-[28rem] bg-slate-100 dark:bg-slate-950 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+                  <img src={selectedEvent.images[currentImageIndex]} alt="Event Photo" className="max-h-full max-w-full object-contain" />
+                  
+                  {selectedEvent.images.length > 1 && (
+                    <>
+                      <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors">
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors">
+                        <ChevronRight size={24} />
+                      </button>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                        {currentImageIndex + 1} / {selectedEvent.images.length}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Description */}
+                <div className="p-6 md:p-8 bg-white dark:bg-slate-900 transition-colors">
+                  <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Experience Overview</h4>
+                    <p className="whitespace-pre-wrap text-slate-700 dark:text-slate-300 leading-relaxed text-[0.95rem]">
+                      {selectedEvent.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* 5. CERTIFICATIONS */}
-      <section id="certifications" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <section id="certifications" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
             <Award className="text-[#0A66C2]" /> Featured Certifications
@@ -360,7 +542,6 @@ export default function Portfolio() {
                   <Award size={24} />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
-                {/* Replace the old paragraph block with this one to show the date */}
                 <p className="text-sm text-slate-500 dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
                   <span className="font-medium text-slate-700 dark:text-slate-300 mb-1">{cert.issuer}</span>
                   <span className="flex items-center gap-1 text-xs">
@@ -398,7 +579,6 @@ export default function Portfolio() {
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
                 
-                {/* 👇 The fixed description block containing both the date AND the text */}
                 <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-100 dark:border-slate-700 transition-colors">
                   <div className="flex justify-between items-center mb-3">
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Description</h4>
@@ -416,20 +596,20 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* 6. PROJECTS */}
-      <section id="projects" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
+      <section id="projects" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white transition-colors">Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project, idx) => (
-              <div key={idx} className="bg-white dark:bg-slate-900/50 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
+              <div key={idx} className="bg-[#F3F6F8] dark:bg-slate-900/50 rounded-3xl p-8 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
                 <div className="text-xs font-bold text-[#0A66C2] dark:text-blue-300 bg-blue-50 dark:bg-[#0A66C2]/20 inline-block px-3 py-1 rounded-full w-fit mb-4 transition-colors">
                   {project.domain}
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors">{project.title}</h3>
                 <p className="text-slate-600 dark:text-slate-300 mb-6 flex-1 text-sm leading-relaxed transition-colors">{project.desc}</p>
-                <div className="pt-6 border-t border-slate-100 dark:border-slate-700 mt-auto transition-colors">
+                <div className="pt-6 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors">
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-4">Technologies Used: <span className="text-slate-600 dark:text-slate-300">{project.tech}</span></p>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-[#0A66C2] dark:hover:bg-[#0A66C2] hover:text-white text-slate-700 dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-slate-700">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-[#0A66C2] dark:hover:bg-[#0A66C2] hover:text-white text-slate-700 dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-slate-700">
                     <GithubIcon size={16} /> View on GitHub
                   </a>
                 </div>
@@ -440,7 +620,7 @@ export default function Portfolio() {
       </section>
 
       {/* 7 & 8. JOURNEYS */}
-      <section id="journeys" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
+      <section id="journeys" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           <div className="grid lg:grid-cols-2 gap-16">
@@ -449,16 +629,16 @@ export default function Portfolio() {
               <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
                 <Route className="text-[#0A66C2]" /> ServiceNow Journey
               </h2>
-              <div className="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 relative transition-colors">
+              <div className="bg-white dark:bg-slate-900/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 relative transition-colors">
                 <div className="absolute left-[2.3rem] top-12 bottom-12 w-0.5 bg-blue-200 dark:bg-blue-900/50"></div>
                 <ul className="space-y-6 relative">
                   {serviceNowJourney.map((step, idx) => (
                     <li key={idx} className="flex items-start gap-4">
-                      <div className={`w-8 h-8 rounded-full border-4 border-white dark:border-slate-800 shadow flex items-center justify-center shrink-0 z-10 transition-colors ${idx === 3 ? 'bg-green-500' : 'bg-[#0A66C2]'}`}>
+                      <div className={`w-8 h-8 rounded-full border-4 border-white dark:border-slate-800 shadow flex items-center justify-center shrink-0 z-10 transition-colors ${idx === 3 || idx === 4 ? 'bg-green-500' : 'bg-[#0A66C2]'}`}>
                         <CheckCircle2 size={14} className="text-white" />
                       </div>
                       <div className="pt-1">
-                        <p className={`font-medium transition-colors ${idx === 3 ? 'text-green-600 dark:text-green-400 font-bold' : 'text-slate-700 dark:text-slate-300'}`}>{step}</p>
+                        <p className={`font-medium transition-colors ${idx === 3 || idx === 4 ? 'text-green-600 dark:text-green-400 font-bold' : 'text-slate-700 dark:text-slate-300'}`}>{step}</p>
                       </div>
                     </li>
                   ))}
@@ -473,7 +653,7 @@ export default function Portfolio() {
               </h2>
               <div className="space-y-6">
                 {cloudAiJourney.map((path, idx) => (
-                  <div key={idx} className="bg-white dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+                  <div key={idx} className="bg-white dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
                     <h3 className="font-bold text-lg text-[#0A66C2] dark:text-blue-400 mb-4 border-b border-slate-100 dark:border-slate-700 pb-3 transition-colors">{path.category}</h3>
                     <ul className="grid sm:grid-cols-2 gap-3">
                       {path.items.map((item, i) => (
@@ -503,7 +683,7 @@ export default function Portfolio() {
       </section>
 
       {/* 10 & 11. CONTACT & OBJECTIVE */}
-      <section id="contact" className="py-24 px-6 bg-[#F3F6F8] dark:bg-slate-800 transition-colors duration-300">
+      <section id="contact" className="py-24 px-6 bg-white dark:bg-slate-900 transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           {/* Career Objective */}
@@ -515,7 +695,7 @@ export default function Portfolio() {
           </div>
           
           {/* Contact Section */}
-          <div className="bg-white dark:bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-sm grid md:grid-cols-2 gap-12 transition-colors">
+          <div className="bg-[#F3F6F8] dark:bg-slate-800/50 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-sm grid md:grid-cols-2 gap-12 transition-colors">
             
             {/* Contact Info */}
             <div>
@@ -534,14 +714,14 @@ export default function Portfolio() {
                 </a>
 
                 <div className="flex items-center gap-4 text-slate-700 dark:text-slate-300 transition-colors">
-                  <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 transition-colors"><MapPin size={20} /></div>
+                  <div className="w-12 h-12 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 transition-colors"><MapPin size={20} /></div>
                   <div><p className="text-sm text-slate-400">Location</p><p className="font-medium">Tiruchirappalli, Tamil Nadu, India</p></div>
                 </div>
               </div>
             </div>
 
             {/* Contact Form UI */}
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-700 transition-colors">
+            <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors">
               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-white transition-colors">Send a Message</h3>
               
               {submitStatus === 'success' ? (
@@ -557,13 +737,13 @@ export default function Portfolio() {
               ) : (
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div>
-                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-[#F3F6F8] dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
+                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-[#F3F6F8] dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
+                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-[#F3F6F8] dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] transition-all resize-none disabled:opacity-50"></textarea>
                   </div>
                   <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A66C2] hover:bg-[#004182] text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
                     {isSubmitting ? (
