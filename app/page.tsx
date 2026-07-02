@@ -157,25 +157,25 @@ export default function Portfolio() {
   };
 
   useEffect(() => {
-    // Check if there is an "?event=..." in the URL when the page loads
     const searchParams = new URLSearchParams(window.location.search);
     const eventQuery = searchParams.get('event');
     
     if (eventQuery) {
-      // Find the event that matches the title in the URL
-      const foundEvent = eventsList.find(e => e.title === eventQuery);
+      // Find the event by replacing spaces with hyphens to match the URL slug
+      const foundEvent = eventsList.find(e => e.title.replace(/\s+/g, '-') === eventQuery);
+      
       if (foundEvent) {
         setSelectedEvent(foundEvent);
         setCurrentImageIndex(0);
         
-        // Scroll down to the events section in the background
+        // Scroll down to the events section
         setTimeout(() => {
           const element = document.querySelector('#events');
           if (element) {
             const top = element.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top, behavior: 'auto' });
+            window.scrollTo({ top, behavior: 'smooth' });
           }
-        }, 100);
+        }, 300);
       }
     }
   }, []);
@@ -551,11 +551,16 @@ export default function Portfolio() {
                 </div>
                 <div className="flex items-center gap-3 shrink-0 ml-4">
                   <button 
-                    onClick={() => handleShare(
-                      `Ajay's Experience: ${selectedEvent.title}`, 
-                      `Read about Ajay's experience at the ${selectedEvent.title}!`,
-                      `${window.location.origin}/?event=${encodeURIComponent(selectedEvent.title)}`
-                    )} 
+                    onClick={() => {
+                      // Create a WhatsApp-proof URL by replacing spaces with hyphens
+                      const eventSlug = selectedEvent.title.replace(/\s+/g, '-');
+                      
+                      handleShare(
+                        `Ajay's Experience: ${selectedEvent.title}`, 
+                        `Read about Ajay's experience at the ${selectedEvent.title}!`,
+                        `${window.location.origin}/?event=${eventSlug}`
+                      );
+                    }} 
                     className="text-slate-500 hover:text-[#0A66C2] dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 p-2 rounded-full transition-all" 
                     title="Share Event"
                   >
