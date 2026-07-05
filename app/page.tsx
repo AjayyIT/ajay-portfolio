@@ -182,8 +182,9 @@ export default function Portfolio() {
 
   const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showAllCerts, setShowAllCerts] = useState(false);
-  
+  //const [showAllCerts, setShowAllCerts] = useState(false);
+  const [showAllCertsModal, setShowAllCertsModal] = useState(false);
+
   // Events States
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
@@ -198,7 +199,6 @@ export default function Portfolio() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  const visibleCertifications = showAllCerts ? certifications : certifications.slice(0, 9);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -628,40 +628,100 @@ export default function Portfolio() {
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visibleCertifications.map((cert, idx) => (
-              <div key={idx} onClick={() => setSelectedCert(cert)} className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full">
-                <div className="w-12 h-12 bg-blue-50 dark:bg-[#0A66C2]/20 text-[#0A66C2] dark:text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
-                  <Award size={24} />
+            {/* Slicing to exactly 6 items for the main grid */}
+            {certifications.slice(0, 6).map((cert, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => setSelectedCert(cert)} 
+                className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col"
+              >
+                {/* Image Container */}
+                <div className="h-48 bg-slate-100 dark:bg-slate-800/80 p-4 flex items-center justify-center relative overflow-hidden border-b border-slate-100 dark:border-slate-700">
+                  <img 
+                    src={cert.img} 
+                    alt={cert.title} 
+                    className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm" 
+                  />
                 </div>
-                <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
-                  <span className="font-medium text-slate-700 dark:text-slate-300 mb-1">{cert.issuer}</span>
-                  <span className="flex items-center gap-1 text-xs">
-                  {cert.date} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto text-[#0A66C2] dark:text-blue-400"/>
-                  </span>
-                </p>
+                {/* Title Container */}
+                <div className="p-5 flex-1 flex flex-col justify-center">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-center line-clamp-2 group-hover:text-[#0A66C2] dark:group-hover:text-blue-400 transition-colors">
+                    {cert.title}
+                  </h3>
+                </div>
               </div>
             ))}
           </div>
 
-          {certifications.length > 9 && (
-            <div className="mt-12 flex justify-center">
-              <button 
-                onClick={() => setShowAllCerts(!showAllCerts)} 
-                className="bg-white dark:bg-transparent border-2 border-[#0A66C2] text-[#0A66C2] dark:text-blue-400 hover:bg-[#0A66C2] hover:text-white dark:hover:bg-[#0A66C2] dark:hover:text-white px-8 py-3 rounded-xl font-bold transition-colors"
-              >
-                {showAllCerts ? "View Less" : "View all"}
-              </button>
-            </div>
-          )}
+          <div className="mt-12 flex justify-center">
+            <button 
+              onClick={() => setShowAllCertsModal(true)} 
+              className="bg-white dark:bg-transparent border-2 border-[#0A66C2] text-[#0A66C2] dark:text-blue-400 hover:bg-[#0A66C2] hover:text-white dark:hover:bg-[#0A66C2] dark:hover:text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
+            >
+              View all certificates
+            </button>
+          </div>
         </motion.div>
       </section>
 
-      {/* CERTIFICATION MODAL */}
+      {/* ALL CERTIFICATES MODAL (NEW) */}
+      <AnimatePresence>
+        {showAllCertsModal && (
+          <div 
+            className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/80 backdrop-blur-sm"
+            onClick={() => setShowAllCertsModal(false)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              exit={{ opacity: 0, scale: 0.95 }} 
+              className="bg-white dark:bg-slate-900 w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10 transition-colors">
+                <h3 className="font-bold text-2xl text-slate-900 dark:text-white flex items-center gap-3">
+                  <Award className="text-[#0A66C2]"/> All Certifications
+                </h3>
+                <button 
+                  onClick={() => setShowAllCertsModal(false)} 
+                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full transition-colors shadow-sm"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/50 transition-colors flex-1">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {certifications.map((cert, idx) => (
+                    <div 
+                      key={idx} 
+                      onClick={() => setSelectedCert(cert)} 
+                      className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col h-full"
+                    >
+                      <div className="w-12 h-12 bg-blue-50 dark:bg-[#0A66C2]/20 text-[#0A66C2] dark:text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
+                        <Award size={24} />
+                      </div>
+                      <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 transition-colors">
+                        <span className="font-medium text-slate-700 dark:text-slate-300 mb-1">{cert.issuer}</span>
+                        <span className="flex items-center gap-1 text-xs">
+                          {cert.date} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto text-[#0A66C2] dark:text-blue-400"/>
+                        </span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* DETAILED CERTIFICATION MODAL (UPDATED Z-INDEX) */}
       <AnimatePresence>
         {selectedCert && (
           <div 
-            className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => setSelectedCert(null)}
           >
             <motion.div 
@@ -675,7 +735,7 @@ export default function Portfolio() {
                 <h3 className="font-bold text-xl text-slate-900 dark:text-white pr-8">{selectedCert.title}</h3>
                 <button 
                   onClick={() => setSelectedCert(null)} 
-                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"
+                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full transition-colors shadow-sm"
                 >
                   <X size={20} />
                 </button>
