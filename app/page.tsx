@@ -636,11 +636,11 @@ export default function Portfolio() {
                 className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden cursor-pointer hover:border-[#0A66C2] dark:hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col"
               >
                 {/* Image Container */}
-                <div className="h-48 bg-slate-100 dark:bg-slate-800/80 p-4 flex items-center justify-center relative overflow-hidden border-b border-slate-100 dark:border-slate-700">
+                <div className="h-48 relative overflow-hidden border-b border-slate-100 dark:border-slate-700 bg-slate-200 dark:bg-slate-800">
                   <img 
                     src={cert.img} 
                     alt={cert.title} 
-                    className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
                   />
                 </div>
                 {/* Title Container */}
