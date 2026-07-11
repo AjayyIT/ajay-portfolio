@@ -150,39 +150,40 @@ export default function Portfolio() {
     localStorage.setItem('appTheme', theme);
   };
 
-  // Generate EXACT ServiceNow Brand CSS Variables based on current theme
+  // Generate EXACT ServiceNow Brand CSS Variables
   const isSN = appTheme === 'servicenow';
   const themeStyles = {
     // --- CORE COLORS ---
-    '--c-primary': isSN ? '#40E06D' : '#0A66C2', // SN Neon Green vs LinkedIn Blue
-    '--c-primary-text': isSN ? '#117B34' : '#0A66C2', // Darker green for text readability in light mode
-    '--c-hover': isSN ? '#2CB553' : '#004182',
+    '--c-primary': isSN ? '#2EB85C' : '#0A66C2', // Legible Green for Light Mode, Pops in Dark
+    '--c-primary-text': isSN ? '#14803C' : '#0A66C2', // Darker green for Light text elements
+    '--c-hover': isSN ? '#24964A' : '#004182',
     
-    // --- LIGHT MODE BACKGROUNDS ---
-    '--bg-main-light': isSN ? '#F2F9F7' : '#F3F6F8', // Slight mint/teal tint vs standard grey
-    '--c-bg-light': isSN ? '#e6f7ec' : '#eff6ff',
-    '--c-border-light': isSN ? '#bbf7d0' : '#dbeafe',
+    // --- LIGHT MODE COLORS (The Fix!) ---
+    '--bg-page-light': isSN ? '#EBF3F5' : '#F3F6F8', // Premium SN Teal-Grey Background
+    '--bg-card-light': isSN ? '#FFFFFF' : '#FFFFFF', // Crisp White Cards
+    '--text-main-light': isSN ? '#012A34' : '#0f172a', // Deep SN Teal Text instead of generic black
+    '--text-muted-light': isSN ? '#2E5A65' : '#475569', // Muted SN Teal Text instead of generic gray
+    '--text-light-light': isSN ? '#5B7F87' : '#64748b', 
+    '--border-light': isSN ? '#C5D8DA' : '#e2e8f0', // Visible SN Teal-tinted border
+    '--border-light-subtle': isSN ? '#D8E7E8' : '#f1f5f9', // Very soft border/background for inner elements
     
-    // --- DARK MODE BACKGROUNDS (The ServiceNow Signature Deep Teal) ---
-    '--bg-main': isSN ? '#012A34' : '#0f172a', // Deep SN Teal vs slate-900
+    // --- DARK MODE COLORS (The Signature Teal) ---
+    '--bg-main': isSN ? '#012A34' : '#0f172a', 
     '--bg-main-alpha': isSN ? 'rgba(1, 42, 52, 0.8)' : 'rgba(15, 23, 42, 0.8)',
-    '--bg-card': isSN ? '#033E4D' : '#1e293b', // Lighter SN Card Teal vs slate-800
+    '--bg-card': isSN ? '#033E4D' : '#1e293b', 
     '--bg-card-alpha': isSN ? 'rgba(3, 62, 77, 0.6)' : 'rgba(30, 41, 59, 0.6)',
-    '--border-dark': isSN ? '#085C70' : '#1e293b',
-    '--border-light': isSN ? '#0B7A94' : '#334155',
+    '--border-dark': isSN ? '#085C70' : '#334155',
     
     // --- BUTTON TEXT ---
-    '--btn-text': isSN ? '#011A20' : '#ffffff', // Black/Teal text on Neon Green button vs White
+    '--btn-text': isSN ? '#011A20' : '#ffffff', // Dark Teal text on Green button
 
     // --- ALPHAS & SHADOWS ---
-    '--c-primary-alpha': isSN ? 'rgba(64, 224, 109, 0.15)' : 'rgba(10, 102, 194, 0.2)',
-    '--c-primary-alpha-border': isSN ? 'rgba(64, 224, 109, 0.3)' : 'rgba(10, 102, 194, 0.3)',
-    '--c-shadow': isSN ? 'rgba(64, 224, 109, 0.3)' : 'rgba(59, 130, 246, 0.3)',
-    '--c-shadow-sm': isSN ? 'rgba(64, 224, 109, 0.1)' : 'rgba(59, 130, 246, 0.1)',
-    '--c-shadow-md': isSN ? 'rgba(64, 224, 109, 0.2)' : 'rgba(59, 130, 246, 0.2)',
+    '--c-primary-alpha': isSN ? 'rgba(46, 184, 92, 0.15)' : 'rgba(10, 102, 194, 0.2)',
+    '--c-primary-alpha-border': isSN ? 'rgba(46, 184, 92, 0.3)' : 'rgba(10, 102, 194, 0.3)',
+    '--c-shadow': isSN ? 'rgba(46, 184, 92, 0.3)' : 'rgba(59, 130, 246, 0.3)',
     
     // --- GRADIENTS ---
-    '--c-gradient-end': isSN ? '#067364' : '#93c5fd', // Deep Teal Gradient
+    '--c-gradient-end': isSN ? '#067364' : '#93c5fd', 
     '--c-dark-alpha': isSN ? 'rgba(6, 115, 100, 0.5)' : 'rgba(30, 58, 138, 0.5)',
   } as React.CSSProperties;
 
@@ -294,10 +295,10 @@ export default function Portfolio() {
   };
 
   return (
-    <div style={themeStyles} className="min-h-screen bg-[var(--bg-main-light)] dark:bg-[var(--bg-main)] text-slate-800 dark:text-slate-100 font-sans selection:bg-[var(--c-primary)] selection:text-[var(--btn-text)] transition-colors duration-300">
+    <div style={themeStyles} className="min-h-screen bg-[var(--bg-page-light)] dark:bg-[var(--bg-main)] text-[var(--text-main-light)] dark:text-slate-100 font-sans selection:bg-[var(--c-primary)] selection:text-[var(--btn-text)] transition-colors duration-300">
       
       {/* HEADER / NAVIGATION BAR */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[var(--bg-main-alpha)] backdrop-blur-md border-b border-slate-200 dark:border-[var(--border-dark)] transition-colors duration-300">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-card-light)]/90 dark:bg-[var(--bg-main-alpha)] backdrop-blur-md border-b border-[var(--border-light)] dark:border-[var(--border-dark)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between lg:justify-center h-16 w-full relative">
             
@@ -313,7 +314,7 @@ export default function Portfolio() {
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-[0.9rem] font-semibold text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl transition-all duration-300 cursor-pointer 
+                  className="text-[0.9rem] font-semibold text-[var(--text-muted-light)] dark:text-slate-300 px-4 py-2 rounded-xl transition-all duration-300 cursor-pointer 
                              group-hover:opacity-40 group-hover:blur-[2px] group-hover:scale-95 
                              hover:!opacity-100 hover:!blur-none hover:!scale-110 hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] hover:shadow-lg hover:shadow-[var(--c-shadow-md)]"
                 >
@@ -326,26 +327,26 @@ export default function Portfolio() {
             <div className="flex items-center gap-3 shrink-0 lg:absolute lg:right-0">
               
               {/* App Theme Selector Toggle */}
-              <div className="flex items-center bg-slate-100 dark:bg-[var(--bg-card)] rounded-full p-1 border border-slate-200 dark:border-[var(--border-dark)]">
+              <div className="flex items-center bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] rounded-full p-1 border border-[var(--border-light)] dark:border-[var(--border-dark)]">
                 <button 
                   onClick={() => handleThemeChange('linkedin')}
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'linkedin' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-slate-200 dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'linkedin' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-[var(--border-light)] dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
                   title="LinkedIn Theme"
                 >
                   <div className="w-3.5 h-3.5 rounded-full bg-[#0A66C2]" />
                 </button>
                 <button 
                   onClick={() => handleThemeChange('servicenow')}
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'servicenow' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-slate-200 dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'servicenow' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-[var(--border-light)] dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
                   title="ServiceNow Theme"
                 >
-                  <div className="w-3.5 h-3.5 rounded-full bg-[#40E06D]" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#2EB85C]" />
                 </button>
               </div>
 
               <ThemeToggle />
               
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--bg-card)] rounded-lg transition-colors">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-[var(--text-muted-light)] dark:text-slate-300 hover:bg-[var(--border-light-subtle)] dark:hover:bg-[var(--bg-card)] rounded-lg transition-colors">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
@@ -355,14 +356,14 @@ export default function Portfolio() {
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="lg:hidden bg-white dark:bg-[var(--bg-main)] border-b border-slate-200 dark:border-[var(--border-dark)] overflow-hidden shadow-xl">
+            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="lg:hidden bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] border-b border-[var(--border-light)] dark:border-[var(--border-dark)] overflow-hidden shadow-xl">
               <div className="px-6 py-4 flex flex-col space-y-1">
                 {navLinks.map((link) => (
                   <a 
                     key={link.name} 
                     href={link.href} 
                     onClick={(e) => scrollToSection(e, link.href)} 
-                    className="block text-base font-semibold text-slate-700 dark:text-slate-200 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-[var(--bg-card)] hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors cursor-pointer"
+                    className="block text-base font-semibold text-[var(--text-main-light)] dark:text-slate-200 px-4 py-3 rounded-lg hover:bg-[var(--border-light-subtle)] dark:hover:bg-[var(--bg-card)] hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors cursor-pointer"
                   >
                     {link.name}
                   </a>
@@ -374,34 +375,34 @@ export default function Portfolio() {
       </nav>
 
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center bg-white dark:bg-[var(--bg-main)] px-6 overflow-hidden transition-colors duration-300">
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-main-light)]/50 dark:from-[var(--bg-card)]/50 to-white dark:to-[var(--bg-main)] pointer-events-none transition-colors duration-300" />
+      <section id="home" className="relative min-h-screen flex items-center justify-center bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] px-6 overflow-hidden transition-colors duration-300">
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-page-light)]/80 dark:from-[var(--bg-card)]/50 to-[var(--bg-card-light)] dark:to-[var(--bg-main)] pointer-events-none transition-colors duration-300" />
         <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center z-10 pt-20">
           <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight transition-colors">
+            <h1 className="text-5xl md:text-6xl font-bold text-[var(--text-main-light)] dark:text-white mb-4 tracking-tight transition-colors">
               Ajay R S
             </h1>
             <h2 className="text-xl md:text-2xl text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-semibold mb-6 leading-relaxed">
               Final Year IT Student <br className="hidden md:block" />
-              <span className="text-slate-400 mx-2 hidden md:inline">|</span> 
+              <span className="text-[var(--text-light-light)] dark:text-slate-500 mx-2 hidden md:inline">|</span> 
               ServiceNow CSA Certified <br className="hidden md:block" />
-              <span className="text-slate-400 mx-2 hidden md:inline">|</span> 
+              <span className="text-[var(--text-light-light)] dark:text-slate-500 mx-2 hidden md:inline">|</span> 
               Aspiring ServiceNow Developer
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 text-lg mb-8 leading-relaxed transition-colors">
+            <p className="text-[var(--text-muted-light)] dark:text-slate-300 text-lg mb-8 leading-relaxed transition-colors">
               Passionate about ServiceNow, Software Development, Cloud Computing, Artificial Intelligence, and Data Analytics. Continuously learning and building practical skills through projects, certifications, and hands-on experience.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="bg-[var(--c-primary)] hover:bg-[var(--c-hover)] text-[var(--btn-text)] px-6 py-3 rounded-full font-bold transition-colors shadow-lg shadow-[var(--c-shadow)] flex items-center gap-2">
                 <Mail size={18} /> Contact Me
               </a>
-              <a href="/resume.pdf" download className="bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-[var(--bg-card)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-[var(--c-primary-text)] dark:border-[var(--c-primary)] px-6 py-3 rounded-full font-bold transition-colors flex items-center gap-2">
+              <a href="/resume.pdf" download className="bg-transparent hover:bg-[var(--border-light-subtle)] dark:hover:bg-[var(--bg-card)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-[var(--c-primary-text)] dark:border-[var(--c-primary)] px-6 py-3 rounded-full font-bold transition-colors flex items-center gap-2">
                 <Download size={18} /> Download Resume
               </a>
               <div className="flex items-center gap-4 ml-2">
-                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="text-slate-400 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors"><LinkedinIcon size={28} /></a>
-                <a href="https://github.com/AjayyIT" target="_blank" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"><GithubIcon size={28} /></a>
-                <button onClick={() => handleShare('Ajay R S - Portfolio', 'Check out the portfolio of Ajay R S, an aspiring ServiceNow developer!')} className="text-slate-400 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors" title="Share Portfolio">
+                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="text-[var(--text-light-light)] dark:text-slate-400 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors"><LinkedinIcon size={28} /></a>
+                <a href="https://github.com/AjayyIT" target="_blank" className="text-[var(--text-light-light)] dark:text-slate-400 hover:text-[var(--text-main-light)] dark:hover:text-white transition-colors"><GithubIcon size={28} /></a>
+                <button onClick={() => handleShare('Ajay R S - Portfolio', 'Check out the portfolio of Ajay R S, an aspiring ServiceNow developer!')} className="text-[var(--text-light-light)] dark:text-slate-400 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors" title="Share Portfolio">
                   <Share2 size={26} />
                 </button>
               </div>
@@ -410,7 +411,7 @@ export default function Portfolio() {
           
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="flex justify-center">
             <div className="w-64 h-[22rem] md:w-80 md:h-[28rem] rounded-3xl bg-gradient-to-tr from-[var(--c-primary)] to-[var(--c-gradient-end)] p-2 shadow-2xl mt-12 md:mt-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-              <div className="w-full h-full rounded-[1.25rem] border-4 border-white dark:border-[var(--bg-main)] overflow-hidden bg-slate-200 flex items-center justify-center">
+              <div className="w-full h-full rounded-[1.25rem] border-4 border-[var(--bg-card-light)] dark:border-[var(--bg-main)] overflow-hidden bg-[var(--border-light)] flex items-center justify-center">
                 <img src="/certificates/photo.jpg" alt="Ajay RS" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -419,19 +420,19 @@ export default function Portfolio() {
       </section>
 
       {/* 2. ABOUT ME */}
-      <section id="about" className="py-24 px-6 bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+      <section id="about" className="py-24 px-6 bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-slate-900 dark:text-white transition-colors">About Me</h2>
-          <div className="bg-white dark:bg-[var(--bg-main-alpha)] p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 dark:border-[var(--border-dark)] text-left transition-colors">
-            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-6 transition-colors">
+          <h2 className="text-3xl font-bold mb-8 text-[var(--text-main-light)] dark:text-white transition-colors">About Me</h2>
+          <div className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] p-8 md:p-12 rounded-3xl shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] text-left transition-colors">
+            <p className="text-[var(--text-muted-light)] dark:text-slate-300 text-lg leading-relaxed mb-6 transition-colors">
               I am a Final Year B.Tech Information Technology student with interests in Software Development, ServiceNow, Cloud Computing, and Artificial Intelligence. I enjoy building practical projects, exploring emerging technologies, and continuously improving my technical skills.
             </p>
-            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8 transition-colors">
+            <p className="text-[var(--text-muted-light)] dark:text-slate-300 text-lg leading-relaxed mb-8 transition-colors">
               I have worked on academic and personal projects using Java, Python, MySQL, HTML, CSS, and ServiceNow. My goal is to build a successful career in enterprise technologies and software development while contributing to impactful solutions.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Final Year Student', 'ServiceNow CSA Certified', 'Preparing for CAD Certification', 'Cloud & AI Enthusiast'].map((badge, i) => (
-                <div key={i} className="bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] px-4 py-3 rounded-xl text-sm font-semibold text-center border border-[var(--c-border-light)] dark:border-[var(--c-primary-alpha-border)] flex items-center justify-center transition-colors">
+                <div key={i} className="bg-[var(--bg-page-light)] dark:bg-[var(--c-primary-alpha)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] px-4 py-3 rounded-xl text-sm font-semibold text-center border border-[var(--border-light)] dark:border-[var(--c-primary-alpha-border)] flex items-center justify-center transition-colors">
                   {badge}
                 </div>
               ))}
@@ -441,21 +442,21 @@ export default function Portfolio() {
       </section>
 
       {/* 3. EDUCATION */}
-      <section id="education" className="py-24 px-6 bg-white dark:bg-[var(--bg-main)] transition-colors duration-300">
+      <section id="education" className="py-24 px-6 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
+          <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white flex items-center justify-center gap-3 transition-colors">
             <GraduationCap className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Education
           </h2>
-          <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 dark:before:via-[var(--border-light)] before:to-transparent">
+          <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[var(--border-light)] dark:before:via-[var(--border-light)] before:to-transparent">
             {educationList.map((edu, idx) => (
               <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-[var(--bg-main)] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors ${idx === 0 ? 'bg-[var(--c-primary)] text-[var(--btn-text)]' : 'bg-slate-300 dark:bg-[var(--bg-card)] text-slate-600 dark:text-slate-300'}`}>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-card-light)] dark:border-[var(--bg-main)] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors ${idx === 0 ? 'bg-[var(--c-primary)] text-[var(--btn-text)]' : 'bg-[var(--border-light)] dark:bg-[var(--bg-card)] text-[var(--text-muted-light)] dark:text-slate-300'}`}>
                   <GraduationCap size={16} />
                 </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-[var(--border-dark)] hover:shadow-md transition-all">
-                  <div className={`font-bold text-sm mb-1 ${idx === 0 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)]' : 'text-slate-500 dark:text-slate-400'}`}>{edu.year}</div>
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white transition-colors">{edu.degree}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 transition-colors">{edu.school}</p>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[var(--bg-card-light)] dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] hover:shadow-md transition-all">
+                  <div className={`font-bold text-sm mb-1 ${idx === 0 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)]' : 'text-[var(--text-light-light)] dark:text-slate-400'}`}>{edu.year}</div>
+                  <h3 className="font-bold text-lg text-[var(--text-main-light)] dark:text-white transition-colors">{edu.degree}</h3>
+                  <p className="text-[var(--text-muted-light)] dark:text-slate-400 transition-colors">{edu.school}</p>
                 </div>
               </div>
             ))}
@@ -464,18 +465,18 @@ export default function Portfolio() {
       </section>
 
       {/* 4. SKILLS */}
-      <section id="skills" className="py-24 px-6 bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+      <section id="skills" className="py-24 px-6 bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white transition-colors">Technical Skills</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white transition-colors">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skills.map((skillGroup, idx) => (
-              <div key={idx} className="bg-white dark:bg-[var(--bg-main-alpha)] p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-[var(--border-dark)] transition-colors">
-                <div className="flex items-center gap-3 mb-6 text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-semibold border-b border-slate-100 dark:border-[var(--border-dark)] pb-4 transition-colors">
+              <div key={idx} className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] p-6 rounded-2xl shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] transition-colors">
+                <div className="flex items-center gap-3 mb-6 text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-semibold border-b border-[var(--border-light)] dark:border-[var(--border-dark)] pb-4 transition-colors">
                   {skillGroup.icon} <span>{skillGroup.category}</span>
                 </div>
                 <ul className="space-y-3">
                   {skillGroup.items.map((skill, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium transition-colors">
+                    <li key={i} className="flex items-center gap-2 text-[var(--text-muted-light)] dark:text-slate-300 font-medium transition-colors">
                       <div className="w-1.5 h-1.5 rounded-full bg-[var(--c-primary-text)] dark:bg-[var(--c-primary)]"></div>
                       {skill.name}
                     </li>
@@ -488,9 +489,9 @@ export default function Portfolio() {
       </section>
 
       {/* 4.5. EVENTS SECTION */}
-      <section id="events" className="py-16 px-6 bg-white dark:bg-[var(--bg-main)] transition-colors duration-300">
+      <section id="events" className="py-16 px-6 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
+          <h2 className="text-3xl font-bold mb-10 text-center text-[var(--text-main-light)] dark:text-white flex items-center justify-center gap-3 transition-colors">
             <CalendarDays className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Events
           </h2>
 
@@ -498,7 +499,7 @@ export default function Portfolio() {
             {eventsList.length > 1 && (
               <button 
                 onClick={prevEvent} 
-                className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-[var(--bg-card)] p-3 rounded-full shadow-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-slate-100 dark:border-[var(--border-dark)] hover:scale-110 transition-transform"
+                className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-10 bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] p-3 rounded-full shadow-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-[var(--border-light)] dark:border-[var(--border-dark)] hover:scale-110 transition-transform"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -506,9 +507,9 @@ export default function Portfolio() {
 
             <div 
               onClick={() => openEventDetails(eventsList[currentEventIndex])}
-              className="bg-[var(--bg-main-light)] dark:bg-[var(--bg-card-alpha)] rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-[var(--border-dark)] cursor-pointer hover:shadow-xl hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] transition-all duration-300 flex flex-col md:flex-row group/tile md:h-[24rem]"
+              className="bg-[var(--bg-page-light)] dark:bg-[var(--bg-card-alpha)] rounded-3xl overflow-hidden shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] cursor-pointer hover:shadow-xl hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] transition-all duration-300 flex flex-col md:flex-row group/tile md:h-[24rem]"
             >
-              <div className="md:w-1/2 h-64 md:h-full bg-slate-200 dark:bg-[var(--bg-card)] relative overflow-hidden shrink-0">
+              <div className="md:w-1/2 h-64 md:h-full bg-[var(--border-light)] dark:bg-[var(--bg-card)] relative overflow-hidden shrink-0">
                 <img 
                   src={eventsList[currentEventIndex].images[0]} 
                   alt={eventsList[currentEventIndex].title} 
@@ -516,17 +517,17 @@ export default function Portfolio() {
                 />
               </div>
               
-              <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-white dark:bg-[var(--bg-main-alpha)] overflow-hidden">
-                <div className="text-xs font-bold text-[var(--c-primary-text)] dark:text-[var(--c-primary)] bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] inline-block px-3 py-1 rounded-md w-fit mb-3 transition-colors uppercase tracking-wider">
+              <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] overflow-hidden">
+                <div className="text-xs font-bold text-[var(--c-primary-text)] dark:text-[var(--c-primary)] bg-[var(--bg-page-light)] dark:bg-[var(--c-primary-alpha)] inline-block px-3 py-1 rounded-md w-fit mb-3 transition-colors uppercase tracking-wider">
                   {eventsList[currentEventIndex].date}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors line-clamp-1">
+                <h3 className="text-2xl font-bold text-[var(--text-main-light)] dark:text-white mb-2 transition-colors line-clamp-1">
                   {eventsList[currentEventIndex].title}
                 </h3>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
+                <p className="text-sm font-medium text-[var(--text-light-light)] dark:text-slate-400 mb-4 flex items-center gap-1">
                   <MapPin size={14}/> {eventsList[currentEventIndex].location} • {eventsList[currentEventIndex].organizer}
                 </p>
-                <p className="text-slate-600 dark:text-slate-300 line-clamp-3 mb-6">
+                <p className="text-[var(--text-muted-light)] dark:text-slate-300 line-clamp-3 mb-6">
                   {eventsList[currentEventIndex].desc}
                 </p>
                 <span className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-bold flex items-center gap-1 mt-auto group-hover/tile:gap-2 transition-all">
@@ -538,7 +539,7 @@ export default function Portfolio() {
             {eventsList.length > 1 && (
               <button 
                 onClick={nextEvent} 
-                className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-[var(--bg-card)] p-3 rounded-full shadow-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-slate-100 dark:border-[var(--border-dark)] hover:scale-110 transition-transform"
+                className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-10 bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] p-3 rounded-full shadow-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] border border-[var(--border-light)] dark:border-[var(--border-dark)] hover:scale-110 transition-transform"
               >
                 <ChevronRight size={24} />
               </button>
@@ -548,7 +549,7 @@ export default function Portfolio() {
           <div className="mt-10 flex justify-center">
             <button 
               onClick={() => setShowAllEventsModal(true)} 
-              className="bg-white dark:bg-transparent border-2 border-[var(--c-primary-text)] dark:border-[var(--c-primary)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] dark:hover:bg-[var(--c-primary)] dark:hover:text-[var(--btn-text)] px-8 py-3 rounded-xl font-bold transition-colors"
+              className="bg-transparent border-2 border-[var(--c-primary-text)] dark:border-[var(--c-primary)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] hover:bg-[var(--c-primary)] hover:border-[var(--c-primary)] hover:text-[var(--btn-text)] dark:hover:bg-[var(--c-primary)] dark:hover:text-[var(--btn-text)] px-8 py-3 rounded-xl font-bold transition-colors"
             >
               View all events
             </button>
@@ -567,26 +568,26 @@ export default function Portfolio() {
               initial={{ opacity: 0, scale: 0.95 }} 
               animate={{ opacity: 1, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }} 
-              className="bg-white dark:bg-[var(--bg-main)] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-[var(--border-dark)] sticky top-0 bg-white dark:bg-[var(--bg-main)] z-10 transition-colors">
-                <h3 className="font-bold text-2xl text-slate-900 dark:text-white flex items-center gap-3">
+              <div className="flex justify-between items-center p-6 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] sticky top-0 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] z-10 transition-colors">
+                <h3 className="font-bold text-2xl text-[var(--text-main-light)] dark:text-white flex items-center gap-3">
                   <CalendarDays className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]"/> All Events
                 </h3>
-                <button onClick={() => setShowAllEventsModal(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"><X size={20} /></button>
+                <button onClick={() => setShowAllEventsModal(false)} className="text-[var(--text-light-light)] hover:text-[var(--text-main-light)] dark:text-slate-400 dark:hover:text-white bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"><X size={20} /></button>
               </div>
-              <div className="p-6 bg-slate-50 dark:bg-[var(--bg-card-alpha)] transition-colors flex-1">
+              <div className="p-6 bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card-alpha)] transition-colors flex-1">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {eventsList.map((event, idx) => (
-                    <div key={idx} onClick={() => openEventDetails(event)} className="bg-white dark:bg-[var(--bg-card)] border border-slate-200 dark:border-[var(--border-dark)] rounded-2xl overflow-hidden cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl transition-all group">
-                      <div className="h-40 bg-slate-200 dark:bg-[var(--border-light)] relative overflow-hidden">
+                    <div key={idx} onClick={() => openEventDetails(event)} className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] border border-[var(--border-light)] dark:border-[var(--border-dark)] rounded-2xl overflow-hidden cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl transition-all group">
+                      <div className="h-40 bg-[var(--border-light)] dark:bg-[var(--border-light)] relative overflow-hidden">
                         <img src={event.images[0]} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                       <div className="p-5">
-                        <h4 className="font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">{event.title}</h4>
-                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{event.date} • {event.location}</p>
-                        <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{event.desc}</p>
+                        <h4 className="font-bold text-[var(--text-main-light)] dark:text-white mb-2 line-clamp-1">{event.title}</h4>
+                        <p className="text-xs font-medium text-[var(--text-light-light)] dark:text-slate-400 mb-3">{event.date} • {event.location}</p>
+                        <p className="text-sm text-[var(--text-muted-light)] dark:text-slate-300 line-clamp-2">{event.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -608,13 +609,13 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               exit={{ opacity: 0, y: 20 }} 
-              className="bg-white dark:bg-[var(--bg-main)] w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               
-              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-[var(--border-dark)] sticky top-0 bg-white dark:bg-[var(--bg-main)] z-20 transition-colors">
+              <div className="flex justify-between items-center p-6 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] sticky top-0 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] z-20 transition-colors">
                 <div>
-                  <h3 className="font-bold text-xl md:text-2xl text-slate-900 dark:text-white">{selectedEvent.title}</h3>
+                  <h3 className="font-bold text-xl md:text-2xl text-[var(--text-main-light)] dark:text-white">{selectedEvent.title}</h3>
                   <p className="text-sm font-medium text-[var(--c-primary-text)] dark:text-[var(--c-primary)] mt-1">{selectedEvent.date} • {selectedEvent.location}</p>
                 </div>
                 
@@ -628,14 +629,14 @@ export default function Portfolio() {
                         `${window.location.origin}/?event=${eventSlug}`
                       );
                     }} 
-                    className="text-slate-500 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] bg-slate-100 dark:bg-[var(--bg-card)] hover:bg-[var(--c-bg-light)] dark:hover:bg-[var(--border-dark)] p-2.5 rounded-full transition-all" 
+                    className="text-[var(--text-light-light)] hover:text-[var(--c-primary-text)] dark:text-slate-500 dark:hover:text-[var(--c-primary)] bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] hover:bg-[var(--border-light)] dark:hover:bg-[var(--border-dark)] p-2.5 rounded-full transition-all" 
                     title="Share Event"
                   >
                     <Share2 size={20} />
                   </button>
                   <button 
                     onClick={() => setSelectedEvent(null)} 
-                    className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm" 
+                    className="text-[var(--text-light-light)] hover:text-[var(--text-main-light)] dark:text-slate-400 dark:hover:text-white bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] hover:bg-[var(--border-light)] p-2.5 rounded-full transition-colors shadow-sm" 
                     title="Close"
                   >
                     <X size={20} />
@@ -644,7 +645,7 @@ export default function Portfolio() {
               </div>
 
               <div className="flex-1 flex flex-col">
-                <div className="relative w-full h-64 md:h-[28rem] bg-slate-100 dark:bg-black/40 flex items-center justify-center border-b border-slate-200 dark:border-[var(--border-dark)]">
+                <div className="relative w-full h-64 md:h-[28rem] bg-[var(--border-light-subtle)] dark:bg-black/40 flex items-center justify-center border-b border-[var(--border-light)] dark:border-[var(--border-dark)]">
                   <img src={selectedEvent.images[currentImageIndex]} alt="Event Photo" className="max-h-full max-w-full object-contain" />
                   
                   {selectedEvent.images.length > 1 && (
@@ -662,10 +663,10 @@ export default function Portfolio() {
                   )}
                 </div>
 
-                <div className="p-6 md:p-8 bg-white dark:bg-[var(--bg-main)] transition-colors">
-                  <div className="bg-slate-50 dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl border border-slate-100 dark:border-[var(--border-dark)]">
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Experience Overview</h4>
-                    <p className="whitespace-pre-wrap text-slate-700 dark:text-slate-300 leading-relaxed text-[0.95rem]">
+                <div className="p-6 md:p-8 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] transition-colors">
+                  <div className="bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl border border-[var(--border-light)] dark:border-[var(--border-dark)]">
+                    <h4 className="text-xs font-bold text-[var(--text-light-light)] dark:text-slate-400 uppercase tracking-wider mb-4">Experience Overview</h4>
+                    <p className="whitespace-pre-wrap text-[var(--text-muted-light)] dark:text-slate-300 leading-relaxed text-[0.95rem]">
                       {selectedEvent.desc}
                     </p>
                   </div>
@@ -678,9 +679,9 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* 5. CERTIFICATIONS */}
-      <section id="certifications" className="py-24 px-6 bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+      <section id="certifications" className="py-24 px-6 bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3 transition-colors">
+          <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white flex items-center justify-center gap-3 transition-colors">
             <Award className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Featured Certifications
           </h2>
           
@@ -689,9 +690,9 @@ export default function Portfolio() {
               <div 
                 key={idx} 
                 onClick={() => setSelectedCert(cert)} 
-                className="bg-white dark:bg-[var(--bg-main-alpha)] border border-slate-200 dark:border-[var(--border-dark)] rounded-2xl overflow-hidden cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col"
+                className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] border border-[var(--border-light)] dark:border-[var(--border-dark)] rounded-2xl overflow-hidden cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col"
               >
-                <div className="h-48 relative overflow-hidden border-b border-slate-100 dark:border-[var(--border-dark)] bg-slate-200 dark:bg-[var(--bg-card)]">
+                <div className="h-48 relative overflow-hidden border-b border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)]">
                   <img 
                     src={cert.img} 
                     alt={cert.title} 
@@ -699,7 +700,7 @@ export default function Portfolio() {
                   />
                 </div>
                 <div className="p-5 flex-1 flex flex-col justify-center">
-                  <h3 className="font-bold text-slate-900 dark:text-white text-center line-clamp-2 group-hover:text-[var(--c-primary-text)] dark:group-hover:text-[var(--c-primary)] transition-colors">
+                  <h3 className="font-bold text-[var(--text-main-light)] dark:text-white text-center line-clamp-2 group-hover:text-[var(--c-primary-text)] dark:group-hover:text-[var(--c-primary)] transition-colors">
                     {cert.title}
                   </h3>
                 </div>
@@ -710,7 +711,7 @@ export default function Portfolio() {
           <div className="mt-12 flex justify-center">
             <button 
               onClick={() => setShowAllCertsModal(true)} 
-              className="bg-white dark:bg-transparent border-2 border-[var(--c-primary-text)] dark:border-[var(--c-primary)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] dark:hover:bg-[var(--c-primary)] dark:hover:text-[var(--btn-text)] px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
+              className="bg-transparent border-2 border-[var(--c-primary-text)] dark:border-[var(--c-primary)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] hover:bg-[var(--c-primary)] hover:border-[var(--c-primary)] hover:text-[var(--btn-text)] dark:hover:bg-[var(--c-primary)] dark:hover:text-[var(--btn-text)] px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
             >
               View all certificates
             </button>
@@ -729,35 +730,35 @@ export default function Portfolio() {
               initial={{ opacity: 0, scale: 0.95 }} 
               animate={{ opacity: 1, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }} 
-              className="bg-white dark:bg-[var(--bg-main)] w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-[var(--border-dark)] sticky top-0 bg-white dark:bg-[var(--bg-main)] z-10 transition-colors">
-                <h3 className="font-bold text-2xl text-slate-900 dark:text-white flex items-center gap-3">
+              <div className="flex justify-between items-center p-6 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] sticky top-0 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] z-10 transition-colors">
+                <h3 className="font-bold text-2xl text-[var(--text-main-light)] dark:text-white flex items-center gap-3">
                   <Award className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]"/> All Certifications
                 </h3>
                 <button 
                   onClick={() => setShowAllCertsModal(false)} 
-                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"
+                  className="text-[var(--text-light-light)] hover:text-[var(--text-main-light)] dark:text-slate-400 dark:hover:text-white bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"
                 >
                   <X size={20} />
                 </button>
               </div>
               
-              <div className="p-6 bg-slate-50 dark:bg-[var(--bg-card-alpha)] transition-colors flex-1">
+              <div className="p-6 bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card-alpha)] transition-colors flex-1">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {certifications.map((cert, idx) => (
                     <div 
                       key={idx} 
                       onClick={() => setSelectedCert(cert)} 
-                      className="group bg-white dark:bg-[var(--bg-card)] border border-slate-200 dark:border-[var(--border-dark)] p-6 rounded-2xl cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl hover:shadow-[var(--c-shadow-sm)] transition-all flex flex-col h-full"
+                      className="group bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] border border-[var(--border-light)] dark:border-[var(--border-dark)] p-6 rounded-2xl cursor-pointer hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] hover:shadow-xl hover:shadow-[var(--c-shadow-sm)] transition-all flex flex-col h-full"
                     >
-                      <div className="w-12 h-12 bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
+                      <div className="w-12 h-12 bg-[var(--bg-page-light)] dark:bg-[var(--c-primary-alpha)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shrink-0">
                         <Award size={24} />
                       </div>
-                      <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-slate-100 dark:border-[var(--border-light)] transition-colors">
-                        <span className="font-medium text-slate-700 dark:text-slate-300 mb-1">{cert.issuer}</span>
+                      <h3 className="font-bold text-[var(--text-main-light)] dark:text-white mb-2 flex-1 transition-colors">{cert.title}</h3>
+                      <p className="text-sm text-[var(--text-muted-light)] dark:text-slate-400 flex flex-col mt-auto pt-4 border-t border-[var(--border-light)] dark:border-[var(--border-light)] transition-colors">
+                        <span className="font-medium text-[var(--text-main-light)] dark:text-slate-300 mb-1">{cert.issuer}</span>
                         <span className="flex items-center gap-1 text-xs">
                           {cert.date} <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform ml-auto text-[var(--c-primary-text)] dark:text-[var(--c-primary)]"/>
                         </span>
@@ -782,29 +783,29 @@ export default function Portfolio() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }} 
               animate={{ opacity: 1, scale: 1, y: 0 }} 
               exit={{ opacity: 0, scale: 0.95, y: 20 }} 
-              className="bg-white dark:bg-[var(--bg-main)] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300"
+              className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center p-6 border-b border-slate-100 dark:border-[var(--border-dark)] sticky top-0 bg-white dark:bg-[var(--bg-main)] z-10 transition-colors">
-                <h3 className="font-bold text-xl text-slate-900 dark:text-white pr-8">{selectedCert.title}</h3>
+              <div className="flex justify-between items-center p-6 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] sticky top-0 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] z-10 transition-colors">
+                <h3 className="font-bold text-xl text-[var(--text-main-light)] dark:text-white pr-8">{selectedCert.title}</h3>
                 <button 
                   onClick={() => setSelectedCert(null)} 
-                  className="text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"
+                  className="text-[var(--text-light-light)] hover:text-[var(--text-main-light)] dark:text-slate-400 dark:hover:text-white bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] p-2.5 rounded-full transition-colors shadow-sm"
                 >
                   <X size={20} />
                 </button>
               </div>
-              <div className="p-6 bg-slate-50 dark:bg-[var(--bg-card-alpha)] transition-colors">
-                <div className="w-full bg-slate-200 dark:bg-[var(--bg-card)] rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-slate-300 dark:border-[var(--border-dark)] transition-colors">
+              <div className="p-6 bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card-alpha)] transition-colors">
+                <div className="w-full bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] rounded-xl mb-6 flex items-center justify-center overflow-hidden shadow-inner border border-[var(--border-light)] dark:border-[var(--border-dark)] transition-colors">
                   <img src={selectedCert.img} alt={selectedCert.title} className="w-full h-auto object-contain max-h-[50vh]" />
                 </div>
                 
-                <div className="bg-white dark:bg-[var(--bg-main)] p-5 rounded-xl border border-slate-100 dark:border-[var(--border-dark)] transition-colors">
+                <div className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] p-5 rounded-xl border border-[var(--border-light)] dark:border-[var(--border-dark)] transition-colors">
                   <div className="flex justify-between items-center mb-3">
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Description</h4>
-                    <span className="text-xs font-medium text-[var(--c-primary-text)] bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] dark:text-[var(--c-primary)] px-2 py-1 rounded-md">{selectedCert.date}</span>
+                    <h4 className="text-xs font-bold text-[var(--text-light-light)] dark:text-slate-400 uppercase tracking-wider">Description</h4>
+                    <span className="text-xs font-medium text-[var(--c-primary-text)] bg-[var(--bg-page-light)] dark:bg-[var(--c-primary-alpha)] dark:text-[var(--c-primary)] px-2 py-1 rounded-md">{selectedCert.date}</span>
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed transition-colors text-sm">
+                  <p className="text-[var(--text-muted-light)] dark:text-slate-300 leading-relaxed transition-colors text-sm">
                     {selectedCert.desc}
                   </p>
                 </div>
@@ -815,20 +816,20 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* 6. PROJECTS */}
-      <section id="projects" className="py-24 px-6 bg-white dark:bg-[var(--bg-main)] transition-colors duration-300">
+      <section id="projects" className="py-24 px-6 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white transition-colors">Projects</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white transition-colors">Projects</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project, idx) => (
-              <div key={idx} className="bg-[var(--bg-main-light)] dark:bg-[var(--bg-main-alpha)] rounded-3xl p-8 shadow-sm border border-slate-200 dark:border-[var(--border-dark)] flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                <div className="text-xs font-bold text-[var(--c-primary-text)] dark:text-[var(--c-primary)] bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] inline-block px-3 py-1 rounded-full w-fit mb-4 transition-colors">
+              <div key={idx} className="bg-[var(--bg-page-light)] dark:bg-[var(--bg-main-alpha)] rounded-3xl p-8 shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
+                <div className="text-xs font-bold text-[var(--c-primary-text)] dark:text-[var(--c-primary)] bg-[var(--bg-card-light)] dark:bg-[var(--c-primary-alpha)] inline-block px-3 py-1 rounded-full w-fit mb-4 transition-colors">
                   {project.domain}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors">{project.title}</h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-6 flex-1 text-sm leading-relaxed transition-colors">{project.desc}</p>
-                <div className="pt-6 border-t border-slate-200 dark:border-[var(--border-light)] mt-auto transition-colors">
-                  <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-4">Technologies Used: <span className="text-slate-600 dark:text-slate-300">{project.tech}</span></p>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-white dark:bg-[var(--bg-card)] hover:bg-[var(--c-primary)] dark:hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] text-slate-700 dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-[var(--border-dark)]">
+                <h3 className="text-xl font-bold text-[var(--text-main-light)] dark:text-white mb-3 transition-colors">{project.title}</h3>
+                <p className="text-[var(--text-muted-light)] dark:text-slate-300 mb-6 flex-1 text-sm leading-relaxed transition-colors">{project.desc}</p>
+                <div className="pt-6 border-t border-[var(--border-light)] dark:border-[var(--border-light)] mt-auto transition-colors">
+                  <p className="text-xs text-[var(--text-light-light)] dark:text-slate-500 font-medium mb-4">Technologies Used: <span className="text-[var(--text-muted-light)] dark:text-slate-300">{project.tech}</span></p>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] hover:bg-[var(--c-primary)] dark:hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] hover:border-[var(--c-primary)] text-[var(--text-muted-light)] dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-[var(--border-light)] dark:border-[var(--border-dark)]">
                     <GithubIcon size={16} /> View on GitHub
                   </a>
                 </div>
@@ -839,24 +840,24 @@ export default function Portfolio() {
       </section>
 
       {/* 7 & 8. JOURNEYS */}
-      <section id="journeys" className="py-24 px-6 bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+      <section id="journeys" className="py-24 px-6 bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
+              <h2 className="text-2xl font-bold mb-8 text-[var(--text-main-light)] dark:text-white flex items-center gap-3 transition-colors">
                 <Route className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> ServiceNow Journey
               </h2>
-              <div className="bg-white dark:bg-[var(--bg-main-alpha)] p-8 rounded-3xl border border-slate-200 dark:border-[var(--border-dark)] relative transition-colors">
+              <div className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] p-8 rounded-3xl border border-[var(--border-light)] dark:border-[var(--border-dark)] relative transition-colors">
                 <div className="absolute left-[2.3rem] top-12 bottom-12 w-0.5 bg-[var(--c-gradient-end)] dark:bg-[var(--c-dark-alpha)]"></div>
                 <ul className="space-y-6 relative">
                   {serviceNowJourney.map((step, idx) => (
                     <li key={idx} className="flex items-start gap-4">
-                      <div className={`w-8 h-8 rounded-full border-4 border-white dark:border-[var(--bg-main)] shadow flex items-center justify-center shrink-0 z-10 transition-colors ${idx === 3 || idx === 4 ? 'bg-[var(--c-hover)]' : 'bg-[var(--c-primary)]'}`}>
-                        <CheckCircle2 size={14} className={`transition-colors ${appTheme === 'servicenow' ? 'text-[#011A20]' : 'text-white'}`} />
+                      <div className={`w-8 h-8 rounded-full border-4 border-[var(--bg-card-light)] dark:border-[var(--bg-main)] shadow flex items-center justify-center shrink-0 z-10 transition-colors ${idx === 3 || idx === 4 ? 'bg-[var(--c-hover)]' : 'bg-[var(--c-primary)]'}`}>
+                        <CheckCircle2 size={14} className={`transition-colors ${appTheme === 'servicenow' ? 'text-[var(--btn-text)]' : 'text-[var(--btn-text)]'}`} />
                       </div>
                       <div className="pt-1">
-                        <p className={`font-medium transition-colors ${idx === 3 || idx === 4 ? 'text-[var(--c-hover)] dark:text-[var(--c-primary)] font-bold' : 'text-slate-700 dark:text-slate-300'}`}>{step}</p>
+                        <p className={`font-medium transition-colors ${idx === 3 || idx === 4 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-bold' : 'text-[var(--text-muted-light)] dark:text-slate-300'}`}>{step}</p>
                       </div>
                     </li>
                   ))}
@@ -865,16 +866,16 @@ export default function Portfolio() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
+              <h2 className="text-2xl font-bold mb-8 text-[var(--text-main-light)] dark:text-white flex items-center gap-3 transition-colors">
                 <Cloud className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Cloud & AI Learning Journey
               </h2>
               <div className="space-y-6">
                 {cloudAiJourney.map((path, idx) => (
-                  <div key={idx} className="bg-white dark:bg-[var(--bg-main-alpha)] p-6 rounded-3xl border border-slate-200 dark:border-[var(--border-dark)] shadow-sm transition-colors">
-                    <h3 className="font-bold text-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] mb-4 border-b border-slate-100 dark:border-[var(--border-dark)] pb-3 transition-colors">{path.category}</h3>
+                  <div key={idx} className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main-alpha)] p-6 rounded-3xl border border-[var(--border-light)] dark:border-[var(--border-dark)] shadow-sm transition-colors">
+                    <h3 className="font-bold text-lg text-[var(--c-primary-text)] dark:text-[var(--c-primary)] mb-4 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] pb-3 transition-colors">{path.category}</h3>
                     <ul className="grid sm:grid-cols-2 gap-3">
                       {path.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-slate-600 dark:text-slate-300 text-sm transition-colors">
+                        <li key={i} className="flex items-start gap-2 text-[var(--text-muted-light)] dark:text-slate-300 text-sm transition-colors">
                           <ChevronRight size={16} className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
@@ -890,7 +891,7 @@ export default function Portfolio() {
       </section>
 
       {/* 9. ACHIEVEMENTS STATS */}
-      <section className="py-16 px-6 bg-[var(--c-primary)] dark:bg-[var(--bg-main)] text-[var(--btn-text)] dark:text-white border-y border-[var(--border-dark)] transition-colors duration-300">
+      <section className="py-16 px-6 bg-[var(--c-primary)] dark:bg-[var(--bg-main)] text-[var(--btn-text)] dark:text-white border-y border-[var(--c-primary-text)] dark:border-[var(--border-dark)] transition-colors duration-300">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div><div className="text-3xl font-bold mb-2 dark:text-[var(--c-primary)]">20+</div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">Certifications</div></div>
           <div><div className="text-3xl font-bold mb-2 flex justify-center dark:text-[var(--c-primary)]"><CheckCircle2 size={36}/></div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">ServiceNow CSA Certified</div></div>
@@ -900,46 +901,46 @@ export default function Portfolio() {
       </section>
 
       {/* 10 & 11. CONTACT & OBJECTIVE */}
-      <section id="contact" className="py-24 px-6 bg-white dark:bg-[var(--bg-main)] transition-colors duration-300">
+      <section id="contact" className="py-24 px-6 bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
           
           <div className="mb-16 text-center max-w-4xl mx-auto">
             <h2 className="text-sm font-bold text-[var(--c-primary-text)] dark:text-[var(--c-primary)] uppercase tracking-widest mb-4 transition-colors">Career Objective</h2>
-            <p className="text-2xl text-slate-700 dark:text-slate-300 font-medium leading-relaxed transition-colors">
+            <p className="text-2xl text-[var(--text-muted-light)] dark:text-slate-300 font-medium leading-relaxed transition-colors">
               "I aim to build a successful career in ServiceNow and Software Development by continuously learning, solving real-world problems, and contributing to innovative enterprise solutions."
             </p>
           </div>
           
-          <div className="bg-[var(--bg-main-light)] dark:bg-[var(--bg-card-alpha)] rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-[var(--border-dark)] shadow-sm grid md:grid-cols-2 gap-12 transition-colors">
+          <div className="bg-[var(--bg-page-light)] dark:bg-[var(--bg-card-alpha)] rounded-3xl p-8 md:p-12 border border-[var(--border-light)] dark:border-[var(--border-dark)] shadow-sm grid md:grid-cols-2 gap-12 transition-colors">
             
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-slate-900 dark:text-white transition-colors">Contact</h2>
-              <p className="text-slate-500 dark:text-slate-400 mb-8 transition-colors">Feel free to reach out for collaborations, opportunities, or just a quick chat.</p>
+              <h2 className="text-3xl font-bold mb-6 text-[var(--text-main-light)] dark:text-white transition-colors">Contact</h2>
+              <p className="text-[var(--text-light-light)] dark:text-slate-400 mb-8 transition-colors">Feel free to reach out for collaborations, opportunities, or just a quick chat.</p>
               
               <div className="space-y-6">
-                <a href="mailto:ajayy.infotechh@gmail.com" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors group">
-                  <div className="w-12 h-12 bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] group-hover:bg-[var(--c-primary)] group-hover:text-[var(--btn-text)] transition-colors"><Mail size={20} /></div>
-                  <div><p className="text-sm text-slate-400">Email</p><p className="font-medium">ajayy.infotechh@gmail.com</p></div>
+                <a href="mailto:ajayy.infotechh@gmail.com" className="flex items-center gap-4 text-[var(--text-muted-light)] dark:text-slate-300 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors group">
+                  <div className="w-12 h-12 bg-[var(--bg-card-light)] dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] group-hover:bg-[var(--c-primary)] group-hover:text-[var(--btn-text)] transition-colors border border-[var(--border-light)] dark:border-transparent"><Mail size={20} /></div>
+                  <div><p className="text-sm text-[var(--text-light-light)] dark:text-slate-400">Email</p><p className="font-medium">ajayy.infotechh@gmail.com</p></div>
                 </a>
                 
-                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors group">
-                  <div className="w-12 h-12 bg-[var(--c-bg-light)] dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] group-hover:bg-[var(--c-primary)] group-hover:text-[var(--btn-text)] transition-colors"><LinkedinIcon size={20} /></div>
-                  <div><p className="text-sm text-slate-400">LinkedIn</p><p className="font-medium">www.linkedin.com/in/ajay-r-s</p></div>
+                <a href="http://www.linkedin.com/in/ajay-r-s" target="_blank" className="flex items-center gap-4 text-[var(--text-muted-light)] dark:text-slate-300 hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors group">
+                  <div className="w-12 h-12 bg-[var(--bg-card-light)] dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] group-hover:bg-[var(--c-primary)] group-hover:text-[var(--btn-text)] transition-colors border border-[var(--border-light)] dark:border-transparent"><LinkedinIcon size={20} /></div>
+                  <div><p className="text-sm text-[var(--text-light-light)] dark:text-slate-400">LinkedIn</p><p className="font-medium">www.linkedin.com/in/ajay-r-s</p></div>
                 </a>
 
-                <div className="flex items-center gap-4 text-slate-700 dark:text-slate-300 transition-colors">
-                  <div className="w-12 h-12 bg-slate-200 dark:bg-[var(--border-light)] rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 transition-colors"><MapPin size={20} /></div>
-                  <div><p className="text-sm text-slate-400">Location</p><p className="font-medium">Tiruchirappalli, Tamil Nadu, India</p></div>
+                <div className="flex items-center gap-4 text-[var(--text-muted-light)] dark:text-slate-300 transition-colors">
+                  <div className="w-12 h-12 bg-[var(--border-light)] dark:bg-[var(--border-light)] rounded-full flex items-center justify-center text-[var(--text-light-light)] dark:text-slate-300 transition-colors"><MapPin size={20} /></div>
+                  <div><p className="text-sm text-[var(--text-light-light)] dark:text-slate-400">Location</p><p className="font-medium">Tiruchirappalli, Tamil Nadu, India</p></div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[var(--bg-main)] p-6 md:p-8 rounded-2xl border border-slate-100 dark:border-[var(--border-dark)] transition-colors">
-              <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-white transition-colors">Send a Message</h3>
+            <div className="bg-[var(--bg-card-light)] dark:bg-[var(--bg-main)] p-6 md:p-8 rounded-2xl border border-[var(--border-light)] dark:border-[var(--border-dark)] transition-colors">
+              <h3 className="font-bold text-lg mb-4 text-[var(--text-main-light)] dark:text-white transition-colors">Send a Message</h3>
               
               {submitStatus === 'success' ? (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-50 dark:bg-[var(--c-primary-alpha)] border border-green-200 dark:border-[var(--c-primary-alpha-border)] text-green-700 dark:text-[var(--c-primary)] p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3 transition-colors">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-green-600 dark:text-[var(--c-primary)] transition-colors">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-50 dark:bg-[var(--c-primary-alpha)] border border-green-200 dark:border-[var(--c-primary-alpha-border)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3 transition-colors">
+                  <div className="w-12 h-12 bg-[var(--bg-page-light)] dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] transition-colors border border-[var(--border-light)] dark:border-transparent">
                     <Check size={24} />
                   </div>
                   <div>
@@ -950,13 +951,13 @@ export default function Portfolio() {
               ) : (
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div>
-                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] border border-slate-200 dark:border-[var(--border-dark)] dark:text-white dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all disabled:opacity-50" />
+                    <input type="text" name="name" required placeholder="Your Name" disabled={isSubmitting} className="w-full bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] border border-[var(--border-light)] dark:border-[var(--border-dark)] dark:text-white text-[var(--text-main-light)] placeholder-[var(--text-light-light)] dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] border border-slate-200 dark:border-[var(--border-dark)] dark:text-white dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all disabled:opacity-50" />
+                    <input type="email" name="email" required placeholder="Your Email" disabled={isSubmitting} className="w-full bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] border border-[var(--border-light)] dark:border-[var(--border-dark)] dark:text-white text-[var(--text-main-light)] placeholder-[var(--text-light-light)] dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all disabled:opacity-50" />
                   </div>
                   <div>
-                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-[var(--bg-main-light)] dark:bg-[var(--bg-card)] border border-slate-200 dark:border-[var(--border-dark)] dark:text-white dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all resize-none disabled:opacity-50"></textarea>
+                    <textarea name="message" required placeholder="Your Message" rows={4} disabled={isSubmitting} className="w-full bg-[var(--bg-page-light)] dark:bg-[var(--bg-card)] border border-[var(--border-light)] dark:border-[var(--border-dark)] dark:text-white text-[var(--text-main-light)] placeholder-[var(--text-light-light)] dark:placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--c-primary-text)] dark:focus:border-[var(--c-primary)] focus:ring-1 focus:ring-[var(--c-primary-text)] dark:focus:ring-[var(--c-primary)] transition-all resize-none disabled:opacity-50"></textarea>
                   </div>
                   <button type="submit" disabled={isSubmitting} className="w-full bg-[var(--c-primary)] hover:bg-[var(--c-hover)] text-[var(--btn-text)] py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
                     {isSubmitting ? (
