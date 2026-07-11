@@ -1,12 +1,12 @@
 'use client';
 
-import ThemeToggle from '@/components/ThemeToggle';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
   Terminal, Mail, ChevronRight, ChevronLeft, X, Download, Menu, MapPin, 
-  CheckCircle2, Route, Send, Check, CalendarDays, Share2 
+  CheckCircle2, Route, Send, Check, CalendarDays, Share2, Sun, Moon 
 } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget'; 
 
@@ -70,7 +70,7 @@ const certifications = [
   { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", date: "Jan 2026", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
   { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", date: "09 Jun 2026", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
   { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", date: "14 Apr 2026", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
   { title: "Data Mining", issuer: "Simplilearn SkillUp", date: "29 Dec 2025", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
   { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", date: "30 Apr 2026", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
   { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", date: "11 Apr 2026", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
@@ -137,13 +137,23 @@ const navLinks = [
 // --- MAIN COMPONENT ---
 export default function Portfolio() {
   
-  // Theme States
+  // Theme & Mode States
   const [appTheme, setAppTheme] = useState<'linkedin' | 'servicenow'>('linkedin');
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
+    // Load custom color theme
     const savedTheme = localStorage.getItem('appTheme') as 'linkedin' | 'servicenow';
     if (savedTheme) setAppTheme(savedTheme);
-  }, []);
+
+    // Force Dark Mode on first visit if no preference is set in local storage
+    if (!localStorage.getItem('theme')) {
+      setTheme('dark');
+    }
+  }, [setTheme]);
 
   const handleThemeChange = (theme: 'linkedin' | 'servicenow') => {
     setAppTheme(theme);
@@ -158,20 +168,20 @@ export default function Portfolio() {
     '--c-primary-text': isSN ? '#14803C' : '#0A66C2', 
     '--c-hover': isSN ? '#24964A' : '#004182',
     
-    // --- LIGHT MODE COLORS (Completely Overhauled!) ---
-    '--bg-hero-light': isSN ? '#DCEBEB' : '#FFFFFF', // Noticeable light teal hero
-    '--hero-grad-start': isSN ? '#BFE2E2' : 'rgba(255,255,255, 0.2)', // Top of hero gradient
+    // --- LIGHT MODE COLORS ---
+    '--bg-hero-light': isSN ? '#DCEBEB' : '#FFFFFF', 
+    '--hero-grad-start': isSN ? '#BFE2E2' : 'rgba(255,255,255, 0.2)', 
     '--nav-bg-light': isSN ? 'rgba(220, 235, 235, 0.95)' : 'rgba(255, 255, 255, 0.9)',
-    '--bg-base-light': isSN ? '#F4F9F9' : '#FFFFFF', // Soft off-white teal for base pages
-    '--bg-alt-light': isSN ? '#E6EFEF' : '#F3F6F8', // Stronger teal-grey for alt sections
+    '--bg-base-light': isSN ? '#F4F9F9' : '#FFFFFF', 
+    '--bg-alt-light': isSN ? '#E6EFEF' : '#F3F6F8', 
     
-    '--text-main-light': isSN ? '#012A34' : '#0f172a', // Deep SN Teal Text
-    '--text-muted-light': isSN ? '#1C4A54' : '#475569', // Muted SN Teal Text
+    '--text-main-light': isSN ? '#012A34' : '#0f172a', 
+    '--text-muted-light': isSN ? '#1C4A54' : '#475569', 
     '--text-light-light': isSN ? '#436D77' : '#64748b', 
-    '--border-light': isSN ? '#C7DCDC' : '#e2e8f0', // Visible SN Teal border
-    '--border-light-subtle': isSN ? '#DDF0F0' : '#f1f5f9', // Very soft border
+    '--border-light': isSN ? '#C7DCDC' : '#e2e8f0', 
+    '--border-light-subtle': isSN ? '#DDF0F0' : '#f1f5f9', 
     
-    // --- DARK MODE COLORS (The Signature Teal) ---
+    // --- DARK MODE COLORS ---
     '--bg-main': isSN ? '#012A34' : '#0f172a', 
     '--bg-main-alpha': isSN ? 'rgba(1, 42, 52, 0.8)' : 'rgba(15, 23, 42, 0.8)',
     '--bg-card': isSN ? '#033E4D' : '#1e293b', 
@@ -327,26 +337,43 @@ export default function Portfolio() {
               ))}
             </div>
 
-            {/* Right Side: Theme Selection & Menu */}
+            {/* Right Side: THEME & MODE UNIFIED SWITCH */}
             <div className="flex items-center gap-3 shrink-0 lg:absolute lg:right-0">
               
-              {/* App Theme Selector Toggle (Redesigned) */}
-              <button 
-                onClick={() => handleThemeChange(appTheme === 'linkedin' ? 'servicenow' : 'linkedin')}
-                className="relative inline-flex h-7 w-14 items-center rounded-full bg-blue-100 dark:bg-[#0A66C2]/20 border border-blue-200 dark:border-[#0A66C2]/30 transition-colors duration-300 focus:outline-none"
-                title={`Switch to ${appTheme === 'linkedin' ? 'ServiceNow' : 'LinkedIn'} Theme`}
-              >
-                <span 
-                  className={`inline-block h-5 w-5 transform rounded-full shadow-sm transition-transform duration-300 ease-in-out ${
-                    appTheme === 'servicenow' 
-                      ? 'translate-x-8 bg-[#2EB85C]' 
-                      : 'translate-x-1 bg-[#0A66C2]'
-                  }`}
-                />
-              </button>
+              {mounted ? (
+                <div className="relative flex items-center justify-center mx-2">
+                  {/* The Pill Background for Color Selection */}
+                  <div className="flex w-20 h-7 rounded-full overflow-hidden shadow-inner border border-slate-200 dark:border-[var(--border-dark)] cursor-pointer bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)]">
+                    <button 
+                      onClick={() => handleThemeChange('linkedin')}
+                      className={`w-1/2 h-full bg-[#0A66C2] transition-all hover:opacity-100 ${appTheme === 'linkedin' ? 'opacity-100' : 'opacity-40'}`}
+                      title="Switch to Deep Blue theme"
+                      aria-label="Switch to Deep Blue theme"
+                    />
+                    <button 
+                      onClick={() => handleThemeChange('servicenow')}
+                      className={`w-1/2 h-full bg-[#2EB85C] transition-all hover:opacity-100 ${appTheme === 'servicenow' ? 'opacity-100' : 'opacity-40'}`}
+                      title="Switch to Neon Green theme"
+                      aria-label="Switch to Neon Green theme"
+                    />
+                  </div>
+                  
+                  {/* The Center Button for Light/Dark Mode */}
+                  <button
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    className={`absolute w-9 h-9 rounded-full shadow-md flex items-center justify-center transition-all duration-300 z-10 border-[3px] border-[var(--nav-bg-light)] dark:border-[var(--bg-main)]
+                      ${theme === 'light' ? 'bg-black text-white' : 'bg-[#f1f5f9] text-black'}`}
+                    title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                    aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                  >
+                    {theme === 'light' ? <Moon size={15} fill="currentColor" /> : <Sun size={15} fill="currentColor" />}
+                  </button>
+                </div>
+              ) : (
+                <div className="w-20 h-7 mx-2" /> // Prevents layout shift during loading
+              )}
 
-              <ThemeToggle />
-              
+              {/* Mobile Menu Toggle */}
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-[var(--text-muted-light)] dark:text-slate-300 hover:bg-[var(--border-light-subtle)] dark:hover:bg-[var(--bg-card)] rounded-lg transition-colors">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
