@@ -330,23 +330,20 @@ export default function Portfolio() {
             {/* Right Side: Theme Selection & Menu */}
             <div className="flex items-center gap-3 shrink-0 lg:absolute lg:right-0">
               
-              {/* App Theme Selector Toggle */}
-              <div className="flex items-center bg-white/50 dark:bg-[var(--bg-card)] rounded-full p-1 border border-[var(--border-light)] dark:border-[var(--border-dark)]">
-                <button 
-                  onClick={() => handleThemeChange('linkedin')}
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'linkedin' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-white/80 dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
-                  title="LinkedIn Theme"
-                >
-                  <div className="w-3.5 h-3.5 rounded-full bg-[#0A66C2]" />
-                </button>
-                <button 
-                  onClick={() => handleThemeChange('servicenow')}
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${appTheme === 'servicenow' ? 'bg-white dark:bg-slate-600 shadow-sm scale-110' : 'hover:bg-white/80 dark:hover:bg-[var(--bg-main)] opacity-50 hover:opacity-100'}`}
-                  title="ServiceNow Theme"
-                >
-                  <div className="w-3.5 h-3.5 rounded-full bg-[#2EB85C]" />
-                </button>
-              </div>
+              {/* App Theme Selector Toggle (Redesigned) */}
+              <button 
+                onClick={() => handleThemeChange(appTheme === 'linkedin' ? 'servicenow' : 'linkedin')}
+                className="relative inline-flex h-7 w-14 items-center rounded-full bg-blue-100 dark:bg-[#0A66C2]/20 border border-blue-200 dark:border-[#0A66C2]/30 transition-colors duration-300 focus:outline-none"
+                title={`Switch to ${appTheme === 'linkedin' ? 'ServiceNow' : 'LinkedIn'} Theme`}
+              >
+                <span 
+                  className={`inline-block h-5 w-5 transform rounded-full shadow-sm transition-transform duration-300 ease-in-out ${
+                    appTheme === 'servicenow' 
+                      ? 'translate-x-8 bg-[#2EB85C]' 
+                      : 'translate-x-1 bg-[#0A66C2]'
+                  }`}
+                />
+              </button>
 
               <ThemeToggle />
               

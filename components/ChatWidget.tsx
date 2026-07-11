@@ -13,7 +13,6 @@ export default function ChatWidget() {
     { role: 'assistant', content: "Hello! I'm Mai, Ajay's Ai assistant. I'm here to assist you. Ask me anything!" }
   ]);
 
-  // 👉 NEW: Suggested questions array
   const suggestedQuestions = [
     "Tell me about Ajay's ServiceNow journey",
     "What projects has Ajay built?",
@@ -57,7 +56,7 @@ export default function ChatWidget() {
           href={match[2]} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="underline font-bold hover:text-blue-200 transition-colors"
+          className="underline font-bold hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors"
         >
           {match[1]}
         </a>
@@ -105,7 +104,6 @@ export default function ChatWidget() {
     }
   };
 
-  // 👉 NEW: Handler for clicking a suggested question
   const handleQuickReply = async (question: string) => {
     if (isLoading) return;
 
@@ -143,7 +141,7 @@ export default function ChatWidget() {
         <motion.div 
           animate={{ y: [0, -6, 0] }}
           transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-          className="relative bg-white text-slate-800 text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl border border-slate-200 cursor-pointer hover:text-[#0A66C2] transition-colors"
+          className="relative bg-white text-slate-800 text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl border border-slate-200 cursor-pointer hover:text-[var(--c-primary-text)] dark:hover:text-[var(--c-primary)] transition-colors"
           onClick={() => setIsOpen(true)}
         >
           MAi - Ai Assistant
@@ -152,7 +150,7 @@ export default function ChatWidget() {
 
         <button
           onClick={() => setIsOpen(true)}
-          className="p-4 bg-[#0A66C2] text-white rounded-full shadow-2xl hover:bg-[#004182] transition-transform hover:scale-105"
+          className="p-4 bg-[var(--c-primary)] text-[var(--btn-text)] rounded-full shadow-2xl hover:bg-[var(--c-hover)] transition-transform hover:scale-105"
         >
           <MessageCircle size={28} />
         </button>
@@ -170,7 +168,7 @@ export default function ChatWidget() {
             <div className="bg-slate-900 p-4 border-b border-slate-800 flex justify-between items-center">
               <div>
                 <h3 className="font-bold text-white text-lg">MAi | Ajay's Ai Assistant</h3>
-                <p className="text-xs text-blue-400">Ask about my skills & projects</p>
+                <p className="text-xs text-[var(--c-primary-text)] dark:text-[var(--c-primary)]">Ask about my skills & projects</p>
               </div>
               <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
                 <X size={20} />
@@ -181,24 +179,23 @@ export default function ChatWidget() {
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`flex items-end gap-2 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#0A66C2]' : 'bg-slate-700'}`}>
-                      {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-blue-400" />}
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[var(--c-primary)]' : 'bg-slate-700'}`}>
+                      {msg.role === 'user' ? <User size={16} className="text-[var(--btn-text)]" /> : <Bot size={16} className="text-[var(--c-primary)]" />}
                     </div>
-                    <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-[#0A66C2] text-white rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
+                    <div className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-[var(--c-primary)] text-[var(--btn-text)] rounded-br-none' : 'bg-slate-700 text-slate-200 rounded-bl-none'}`}>
                       {renderMessage(msg.content)}
                     </div>
                   </div>
                 </div>
               ))}
 
-              {/* 👉 NEW: Render suggested questions only if this is the first message */}
               {messages.length === 1 && (
                 <div className="flex flex-col gap-2.5 mt-2 pl-10 pr-4">
                   {suggestedQuestions.map((q, i) => (
                     <button
                       key={i}
                       onClick={() => handleQuickReply(q)}
-                      className="text-xs text-left bg-slate-800 text-blue-300 border border-blue-500/30 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm w-fit"
+                      className="text-xs text-left bg-slate-800 text-[var(--c-primary)] border border-[var(--c-primary)]/30 hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] hover:border-[var(--c-primary)] px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm w-fit"
                     >
                       {q}
                     </button>
@@ -210,7 +207,7 @@ export default function ChatWidget() {
                 <div className="flex justify-start">
                   <div className="flex items-end gap-2 max-w-[85%]">
                     <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0">
-                      <Bot size={16} className="text-blue-400" />
+                      <Bot size={16} className="text-[var(--c-primary)]" />
                     </div>
                     <div className="p-4 rounded-2xl rounded-bl-none bg-slate-700 flex gap-1.5 items-center">
                       <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -233,12 +230,12 @@ export default function ChatWidget() {
                   placeholder="Type your message..."
                   disabled={isLoading}
                   autoComplete="off"
-                  className="flex-1 bg-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#0A66C2] placeholder-slate-500 disabled:opacity-50"
+                  className="flex-1 bg-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--c-primary)] placeholder-slate-500 disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="bg-[#0A66C2] hover:bg-[#004182] text-white p-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="bg-[var(--c-primary)] hover:bg-[var(--c-hover)] text-[var(--btn-text)] p-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <Send size={18} />
                 </button>
