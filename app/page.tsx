@@ -70,7 +70,7 @@ const certifications = [
   { title: "Design Thinking – A Primer (Elite)", issuer: "NPTEL (IIT Madras)", date: "Jan 2026", img: "/certificates/Design thinking.jpg", desc: "Learned user-centric problem-solving methodologies, innovation frameworks, and creative solution development." },
   { title: "Creator Studio Delivery Accreditation", issuer: "ServiceNow", date: "09 Jun 2026", img: "/certificates/ServiceNow accr.jpg", desc: "Demonstrated knowledge of Creator Studio concepts and low-code application development within the ServiceNow platform." },
   { title: "Welcome to ServiceNow Micro-Certification", issuer: "ServiceNow University", date: "14 Apr 2026", img: "/certificates/Micro-Certification ServiceNow.jpg", desc: "Gained foundational knowledge of ServiceNow platform capabilities, workflows, services, and enterprise applications." },
-  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
+  { title: "Acquiring Data", issuer: "FutureSkills Prime & NASSCOM", date: "28 May 2026", img: "/certificates/Acquiring Data.jpg", desc: "Learned data acquisition concepts including data types, data warehousing, big data, Hadoop, Hive, metadata, and data validation using Pandas." },
   { title: "Data Mining", issuer: "Simplilearn SkillUp", date: "29 Dec 2025", img: "/certificates/Data Mining.jpg", desc: "Explored data mining concepts, classification, clustering, pattern discovery, and knowledge extraction techniques." },
   { title: "Generative AI Literacy", issuer: "Simplilearn SkillUp", date: "30 Apr 2026", img: "/certificates/Gen Ai quiz.jpg", desc: "Learned the fundamentals of Generative AI, its applications, capabilities, limitations, and responsible AI usage." },
   { title: "Getting Started with Playwright using TypeScript", issuer: "Simplilearn SkillUp", date: "11 Apr 2026", img: "/certificates/playwright & TypeScript.jpg", desc: "Learned browser automation, end-to-end testing, and web application testing using Playwright and TypeScript." },
@@ -342,8 +342,8 @@ export default function Portfolio() {
               
               {mounted ? (
                 <div className="relative flex items-center justify-center mx-2">
-                  {/* The Pill Background for Color Selection */}
-                  <div className="flex w-20 h-7 rounded-full overflow-hidden shadow-inner border border-slate-200 dark:border-[var(--border-dark)] cursor-pointer bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)]">
+                  {/* The Pill Background for Color Selection (Added dynamic border) */}
+                  <div className="flex w-20 h-7 rounded-full overflow-hidden shadow-inner border border-black dark:border-white cursor-pointer bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
                     <button 
                       onClick={() => handleThemeChange('linkedin')}
                       className={`w-1/2 h-full bg-[#0A66C2] transition-all hover:opacity-100 ${appTheme === 'linkedin' ? 'opacity-100' : 'opacity-40'}`}
@@ -361,7 +361,7 @@ export default function Portfolio() {
                   {/* The Center Button for Light/Dark Mode */}
                   <button
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                    className={`absolute w-9 h-9 rounded-full shadow-md flex items-center justify-center transition-all duration-300 z-10 border-[3px] border-[var(--nav-bg-light)] dark:border-[var(--bg-main)]
+                    className={`absolute w-9 h-9 rounded-full shadow-md flex items-center justify-center transition-all duration-300 z-10 border-[3px] border-[var(--nav-bg-light)] dark:border-[var(--bg-main-alpha)]
                       ${theme === 'light' ? 'bg-black text-white' : 'bg-[#f1f5f9] text-black'}`}
                     title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                     aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
