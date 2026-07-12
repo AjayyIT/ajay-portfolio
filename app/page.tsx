@@ -341,20 +341,21 @@ export default function Portfolio() {
             <div className="flex items-center gap-3 shrink-0 lg:absolute lg:right-0">
               
               {mounted ? (
-                <div className="relative flex items-center justify-center mx-2">
-                  {/* The Pill Background for Color Selection (Added dynamic border) */}
-                  <div className="flex w-20 h-7 rounded-full overflow-hidden shadow-inner border border-black dark:border-white cursor-pointer bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+                <div 
+                  className="relative flex items-center justify-center mx-2 cursor-pointer"
+                  title="Click blue for deep blue theme / click green for teal green theme. Click the center button for dark/light mode."
+                >
+                  {/* The Pill Background for Color Selection */}
+                  <div className="flex w-20 h-7 rounded-full overflow-hidden shadow-inner border border-black dark:border-white bg-[var(--bg-card-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
                     <button 
                       onClick={() => handleThemeChange('linkedin')}
                       className={`w-1/2 h-full bg-[#0A66C2] transition-all hover:opacity-100 ${appTheme === 'linkedin' ? 'opacity-100' : 'opacity-40'}`}
-                      title="Switch to Deep Blue theme"
                       aria-label="Switch to Deep Blue theme"
                     />
                     <button 
                       onClick={() => handleThemeChange('servicenow')}
                       className={`w-1/2 h-full bg-[#2EB85C] transition-all hover:opacity-100 ${appTheme === 'servicenow' ? 'opacity-100' : 'opacity-40'}`}
-                      title="Switch to Neon Green theme"
-                      aria-label="Switch to Neon Green theme"
+                      aria-label="Switch to Teal Green theme"
                     />
                   </div>
                   
@@ -363,7 +364,6 @@ export default function Portfolio() {
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     className={`absolute w-9 h-9 rounded-full shadow-md flex items-center justify-center transition-all duration-300 z-10 border-[3px] border-[var(--nav-bg-light)] dark:border-[var(--bg-main-alpha)]
                       ${theme === 'light' ? 'bg-black text-white' : 'bg-[#f1f5f9] text-black'}`}
-                    title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                     aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                   >
                     {theme === 'light' ? <Moon size={15} fill="currentColor" /> : <Sun size={15} fill="currentColor" />}
