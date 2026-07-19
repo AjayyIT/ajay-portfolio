@@ -90,6 +90,7 @@ export async function POST(req: Request) {
     - Cloud Architect Master's Program: Desc: Explored cloud architecture, cloud deployment models, cloud security, and enterprise cloud solutions. [Issuer: Simplilearn, Date: 12 Mar 2026]
     - GitHub Foundations Part 2 of 2: Desc: Advanced knowledge of GitHub tools, including collaborative workflows, project management, and repository security. [Issuer: Microsoft, Date: 26 Jun 2026]
     - GitHub Foundations Part 1 of 2: Desc: Learned foundational concepts of version control, repository management, collaboration, and core Git workflows using GitHub. [Issuer: Microsoft, Date: 20 Jun 2026]
+    - Bano Job Ready (Issued by YuWaah (Generation Unlimited) – UNICEF, July 2026): Gained practical knowledge of workplace readiness, professional communication, career planning, employability skills, and essential competencies required to transition from academics to the professional world.
     - Samsung Galaxy AI Treasure Hunt 2026: Desc: Participated in the Samsung Galaxy AI Treasure Hunt 2026, exploring Galaxy AI features through an interactive challenge. [Issuer: Unstop × Samsung, Date: 25 Jun 2026]
     - Python for Data Science: Desc: Developed skills in Python programming, data analysis, data visualization, and data-driven problem solving. [Issuer: NPTEL (IIT Madras), Date: Jan 2025]
     - Responsive Web Design: Desc: Achieved 300+ hours of Learning and Demonstrated the knowledge of HTML, CSS, and JavaScript by building responsive websites. [Issuer: freeCodeCamp, Date: 11 Jul 2025]
