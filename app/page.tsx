@@ -36,7 +36,7 @@ const educationList = [
 const skills = [
   { category: "Programming", icon: <Code size={20}/>, items: [{ name: "Java" }, { name: "Python" }, { name: "C" }] },
   { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML" }, { name: "CSS" }, { name: "JavaScript" }] },
-  { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL" }] },
+  { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL" }, { name: "MongoDB" }] },
   { category: "Cloud", icon: <Cloud size={20}/>, items: [{ name: "AWS" }, { name: "Microsoft Azure" }] },
   { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration" }, { name: "Workflow Automation" }, { name: "Incident Management" }, { name: "Service Catalog" }, { name: "Knowledge Management" }, { name: "Creator Studio" }, { name: "App Engine Studio" }] },
   { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining" }, { name: "Data Analytics" }, { name: "Pandas" }, { name: "Generative AI" }, { name: "Prompt Engineering" }] }
@@ -45,12 +45,15 @@ const skills = [
 const eventsList = [
   {
     title: "ServiceNow AI Skills Summit",
-    organizer: "ServiceNow University & NASSCOM",
+    organizer: "ServiceNow University",
     date: "July 2026",
     location: "Coimbatore",
     images: [
       "/events/summit-1.jpg", 
-      "/events/summit-2.jpg"
+      "/events/summit-2.jpg",
+      "/events/summit-3.jpg",
+      "/events/summit-4.jpg",
+      "/events/summit-5.jpg"
     ],
     desc: `Had an amazing experience attending the ServiceNow AI Skills Summit – Coimbatore!\n\nIt was a great opportunity to learn from industry leaders and understand how AI is transforming enterprise workflows and shaping the future of work. The event was led by Mr. Bhaskar G, Senior Director, ServiceNow University, whose enthusiasm set the tone for an insightful day of learning.\n\nSome of the highlights included:\n• Mr. Naveen Kaushik (Managing Director, ServiceNow Practice, Accenture) sharing valuable insights into the ServiceNow ecosystem and enterprise transformation.\n• Mr. Ilango AP (Vice President - HR, ServiceNow) discussing opportunities and the growing demand for ServiceNow professionals.\n• An inspiring keynote by Mr. Udaya Shankar (Head - Talent Council, NASSCOM) on preparing ourselves for the future of technology and careers.\n• An impactful session, "AI + Workflows: Why Enterprises Need Both," by Ms. Neethi Upadhya (VP - Digital Transformation, Capgemini). One statement from her really stayed with me: "Will AI replace your job? No. People with AI will replace your job." This completely changed my perspective. It reinforced that AI isn't reducing opportunities—it is creating new ones for those who are willing to learn and adapt.\n• Ms. Triveni Bonthu (Director, ServiceNow Practice, LTM) shared valuable insights on Student Readiness for the ServiceNow Platform and how students can prepare for careers in the ServiceNow ecosystem.\n\nOne of the most exciting sessions was a live demonstration of "ServiceNow AI Agents: Configure an Agent" by Mr. Akash Kumar and Ms. Anshita Shrivastava from ServiceNow, where we got to see an AI Agent being configured on the platform in real time.\n\nApart from the technical sessions, it was also a wonderful opportunity to connect with fellow learners, interact with industry professionals, and even take home some exciting goodies! 🎁\n\nEvents like these motivate me even more to continue my journey in ServiceNow, AI, and enterprise application development.`
   }
@@ -958,7 +961,7 @@ export default function Portfolio() {
                 </a>
 
                 <div className="flex items-center gap-4 text-[var(--text-muted-light)] dark:text-slate-300 transition-colors">
-                  <div className="w-12 h-12 bg-[var(--border-light-subtle)] dark:bg-[var(--border-light)] rounded-full flex items-center justify-center text-[var(--text-light-light)] dark:text-slate-300 transition-colors border border-[var(--border-light)] dark:border-transparent"><MapPin size={20} /></div>
+                  <div className="w-12 h-12 bg-white dark:bg-[var(--c-primary-alpha)] rounded-full flex items-center justify-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] transition-colors border border-[var(--border-light)] dark:border-transparent"><MapPin size={20} /></div>
                   <div><p className="text-sm text-[var(--text-light-light)] dark:text-slate-400">Location</p><p className="font-medium">Tiruchirappalli, Tamil Nadu, India</p></div>
                 </div>
               </div>
