@@ -38,7 +38,7 @@ const skills = [
   { category: "Web Development", icon: <Terminal size={20}/>, items: [{ name: "HTML" }, { name: "CSS" }, { name: "JavaScript" }] },
   { category: "Database", icon: <Database size={20}/>, items: [{ name: "MySQL" }, { name: "MongoDB" }] },
   { category: "Cloud", icon: <Cloud size={20}/>, items: [{ name: "AWS" }, { name: "Microsoft Azure" }] },
-  { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration" }, { name: "Workflow Automation" }, { name: "Incident Management" }, { name: "Service Catalog" }, { name: "Knowledge Management" }, { name: "Creator Studio" }, { name: "App Engine Studio" }] },
+  { category: "ServiceNow", icon: <Briefcase size={20}/>, items: [{ name: "ServiceNow Administration" }, { name: "Incident Management" }, { name: "Service Catalog" }, { name: "Application Development" }, { name: "Scripting" }, { name: "Automation" }] },
   { category: "Data & AI", icon: <Cloud size={20}/>, items: [{ name: "Data Mining" }, { name: "Data Analytics" }, { name: "Pandas" }, { name: "Generative AI" }, { name: "Prompt Engineering" }] }
 ];
 
@@ -61,6 +61,7 @@ const eventsList = [
 
 const certifications = [
   { title: "ServiceNow Certified System Administrator (CSA)", issuer: "ServiceNow", date: "08 June 2026", img: "/certificates/ServiceNow (CSA).jpg", desc: "Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration." },
+  { title: "ServiceNow Certified Application Developer (CAD)", issuer: "ServiceNow", date: "28 Jul 2026", img: "/certificates/ServiceNow (CAD).jpg", desc: "Validated expertise in designing, building, testing, and deploying custom applications on the ServiceNow platform, including application security, scripting, and user interface design." },
   { title: "Google AI Essentials", issuer: "Google & Coursera", date: "20 May 2026", img: "/certificates/Google Ai Essentials.jpg", desc: "Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving." },
   { title: "Responsive Web Design", issuer: "freeCodeCamp", date: "11 Jul 2025", img: "/certificates/FREE CODE CAMP.png", desc: "Achieved 300+ hours of Learning and Demonstrated the knowledge of HTML, CSS, and JavaScript by building responsive websites." },
   { title: "Microsoft Azure Administrator Associate Level", issuer: "Simplilearn", date: "03 Apr 2026", img: "/certificates/SIMPLILEARN azure associate.jpg", desc: "Gained knowledge of Azure administration, cloud infrastructure, virtual machines, networking, storage, and identity management." },
@@ -118,7 +119,8 @@ const serviceNowJourney = [
   "Attended ServiceNow AI Skills Summit",
   "Creator Studio Fundamentals",
   "Creator Studio Delivery Accreditation",
-  "Preparing for Certified Application Developer (CAD)"
+  "Preparing for Certified Application Developer (CAD)",
+  "ServiceNow Certified Application Developer (CAD)"
 ];
 
 const cloudAiJourney = [
@@ -417,9 +419,9 @@ export default function Portfolio() {
             <h2 className="text-xl md:text-2xl text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-semibold mb-6 leading-relaxed">
               Final Year IT Student <br className="hidden md:block" />
               <span className="text-[var(--text-light-light)] dark:text-slate-500 mx-2 hidden md:inline">|</span> 
-              ServiceNow CSA Certified <br className="hidden md:block" />
+              ServiceNow CSA & CAD Certified <br className="hidden md:block" />
               <span className="text-[var(--text-light-light)] dark:text-slate-500 mx-2 hidden md:inline">|</span> 
-              Aspiring ServiceNow Developer
+              Aspiring Software Developer
             </h2>
             <p className="text-[var(--text-muted-light)] dark:text-slate-300 text-lg mb-8 leading-relaxed transition-colors">
               Passionate about ServiceNow, Software Development, Cloud Computing, Artificial Intelligence, and Data Analytics. Continuously learning and building practical skills through projects, certifications, and hands-on experience.
@@ -463,7 +465,7 @@ export default function Portfolio() {
               I have worked on academic and personal projects using Java, Python, MySQL, HTML, CSS, and ServiceNow. My goal is to build a successful career in enterprise technologies and software development while contributing to impactful solutions.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['Final Year Student', 'ServiceNow CSA Certified', 'Preparing for CAD Certification', 'Cloud & AI Enthusiast'].map((badge, i) => (
+              {['Final Year Student', 'ServiceNow CSA & CAD Certified', 'Software Development', 'Cloud & AI Enthusiast'].map((badge, i) => (
                 <div key={i} className="bg-[var(--bg-alt-light)] dark:bg-[var(--c-primary-alpha)] text-[var(--c-primary-text)] dark:text-[var(--c-primary)] px-4 py-3 rounded-xl text-sm font-semibold text-center border border-[var(--border-light)] dark:border-[var(--c-primary-alpha-border)] flex items-center justify-center transition-colors">
                   {badge}
                 </div>
@@ -889,7 +891,7 @@ export default function Portfolio() {
                         <CheckCircle2 size={14} className={`transition-colors ${appTheme === 'servicenow' ? 'text-[var(--btn-text)]' : 'text-white'}`} />
                       </div>
                       <div className="pt-1">
-                        <p className={`font-medium transition-colors ${idx === 3 || idx === 4 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-bold' : 'text-[var(--text-muted-light)] dark:text-slate-300'}`}>{step}</p>
+                        <p className={`font-medium transition-colors ${idx === 3 || idx === 4 || idx === 8 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)] font-bold' : 'text-[var(--text-muted-light)] dark:text-slate-300'}`}>{step}</p>
                       </div>
                     </li>
                   ))}
@@ -926,7 +928,7 @@ export default function Portfolio() {
       <section className="py-16 px-6 bg-[var(--c-primary)] dark:bg-[var(--bg-main)] text-[var(--btn-text)] dark:text-white border-y border-[var(--c-primary-text)] dark:border-[var(--border-dark)] transition-colors duration-300">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div><div className="text-3xl font-bold mb-2 dark:text-[var(--c-primary)]">20+</div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">Certifications</div></div>
-          <div><div className="text-3xl font-bold mb-2 flex justify-center dark:text-[var(--c-primary)]"><CheckCircle2 size={36}/></div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">ServiceNow CSA Certified</div></div>
+          <div><div className="text-3xl font-bold mb-2 flex justify-center dark:text-[var(--c-primary)]"><CheckCircle2 size={36}/></div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">ServiceNow CSA & CAD Certified</div></div>
           <div><div className="text-3xl font-bold mb-2 flex justify-center dark:text-[var(--c-primary)]"><Cloud size={36}/></div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">Cloud Certifications</div></div>
           <div><div className="text-3xl font-bold mb-2 flex justify-center dark:text-[var(--c-primary)]"><Database size={36}/></div><div className="dark:text-slate-400 text-xs font-medium uppercase tracking-wide opacity-80 dark:opacity-100">AI & Data Analytics</div></div>
         </div>

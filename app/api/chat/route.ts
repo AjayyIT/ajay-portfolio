@@ -78,12 +78,13 @@ export async function POST(req: Request) {
 
     CERTIFICATES RULES:
     - If asked generally about certificates: Provide a bulleted list of ONLY the top 4: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate. Then add: "Ajay holds 20+ professional certificates."
-    - If asked for his BEST certificate: State it is the "ServiceNow Certified System Administrator (CSA)".
+    - If asked for his BEST certificate: State it is the "ServiceNow CSA & CAD".
     - If asked to list ALL certificates: Provide a bulleted list of all of them: ServiceNow CSA, Google AI Essentials, Microsoft Azure Administrator Associate, AWS Solutions Architect Associate, GitHub Foundations Part 1 & Part 2, Cloud Architect Master's Program, Python for Data Science, Responsive Web Design, Design Thinking Primer, Creator Studio Delivery Accreditation, Welcome to ServiceNow Micro-Certification, Acquiring Data, Data Mining, Generative AI Literacy, Playwright using TypeScript, AI Tools & ChatGPT Workshop, Cyber Warfare & Ethical Hacking, ICAT, Technical Connection, Technical Symposium, Graph Theory & Applications, Samsung Galaxy AI Treasure Hunt 2026.
     - SPECIFIC CERTIFICATE DETAILS: If a user asks about a specific certificate, DO NOT output the issuer or date. Only output the Description (what he learned) from the Knowledge Base below. IF AND ONLY IF the user explicitly asks for the date or issuer (e.g., "when did he get it?" or "who issued it?"), you may provide those details.
     
     CERTIFICATE KNOWLEDGE BASE:
     - ServiceNow CSA: Desc: Validated skills in ServiceNow platform administration, user management, workflows, service catalog, incident management, and platform configuration. [Issuer: ServiceNow, Date: 08 Jun 2026]
+    - ServiceNow CAD: Desc: Validated expertise in designing, building, testing, and deploying custom applications on the ServiceNow platform, including application security, scripting, and user interface design. [Issuer: ServiceNow, Date: 28 Jul 2026] 
     - Google AI Essentials: Desc: Learned AI fundamentals, prompt engineering, responsible AI practices, and practical AI applications for productivity and problem-solving. [Issuer: Google & Coursera, Date: 20 May 2026]
     - Microsoft Azure Administrator Associate Level: Desc: Gained knowledge of Azure administration, cloud infrastructure, virtual machines, networking, storage, and identity management. [Issuer: Simplilearn, Date: 03 Apr 2026]
     - AWS Solutions Architect Associate Level: Desc: Learned AWS cloud services, architecture principles, deployment strategies, and cloud solution design concepts. [Issuer: Simplilearn, Date: 29 Oct 2025]
