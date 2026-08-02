@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { 
   Briefcase, GraduationCap, Award, Code, Database, Cloud, 
   Terminal, Mail, ChevronRight, ChevronLeft, X, Download, Menu, MapPin, 
-  CheckCircle2, Route, Send, Check, CalendarDays, Share2, Sun, Moon 
+  CheckCircle2, Route, Send, Check, CalendarDays, Share2, Sun, Moon, ExternalLink
 } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget'; 
 
@@ -31,6 +31,22 @@ const educationList = [
   { degree: "B.Tech Information Technology", school: "K. Ramakrishnan College of Technology", year: "2023 - 2027 (Pursuing)" },
   { degree: "Higher Secondary (HSLC)", school: "Sribala Vidya Mandhir Matric Hr. Sec. School", year: "2022 - 2023" },
   { degree: "Secondary School (SSLC)", school: "Sribala Vidya Mandhir Matric Hr. Sec. School", year: "2020 - 2021" }
+];
+
+const experienceList = [
+  {
+    role: "Web Development Intern",
+    company: "VaultofCodes",
+    duration: "July 2026 - August 2026",
+    location: "Remote",
+    images: [
+      "/certificates/vaultofocdes.jpg",
+      "/certificates/voc-OL.jpg"
+    ],
+    desc: "Completed a 1-Month Web Development Internship at VaultofCodes, gaining hands-on experience in front-end web development, practical project implementation, problem-solving, and software development best practices while working on real-world tasks.\n\nDeveloped an interactive and dynamic portfolio webpage for Editkaro.in, a social media marketing and video editing agency. Gained practical experience in responsive design, UI/UX principles, and real-world project deployment.",
+    projectLink: "https://github.com/AjayyIT/Editkaro",
+    deploymentLink: "https://editkaro-voc.vercel.app/"
+  }
 ];
 
 const skills = [
@@ -90,6 +106,14 @@ const certifications = [
 
 const projects = [
   { 
+    title: "Editkaro - Portfolio", 
+    domain: "Internship", 
+    tech: "HTML, CSS, JS", 
+    desc: "Interactive and dynamic portfolio webpage for Editkaro.in—a social media marketing and video editing agency showcasing their work.",
+    github: "https://github.com/AjayyIT/Editkaro",
+    deploy: "https://editkaro-voc.vercel.app/" 
+  },
+  { 
     title: "Color Detection System", 
     domain: "Data Mining Techniques", 
     tech: "Python, Image Processing", 
@@ -133,6 +157,7 @@ const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Education', href: '#education' },
+  { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
   { name: 'Events', href: '#events' },
   { name: 'Certificates', href: '#certifications' },
@@ -148,6 +173,17 @@ export default function Portfolio() {
   const [appTheme, setAppTheme] = useState<'linkedin' | 'servicenow'>('linkedin');
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  // Experience States
+  const [selectedExperience, setSelectedExperience] = useState<any>(null);
+  const [currentExpImageIndex, setCurrentExpImageIndex] = useState(0);
+
+  const nextExpImage = () => setCurrentExpImageIndex((prev) => (prev + 1) % selectedExperience.images.length);
+  const prevExpImage = () => setCurrentExpImageIndex((prev) => (prev - 1 + selectedExperience.images.length) % selectedExperience.images.length);
+  const openExperienceDetails = (exp: any) => {
+    setSelectedExperience(exp);
+    setCurrentExpImageIndex(0);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -499,8 +535,122 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
+      {/* 3.5 EXPERIENCE SECTION */}
+      <section id="experience" className="py-24 px-6 bg-[var(--bg-alt-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white flex items-center justify-center gap-3 transition-colors">
+            <Briefcase className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Experience
+          </h2>
+          <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[var(--border-light)] dark:before:via-[var(--border-light)] before:to-transparent">
+            {experienceList.map((exp, idx) => (
+              <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-alt-light)] dark:border-[var(--bg-card)] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors ${idx === 0 ? 'bg-[var(--c-primary)] text-[var(--btn-text)]' : 'bg-[var(--border-light)] dark:bg-[var(--bg-main)] text-[var(--text-muted-light)] dark:text-slate-300'}`}>
+                  <Briefcase size={16} />
+                </div>
+                <div 
+                  onClick={() => openExperienceDetails(exp)}
+                  className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl shadow-sm border border-[var(--border-light)] dark:border-[var(--border-dark)] cursor-pointer hover:shadow-xl hover:border-[var(--c-primary-text)] dark:hover:border-[var(--c-primary)] transition-all duration-300 group/card"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <div className={`font-bold text-sm ${idx === 0 ? 'text-[var(--c-primary-text)] dark:text-[var(--c-primary)]' : 'text-[var(--text-light-light)] dark:text-slate-400'}`}>{exp.duration}</div>
+                  </div>
+                  <h3 className="font-bold text-lg text-[var(--text-main-light)] dark:text-white transition-colors group-hover/card:text-[var(--c-primary-text)] dark:group-hover/card:text-[var(--c-primary)]">{exp.role}</h3>
+                  <p className="text-[var(--text-muted-light)] dark:text-slate-300 font-medium mb-3">{exp.company}</p>
+                  <p className="text-sm text-[var(--text-light-light)] dark:text-slate-400 flex items-center gap-1 mb-4">
+                    <MapPin size={14} /> {exp.location}
+                  </p>
+                  <div className="flex items-center text-[var(--c-primary-text)] dark:text-[var(--c-primary)] text-sm font-bold">
+                    <span className="mr-1 group-hover/card:mr-2 transition-all">View Details</span>
+                    <ChevronRight size={16} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* DETAILED EXPERIENCE MODAL */}
+      <AnimatePresence>
+        {selectedExperience && (
+          <div 
+            className="fixed inset-0 z-[70] flex items-center justify-center px-4 bg-slate-900/90 dark:bg-black/80 backdrop-blur-sm"
+            onClick={() => setSelectedExperience(null)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: 20 }} 
+              className="bg-white dark:bg-[var(--bg-main)] w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl transition-colors duration-300 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              
+              <div className="flex justify-between items-center p-6 border-b border-[var(--border-light)] dark:border-[var(--border-dark)] sticky top-0 bg-white dark:bg-[var(--bg-main)] z-20 transition-colors">
+                <div>
+                  <h3 className="font-bold text-xl md:text-2xl text-[var(--text-main-light)] dark:text-white">{selectedExperience.role}</h3>
+                  <p className="text-sm font-medium text-[var(--c-primary-text)] dark:text-[var(--c-primary)] mt-1">{selectedExperience.company} • {selectedExperience.duration}</p>
+                </div>
+                
+                <div className="flex items-center gap-3 shrink-0 ml-4">
+                  <button 
+                    onClick={() => setSelectedExperience(null)} 
+                    className="text-[var(--text-light-light)] hover:text-[var(--text-main-light)] dark:text-slate-400 dark:hover:text-white bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card)] hover:bg-[var(--border-light)] p-2.5 rounded-full transition-colors shadow-sm" 
+                    title="Close"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex-1 flex flex-col">
+                <div className="relative w-full h-64 md:h-[28rem] bg-[var(--border-light-subtle)] dark:bg-black/40 flex items-center justify-center border-b border-[var(--border-light)] dark:border-[var(--border-dark)]">
+                  <img src={selectedExperience.images[currentExpImageIndex]} alt="Experience Document" className="max-h-full max-w-full object-contain" />
+                  
+                  {selectedExperience.images.length > 1 && (
+                    <>
+                      <button onClick={(e) => { e.stopPropagation(); prevExpImage(); }} className="absolute left-4 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors">
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); nextExpImage(); }} className="absolute right-4 p-3 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors">
+                        <ChevronRight size={24} />
+                      </button>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                        {currentExpImageIndex + 1} / {selectedExperience.images.length}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="p-6 md:p-8 bg-white dark:bg-[var(--bg-main)] transition-colors">
+                  <div className="bg-[var(--border-light-subtle)] dark:bg-[var(--bg-card-alpha)] p-6 rounded-2xl border border-[var(--border-light)] dark:border-[var(--border-dark)]">
+                    <h4 className="text-xs font-bold text-[var(--text-light-light)] dark:text-slate-400 uppercase tracking-wider mb-4">Internship Details</h4>
+                    <p className="whitespace-pre-wrap text-[var(--text-muted-light)] dark:text-slate-300 leading-relaxed text-[0.95rem] mb-6">
+                      {selectedExperience.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-4 mt-6">
+                      {selectedExperience.projectLink && (
+                        <a href={selectedExperience.projectLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[var(--bg-base-light)] dark:bg-[var(--bg-card)] hover:bg-[var(--c-primary)] dark:hover:bg-[var(--c-primary)] text-[var(--text-main-light)] dark:text-white hover:text-[var(--btn-text)] dark:hover:text-[var(--btn-text)] px-5 py-2.5 rounded-xl font-bold transition-colors border border-[var(--border-light)] dark:border-[var(--border-dark)] hover:border-transparent">
+                          <GithubIcon size={18} /> View Code
+                        </a>
+                      )}
+                      {selectedExperience.deploymentLink && (
+                        <a href={selectedExperience.deploymentLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[var(--c-primary)] hover:bg-[var(--c-hover)] text-[var(--btn-text)] px-5 py-2.5 rounded-xl font-bold transition-colors shadow-md shadow-[var(--c-shadow)]">
+                          <ExternalLink size={18} /> Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* 4. SKILLS */}
-      <section id="skills" className="py-24 px-6 bg-[var(--bg-alt-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
+      {/* <section id="skills" className="py-24 px-6 bg-[var(--bg-alt-light)] dark:bg-[var(--bg-card)] transition-colors duration-300"> */}
+      <section id="skills" className="py-24 px-6 bg-[var(--bg-base-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-[var(--text-main-light)] dark:text-white transition-colors">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -524,7 +674,8 @@ export default function Portfolio() {
       </section>
 
       {/* 4.5. EVENTS SECTION */}
-      <section id="events" className="py-16 px-6 bg-[var(--bg-base-light)] dark:bg-[var(--bg-main)] transition-colors duration-300">
+      {/* <section id="events" className="py-16 px-6 bg-[var(--bg-base-light)] dark:bg-[var(--bg-main)] transition-colors duration-300"> */}
+      <section id="events" className="py-16 px-6 bg-[var(--bg-alt-light)] dark:bg-[var(--bg-card)] transition-colors duration-300">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-10 text-center text-[var(--text-main-light)] dark:text-white flex items-center justify-center gap-3 transition-colors">
             <CalendarDays className="text-[var(--c-primary-text)] dark:text-[var(--c-primary)]" /> Events
@@ -864,9 +1015,16 @@ export default function Portfolio() {
                 <p className="text-[var(--text-muted-light)] dark:text-slate-300 mb-6 flex-1 text-sm leading-relaxed transition-colors">{project.desc}</p>
                 <div className="pt-6 border-t border-[var(--border-light)] dark:border-[var(--border-light)] mt-auto transition-colors">
                   <p className="text-xs text-[var(--text-light-light)] dark:text-slate-500 font-medium mb-4">Technologies Used: <span className="text-[var(--text-muted-light)] dark:text-slate-300">{project.tech}</span></p>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl bg-white dark:bg-[var(--bg-card)] hover:bg-[var(--c-primary)] dark:hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] hover:border-[var(--c-primary)] text-[var(--text-muted-light)] dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-[var(--border-light)] dark:border-[var(--border-dark)]">
-                    <GithubIcon size={16} /> View on GitHub
-                  </a>
+                  <div className="flex gap-3">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 rounded-xl bg-white dark:bg-[var(--bg-card)] hover:bg-[var(--c-primary)] dark:hover:bg-[var(--c-primary)] hover:text-[var(--btn-text)] hover:border-[var(--c-primary)] text-[var(--text-muted-light)] dark:text-slate-300 font-medium text-sm flex items-center justify-center gap-2 transition-colors border border-[var(--border-light)] dark:border-[var(--border-dark)]">
+                      <GithubIcon size={16} /> Code
+                    </a>
+                    {project.deploy && (
+                      <a href={project.deploy} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 rounded-xl bg-[var(--c-primary)] hover:bg-[var(--c-hover)] text-[var(--btn-text)] font-medium text-sm flex items-center justify-center gap-2 transition-colors shadow-sm shadow-[var(--c-shadow)]">
+                        <ExternalLink size={16} /> Live
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
