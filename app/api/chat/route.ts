@@ -121,11 +121,11 @@ export async function POST(req: Request) {
     CAREER GOALS:
     - Target Role: Developer (ServiceNow, Software, or Web Developer) right after graduation. Open to any company where he can actively contribute his skills.
 `;
- // ==========================================
+// ==========================================
     // 💬 GENERATE AI RESPONSE
     // ==========================================
     const { text } = await generateText({
-      model: groq('gemma2-9b-it'), 
+      model: groq('llama-3.3-70b-versatile'), // 👉 Groq's current active flagship model
       system: systemPrompt,
       messages: messages,
       temperature: 0.2, 
