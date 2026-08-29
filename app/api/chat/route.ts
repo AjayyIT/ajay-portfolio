@@ -1,15 +1,16 @@
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
-export const maxDuration = 30;
 
 import { generateText } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
 
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 export async function POST(req: Request) {
   try {
+    // Moved inside the function to fix Vercel deployment cache issues
+    const groq = createGroq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+
     const { messages } = await req.json();
     const latestMessage = messages[messages.length - 1].content;
     
@@ -43,6 +44,8 @@ export async function POST(req: Request) {
     DIRECT CLICKABLE LINKS TO PROVIDE:
     - LinkedIn: [LinkedIn Profile](http://www.linkedin.com/in/ajay-r-s)
     - GitHub: [GitHub Profile](https://github.com/AjayyIT)
+    - Editkaro Portfolio Repo: [Editkaro Repo](https://github.com/AjayyIT/Editkaro)
+    - Editkaro Live Demo: [Live Demo](https://editkaro-voc.vercel.app/)
     - Color Detection System Repo: [Color Detection Repo](https://github.com/AjayyIT/Color-detection-System)
     - Land Price Prediction Repo: [Land Price Repo](https://github.com/AjayyIT/Land-Price-Prediction-System)
     - Plant Disease Detection Repo: [Plant Disease Repo](https://github.com/AjayyIT/Plant-Disease-Detection)
@@ -63,7 +66,7 @@ export async function POST(req: Request) {
     - 12th & 10th Standard: Sribala Vidya Mandhir Matric Hr. Sec. School.
 
     SKILLS RULES:
-    - If asked for "tech skills", provide a bulleted list of: Java, Python, C, HTML, CSS, JavaScript, MySQL, AWS, Azure, ServiceNow (CSA, Creator Studio), Pandas, and Prompt Engineering.
+    - If asked for "tech skills", provide a bulleted list of: Java, Python, C, HTML, CSS, JavaScript, MySQL, AWS, Azure, ServiceNow (CSA, CAD, Creator Studio), Pandas, and Prompt Engineering.
     - If asked for "soft skills", provide a bulleted list of: Dedicated, disciplined, supportive team player, problem-solver, and self-paced continuous learner.
 
     PROJECTS RULES:
@@ -150,6 +153,10 @@ export async function POST(req: Request) {
 
   } catch (error: any) {
     console.error("CRITICAL ERROR:", error);
-    return new Response(JSON.stringify({ text: "Sorry, my backend is currently undergoing maintenance. Please email Ajay directly at [ajayy.infotechh@gmail.com](mailto:ajayy.infotechh@gmail.com)!" }), { status: 500 });
+    // Returns exact backend error to the frontend if something crashes (e.g. Vercel Env Vars)
+    return new Response(
+      JSON.stringify({ text: `[SYSTEM ERROR]: ${error.message || "Unknown Error"}. Please check Vercel Environment Variables or try again later.` }), 
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
