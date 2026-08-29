@@ -125,7 +125,7 @@ export async function POST(req: Request) {
     // 💬 GENERATE AI RESPONSE
     // ==========================================
     const { text } = await generateText({
-      model: groq('llama-3.1-8b-instant'),
+      model: groq('llama3-8b-8192'), // 👉 Changed to universally available stable model
       system: systemPrompt,
       messages: messages,
       temperature: 0.2, 
