@@ -125,7 +125,7 @@ export async function POST(req: Request) {
     // 💬 GENERATE AI RESPONSE
     // ==========================================
     const { text } = await generateText({
-      model: groq('llama3-8b-8192'), // 👉 Changed to universally available stable model
+      model: groq('mixtral-8x7b-32768'), // 👉 Changed to Mixtral, which is highly stable and widely accessible
       system: systemPrompt,
       messages: messages,
       temperature: 0.2, 
