@@ -132,17 +132,21 @@ export async function POST(req: Request) {
       temperature: 0.2, 
     });
     // ==========================================
-    // 📊 DISCORD LOGGING SYSTEM (PRODUCTION ONLY)
+    // 📊 DISCORD LOGGING SYSTEM
     // ==========================================
-    if (process.env.NODE_ENV === 'production') {
-      if (process.env.DISCORD_WEBHOOK_URL) {
-        fetch(process.env.DISCORD_WEBHOOK_URL, {
+    if (process.env.DISCORD_WEBHOOK_URL) {
+      try {
+        // 👉 ADDED 'await': Edge runtime kills background tasks instantly. 
+        // We must 'await' the fetch so it finishes before the response is returned!
+        await fetch(process.env.DISCORD_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             content: `🤖 **MAi Chat Log**\n**Time:** ${timestamp}\n**User Asked:** "${latestMessage}"\n**MAi Replied:** "${text}"` 
           })
-        }).catch(err => console.error("Discord Log Error:", err));
+        });
+      } catch (err) {
+        console.error("Discord Log Error:", err);
       }
     }
 
